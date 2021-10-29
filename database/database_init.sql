@@ -1,4 +1,3 @@
-CREATE DATABASE petland;
 CREATE EXTENSION citext;
 
 CREATE TABLE users(
@@ -16,7 +15,7 @@ CREATE TABLE post(
   name VARCHAR(20),
   location VARCHAR(40) NOT NULL,
   user_id integer references users(user_id),
-  extra_info TEXT, 
+  extra_info TEXT,
   ts TIMESTAMP,
   vaccinated BOOLEAN
 );
@@ -25,7 +24,7 @@ CREATE TABLE comment(
   comment_id SERIAL PRIMARY KEY,
   user_id integer references users(user_id),
   post_id integer references post(post_id),
-  ts TIMESTAMP, 
+  ts TIMESTAMP,
   comment TEXT
 );
 
