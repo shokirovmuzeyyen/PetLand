@@ -1,19 +1,7 @@
 const db = require('../db')
 const { hash } = require('bcryptjs')
-const Hashids = require('hashids');
-const hashids = new Hashids();
 const { sign } = require('jsonwebtoken')
 const { SECRET } = require('../constants')
-
-/**
- * Returns a 42-character id.
- * @param {string} ip
- * @return {string} id - generated id
- */
-function genId(ip = '127.0.0.1') {
-  return hashids.encode(Date.now()) +
-      Math.floor(Math.random() * 100).toString();
-}
 
 exports.getUsers = async (req, res) => {
   try {
@@ -32,12 +20,10 @@ exports.register = async (req, res) => {
   const { name, email, password, phone, address } = req.body
   try {
     const hashedPassword = await hash(password, 10)
-    const userId = genId()
-    await db.query('insert into users(user_id,name,email,password,phone,address) values ($1,$2,$3,$4,$5,$6)', [
-      userId,
+    await db.query('insert into users(name,email,password,phone,address) values ($1,$2,$3,$4,$5)', [
       name,
       email,
-      hashedPassword,
+      password, // hashedPassword
       phone,
       address,
     ])
