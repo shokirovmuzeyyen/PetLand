@@ -1,56 +1,44 @@
-CREATE TABLE "users" (
-  "user_id" VARCHAR(64) NOT NULL UNIQUE,
-  "name" VARCHAR(128),
-  "surname" VARCHAR(128),
-  "email" VARCHAR(128) NOT NULL UNIQUE,
-  "password" VARCHAR NOT NULL,
-  "phone_number" VARCHAR(13) NOT NULL,
-  "address" TEXT, NOT NULL
+CREATE DATABASE petland;
+CREATE EXTENSION citext;
+
+CREATE TABLE users(
+  user_id SERIAL PRIMARY KEY,
+  name VARCHAR(20) NOT NULL,
+  email citext UNIQUE NOT NULL,
+  password VARCHAR(20) NOT NULL,
+  phone TEXT NOT NULL,
+  address VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE "posts" (
-  "post_id" VARCHAR(64) NOT NULL UNIQUE,
-  "image" BYTEA,
-  "name" VARCHAR(64),
-  "location" TEXT NOT NULL,
-  "user_id" VARCHAR(64),
-  "extra_info" TEXT,
-  "posted_at" TIMESTAMP
+CREATE TABLE post(
+  post_id SERIAL PRIMARY KEY,
+  p_image bytea,
+  name VARCHAR(20),
+  location VARCHAR(40) NOT NULL,
+  user_id integer references users(user_id),
+  extra_info TEXT, 
+  ts TIMESTAMP,
+  vaccinated BOOLEAN
 );
 
-CREATE TABLE "favorites" (
-  "fav_id" VARCHAR(64) NOT NULL UNIQUE,
-  "user_id" VARCHAR(64),
-  "post_id" VARCHAR(64)
+CREATE TABLE comment(
+  comment_id SERIAL PRIMARY KEY,
+  user_id integer references users(user_id),
+  post_id integer references post(post_id),
+  ts TIMESTAMP, 
+  comment TEXT
 );
 
-CREATE TABLE "comments" (
-  "comment_id" VARCHAR(64) NOT NULL UNIQUE,
-  "user_id" VARCHAR(64),
-  "post_id" VARCHAR(64),
-  "comment" TEXT,
-  "posted_at" TIMESTAMP
+CREATE TABLE favorite(
+  favorite_id SERIAL PRIMARY KEY,
+  user_id integer references users(user_id),
+  post_id integer references post(post_id)
 );
 
-CREATE TABLE "messages" (
-  "dm_id" VARCHAR(64) NOT NULL UNIQUE,
-  "sender_id" VARCHAR(64),
-  "receiver_id" VARCHAR(64),
-  "message" TEXT,
-  "sent_at" TIMESTAMP
+CREATE TABLE message(
+  dm_id SERIAL PRIMARY KEY,
+  sender_id integer references users(user_id),
+  receiver_id integer references users(user_id),
+  ts TIMESTAMP,
+  message TEXT
 );
-
-
-ALTER TABLE "posts" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("user_id");
-
-ALTER TABLE "messages" ADD FOREIGN KEY ("sender_id") REFERENCES "users" ("user_id");
-
-ALTER TABLE "messages" ADD FOREIGN KEY ("receiver_id") REFERENCES "users" ("user_id");
-
-ALTER TABLE "favorites" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("user_id");
-
-ALTER TABLE "favorites" ADD FOREIGN KEY ("post_id") REFERENCES "posts" ("post_id");
-
-ALTER TABLE "comments" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("user_id");
-
-ALTER TABLE "comments" ADD FOREIGN KEY ("post_id") REFERENCES "posts" ("post_id");
