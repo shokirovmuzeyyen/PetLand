@@ -63,14 +63,14 @@ function Register() {
       [name] : value
     });
   };
-  
+
   const handleSubmit = e => {
     console.log("handleSubmit");
     e.preventDefault();
     setErrors(validateInfo(values))
     if (errors==={}){
       console.log("no error");
-      
+
     }
     register();
   }
@@ -78,24 +78,24 @@ function Register() {
 
   const register = () => {
     console.log("in");
-    Axios.post("http://localhost:3001/register", 
+    Axios.post("http://localhost:8000/api/register",
     {
-      name:values.name, 
-      email:values.email, 
-      phone:values.phone, 
-      address:values.address, 
-      password:values.password 
+      name:values.name,
+      email:values.email,
+      phone:values.phone,
+      address:values.address,
+      password:values.password
     }).then((response) => {
       if (!response.data.message){
         setErrors(response.data.message);
-        setIsSubmitted(true);      
+        setIsSubmitted(true);
       }
     });
   };
 
 
   const history = useHistory();
-  
+
   return (
     <Card style={{height:"100vh"}} className="bg-dark">
     <div className="App">
@@ -168,7 +168,7 @@ function Register() {
             {errors.password2 && <p className="text-danger">{errors.password2}</p>}
           </FormGroup>
 
-        <div className="row justify-content-evenly"> 
+        <div className="row justify-content-evenly">
         <div className="col">
         <Button>Register</Button>
         </div>
@@ -182,7 +182,7 @@ function Register() {
         </Form>
         </div>
     </Card>
-    
+
   );
 }
 
