@@ -24,7 +24,7 @@ function validateInfo(values){
   }
 
   if (!values.phone.trim()){
-    errors.email = "Phone required"
+    errors.phone = "Phone required"
   }
 
   if (!values.password){
