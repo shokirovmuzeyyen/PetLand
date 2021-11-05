@@ -8,7 +8,7 @@ import {
   Form,
   FormGroup,
   Input,
-  Label
+  Label,
 } from 'reactstrap';
 
 function validateInfo(values){
@@ -56,6 +56,8 @@ function Register() {
 
   const [errors, setErrors] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const history = useHistory();
+
   const handleChange = e => {
     const {name, value} = e.target;
     setValues({
@@ -88,17 +90,20 @@ function Register() {
     }).then((response) => {
       if (!response.data.message){
         setErrors(response.data.message);
+      }
+      else{
         setIsSubmitted(true);
       }
     });
   };
 
 
-  const history = useHistory();
+ 
 
   return (
-    <Card style={{height:"100vh"}} className="bg-dark">
     <div className="App">
+      <Card style={{height:"100vh",}} className="bg-dark">
+      <div className="register-form"> 
         <Form className="form" onSubmit={handleSubmit}>
         {isSubmitted ? <span>Success! Thank you for registering.</span>: null}
         <h2 className="text-warning text-center">Register</h2>
@@ -170,19 +175,17 @@ function Register() {
 
         <div className="row justify-content-evenly">
         <div className="col">
-        <Button>Register</Button>
+        <Button onClick={()=> {history.push("/login");}}>Register</Button>
         </div>
         <div className="col">
         <text className="text-danger">Already have an account?  </text>
         <Button className="ml-1" onClick={()=> {history.push("/login");}}>Login</Button>
         </div>
-        </div>
-
-
+        </div> 
         </Form>
         </div>
-    </Card>
-
+        </Card>
+        </div>
   );
 }
 

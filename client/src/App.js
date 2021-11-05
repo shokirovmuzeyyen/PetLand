@@ -7,6 +7,7 @@ import {BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 //run npm install react-router-dom --save
 //npm install --save bootstrap
 // npm install axios
+// npm install react-scroll
 
 function App() {
   return (
