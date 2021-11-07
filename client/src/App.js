@@ -3,6 +3,7 @@ import React from 'react';
 import Login from './login';
 import Register from './register';
 import Welcome from './welcome';
+import Feed from './feed';
 import {BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 //run npm install react-router-dom --save
 //npm install --save bootstrap
@@ -16,6 +17,7 @@ function App() {
       <Route path="/" exact component={Welcome} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
+      <Route path="/feed" component={Feed} />
       </Switch>
     </Router>
   );

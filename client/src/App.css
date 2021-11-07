@@ -10,7 +10,6 @@ header,
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: auto;
 }
 
 @media (max-width: 740px) {
@@ -19,7 +18,7 @@ header,
   header,
   .view,
   #root {
-    height: 100vh;
+    height: 100%;
   }
 }
 

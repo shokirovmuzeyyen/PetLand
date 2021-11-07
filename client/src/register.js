@@ -55,6 +55,8 @@ function Register() {
   });
 
   const [errors, setErrors] = useState('');
+  const [backend_error, setbackendError] = useState('');
+
   const [isSubmitted, setIsSubmitted] = useState(false);
   const history = useHistory();
 
@@ -87,22 +89,43 @@ function Register() {
       phone:values.phone,
       address:values.address,
       password:values.password
-    }).then((response) => {
-      if (!response.data.message){
-        setErrors(response.data.message);
+    }).then(response => {
+      if (!response){
+        console.log("no error");
       }
-      else{
-        setIsSubmitted(true);
-      }
-    });
+      setIsSubmitted(true);
+      history.push("/login");
+    }).catch(error => {
+        console.log(error.response);
+        let err = error.response.data.errors[0].msg;
+        console.log(err);
+        if (err){
+          console.log(err);
+          setbackendError(err);
+          setValues({
+            name: '',
+            email: '', 
+            phone: '',
+            address: '',
+            password:'',
+            password2: ''
+          });
+          err ='';
+        }
+        else{
+          setbackendError('');
+          history.push("/login");
+          setIsSubmitted(true);
+      }});
   };
 
+ 
 
  
 
   return (
     <div className="App">
-      <Card style={{height:"100vh",}} className="bg-dark">
+      <Card style={{height:"100vh", overflow: "auto"}} className="bg-dark">
       <div className="register-form"> 
         <Form className="form" onSubmit={handleSubmit}>
         {isSubmitted ? <span>Success! Thank you for registering.</span>: null}
@@ -170,17 +193,18 @@ function Register() {
               value={values.password2}
               onChange={handleChange}
             />
-            {errors.password2 && <p className="text-danger">{errors.password2}</p>}
+            {errors.password2 && <p className="text-danger">{errors.password2}</p>}\
           </FormGroup>
 
         <div className="row justify-content-evenly">
         <div className="col">
-        <Button onClick={()=> {history.push("/login");}}>Register</Button>
+        <Button>Register</Button>
         </div>
         <div className="col">
         <text className="text-danger">Already have an account?  </text>
         <Button className="ml-1" onClick={()=> {history.push("/login");}}>Login</Button>
         </div>
+        {backend_error && <h3 className="text-white text-center">{backend_error}</h3>}
         </div> 
         </Form>
         </div>
