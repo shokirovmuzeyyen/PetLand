@@ -8,7 +8,7 @@ import {
   Form,
   FormGroup,
   Input,
-  Label
+  Label,
 } from 'reactstrap';
 
 function validateInfo(values){
@@ -55,7 +55,11 @@ function Register() {
   });
 
   const [errors, setErrors] = useState('');
+  const [backend_error, setbackendError] = useState('');
+
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const history = useHistory();
+
   const handleChange = e => {
     const {name, value} = e.target;
     setValues({
@@ -85,20 +89,44 @@ function Register() {
       phone:values.phone,
       address:values.address,
       password:values.password
-    }).then((response) => {
-      if (!response.data.message){
-        setErrors(response.data.message);
-        setIsSubmitted(true);
+    }).then(response => {
+      if (!response){
+        console.log("no error");
       }
-    });
+      setIsSubmitted(true);
+      history.push("/login");
+    }).catch(error => {
+        console.log(error.response);
+        let err = error.response.data.errors[0].msg;
+        console.log(err);
+        if (err){
+          console.log(err);
+          setbackendError(err);
+          setValues({
+            name: '',
+            email: '', 
+            phone: '',
+            address: '',
+            password:'',
+            password2: ''
+          });
+          err ='';
+        }
+        else{
+          setbackendError('');
+          history.push("/login");
+          setIsSubmitted(true);
+      }});
   };
 
+ 
 
-  const history = useHistory();
+ 
 
   return (
-    <Card style={{height:"100vh"}} className="bg-dark">
     <div className="App">
+      <Card style={{height:"100vh", overflow: "auto"}} className="bg-dark">
+      <div className="register-form"> 
         <Form className="form" onSubmit={handleSubmit}>
         {isSubmitted ? <span>Success! Thank you for registering.</span>: null}
         <h2 className="text-warning text-center">Register</h2>
@@ -165,7 +193,7 @@ function Register() {
               value={values.password2}
               onChange={handleChange}
             />
-            {errors.password2 && <p className="text-danger">{errors.password2}</p>}
+            {errors.password2 && <p className="text-danger">{errors.password2}</p>}\
           </FormGroup>
 
         <div className="row justify-content-evenly">
@@ -176,13 +204,12 @@ function Register() {
         <text className="text-danger">Already have an account?  </text>
         <Button className="ml-1" onClick={()=> {history.push("/login");}}>Login</Button>
         </div>
-        </div>
-
-
+        {backend_error && <h3 className="text-white text-center">{backend_error}</h3>}
+        </div> 
         </Form>
         </div>
-    </Card>
-
+        </Card>
+        </div>
   );
 }
 
