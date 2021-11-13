@@ -4,6 +4,7 @@ import Login from './login';
 import Register from './register';
 import Welcome from './welcome';
 import Feed from './feed';
+import CreatePost from './CreatePost';
 import {BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 //run npm install react-router-dom --save
 //npm install --save bootstrap
@@ -18,6 +19,7 @@ function App() {
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/feed" component={Feed} />
+      <Route path="/createPost" component={CreatePost} />
       </Switch>
     </Router>
   );
