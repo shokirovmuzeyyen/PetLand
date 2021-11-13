@@ -101,7 +101,7 @@ function Login() {
       <Card style={{height:"100vh",}} className="bg-dark">
       <div className="register-form"> 
         <Form className="form"  onSubmit={handleSubmit}>
-        <h2 className="text-warning text-center">Register</h2>         
+        <h2 className="text-warning text-center">Login</h2>         
           <FormGroup>
             <Label className="text-white">Email</Label>
             <Input
