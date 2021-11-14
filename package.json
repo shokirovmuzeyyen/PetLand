@@ -2,5 +2,9 @@
   "scripts": {
     "start": "cd server && npm install && npm start",
     "heroku-postbuild": "cd client && npm install && npm run build"
+  },
+  "dependencies": {
+    "react-select": "^5.2.1",
+    "use-turkey-cities": "^0.1.1"
   }
 }

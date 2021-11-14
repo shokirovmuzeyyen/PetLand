@@ -50,3 +50,25 @@ h5 {
 label {
   font-weight: 600;
 }
+
+.createPostTitle {
+  color: red;
+}
+
+.photo {
+  max-width: 400px;
+  max-height: 400px;
+  /*height: 266px;
+  width: 400px;*/
+}
+
+.makeCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  margin-left: auto;
+}
