@@ -20,6 +20,11 @@ app.get('*', function(req, res) {
   res.sendFile('index.html', {root: path.join(__dirname, '../../client/build/')});
 });
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+
 //import routes
 const authRoutes = require('./routes/auth')
 
