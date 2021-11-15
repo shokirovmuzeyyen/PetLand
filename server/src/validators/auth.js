@@ -31,7 +31,7 @@ const loginFieldsCheck = check('email').custom(async (value, { req }) => {
     throw new Error('Email does not exist.')
   }
 
-  const validPassword = req.body.password === user.rows[0].password //await compare(req.body.password, user.rows[0].password)
+  const validPassword =  await compare(req.body.password, user.rows[0].password) //req.body.password === user.rows[0].password
 
   if (!validPassword) {
     throw new Error('Wrong password.')
