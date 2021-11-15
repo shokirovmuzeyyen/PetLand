@@ -3,7 +3,7 @@ config()
 
 module.exports = {
   PORT: process.env.PORT,
-  SERVER_URL: process.env.SERVER_URL || https://petland-app.herokuapp.com/,
+  SERVER_URL: process.env.SERVER_URL,
   CLIENT_URL: process.env.CLIENT_URL,
   SECRET: process.env.SECRET,
 }
