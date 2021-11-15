@@ -23,7 +23,7 @@ exports.register = async (req, res) => {
     await db.query('insert into users(name,email,password,phone,address) values ($1,$2,$3,$4,$5)', [
       name,
       email,
-      password, // hashedPassword
+      hashedPassword, // hashedPassword
       phone,
       address,
     ])
