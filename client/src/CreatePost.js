@@ -117,7 +117,7 @@ const CreatePost = () => {
 
   const createPost = () => {
     console.log("in");
-    Axios.post("http://localhost:8000/",
+    Axios.post(`${config.SERVER_URI}/api/createPost`,
     {
       name: values.name,
       breed: values.breed,
