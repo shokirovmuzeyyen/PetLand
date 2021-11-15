@@ -1,29 +1,27 @@
 import './App.css';
+import React from 'react';
+import Login from './login';
+import Register from './register';
+import Welcome from './welcome';
+import Feed from './feed';
+import CreatePost from './CreatePost';
+import {BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+//run npm install react-router-dom --save
+//npm install --save bootstrap
+// npm install axios
+// npm install react-scroll
 
 function App() {
   return (
-    <div className="App">
-      <h1>CRUD Application</h1>
-
-      <div className="form">
-        <label>Movie Name</label>
-        <input type="text" name="movieName" />
-        <label>Review</label>
-        <input type="text" name="review" />
-
-        <button>Submit</button>
-      </div>
-
-      <h1>SIGN IN</h1>
-      <div className="form">
-        <label>E-mail address</label>
-        <input type="text" name="mail" />
-        <label>Password</label>
-        <input type="text" name="password" />
-
-        <button>Submit</button>
-      </div>
-    </div>
+    <Router>
+      <Switch>
+      <Route path="/" exact component={Welcome} />
+      <Route path="/login" component={Login} />
+      <Route path="/register" component={Register} />
+      <Route path="/feed" component={Feed} />
+      <Route path="/createPost" component={CreatePost} />
+      </Switch>
+    </Router>
   );
 }
 

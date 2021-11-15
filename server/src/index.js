@@ -4,6 +4,7 @@ const { PORT, CLIENT_URL } = require('./constants')
 const cookieParser = require('cookie-parser')
 const passport = require('passport')
 const cors = require('cors')
+const path = require('path')
 
 //import passport middleware
 require('./middlewares/passport-middleware')
@@ -13,6 +14,11 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(cors({ origin: CLIENT_URL, credentials: true }))
 app.use(passport.initialize())
+
+app.use(express.static(path.join(__dirname, "../../client/build/")))
+app.get('*', function(req, res) {
+  res.sendFile('index.html', {root: path.join(__dirname, '../../client/build/')});
+});
 
 //import routes
 const authRoutes = require('./routes/auth')
