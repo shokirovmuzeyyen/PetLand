@@ -15,13 +15,7 @@ import Col from 'react-bootstrap/Col'
 import Select from 'react-select'
 import bg from './assets/post_bg.png';
 import bg2 from './assets/post_bg2.jpeg';
-
-
-const options = [
-  { value: 'cat', label: 'Cat' },
-  { value: 'dog', label: 'Dog' },
-  { value: 'bird', label: 'Bird' }
-]
+import { config } from './config';
 
 class Upload extends React.Component {
   constructor(props){
@@ -32,9 +26,16 @@ class Upload extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
   handleChange(event) {
+    console.log("Event is:");
+    console.log(event);
     this.setState({
       file: URL.createObjectURL(event.target.files[0])
-    })
+    });
+    console.log(this.state.file);
+  }
+  returnFileName()
+  {
+    return this.state.file;
   }
   render() {
     return (
@@ -46,10 +47,18 @@ class Upload extends React.Component {
   }
 }
 
+const options = [
+  { value: 'cat', label: 'Cat' },
+  { value: 'dog', label: 'Dog' },
+  { value: 'bird', label: 'Bird' }
+]
+
 function validateInfo(values){
   let errors ={}
-  console.log(values.breed);
+  /*console.log(values.breed);
   console.log(values.name);
+  console.log(values.location);
+  console.log(values.extra_info);*/
   if (!values.breed === "Select"){
     errors.name = "Breed required"
   }
@@ -73,6 +82,7 @@ function validateInfo(values){
 }
 
 const CreatePost = () => {
+
   const [values, setValues] = useState({
     name: '',
     breed: '',
@@ -80,7 +90,8 @@ const CreatePost = () => {
     age: '',
     p_image: '',
     extra_info: '',
-    vaccinated: ''
+    vaccinated: '',
+    ts: ''
   });
 
   const [errors, setErrors] = useState('');
@@ -91,21 +102,34 @@ const CreatePost = () => {
 
   const handleChange = e => {
     const {name, value} = e.target;
+    console.log(name);
+    console.log(value);
     setValues({
       ...values,
       [name] : value
     });
   };
 
-  const handleChangeSelect = e => {
-    console.log(e.value);
-    setValues({
-      value: e.value
-    });
-  };
+  const handleChangeBreed = e => {
+    console.log(e);
+    values.breed = e.value;
+    console.log(values.breed);
+  }
+
+  const handleChangeVaccin = e => {
+    console.log(e);
+    values.vaccinated = e.value;
+    console.log(values.vaccinated);
+  }
 
   const handleSubmit = e => {
     console.log("handleSubmit");
+    console.log("Breed: ",values.breed);
+    console.log("Name: ",values.name);
+    console.log("Age: ",values.age);
+    console.log("Location: ",values.location);
+    console.log("Vaccinated: ",values.vaccinated);
+    console.log("Extra_info: ",values.extra_info);
     e.preventDefault();
     setErrors(validateInfo(values))
     if (errors==={}){
@@ -117,23 +141,31 @@ const CreatePost = () => {
 
   const createPost = () => {
     console.log("in");
+    console.log(Upload);
+    //console.log( Upload.props.file);
+    console.log( Upload.props);
+    console.log( Upload.properties.file);
+    console.log( Upload.properties.state.file);
+    //Axios.post("http://localhost:8000/api/createPost",
     Axios.post(`${config.SERVER_URI}/api/createPost`,
     {
       name: values.name,
       breed: values.breed,
       location: values.location,
       age: values.age,
-      p_image: values.p_image,
+      p_image: Upload.props.file,
       extra_info: values.extra_info,
-      vaccinated: values.vaccinated
+      vaccinated: values.vaccinated,
+      ts: new Date().toLocaleString() + ""
 
     }).then(response => {
       if (!response){
         console.log("no error");
       }
       setIsSubmitted(true);
-      history.push("/login");
+      history.push("/feed");
     }).catch(error => {
+        console.log("error in");
         console.log(error.response);
         let err = error.response.data.errors[0].msg;
         console.log(err);
@@ -147,13 +179,14 @@ const CreatePost = () => {
             age: '',
             p_image: '',
             extra_info: '',
-            vaccinated: ''
+            vaccinated: '',
+            ts: ''
           });
           err ='';
         }
         else{
           setbackendError('');
-          history.push("/login");
+          history.push("/feed");
           setIsSubmitted(true);
       }});
   }
@@ -174,7 +207,7 @@ const CreatePost = () => {
               <FormGroup>
               <Label className="createPostTitle makeCenter">Breed</Label>
               <Select options={options} value={values.breed}
-                  onChange={handleChangeSelect}></Select>
+                  onChange={handleChangeBreed}></Select>
               </FormGroup>
               <FormGroup>
                 <Label className="createPostTitle makeCenter">Name</Label>
@@ -183,7 +216,7 @@ const CreatePost = () => {
                   name="name"
                   id="name"
                   value={values.name}
-                  onChange={handleChange}
+                  onChange= {handleChange}
                 />
               </FormGroup>
               <FormGroup>
@@ -192,7 +225,6 @@ const CreatePost = () => {
                   type="number"
                   name="age"
                   id="age"
-                  pattern="[0-9]*"
                   min="0"
                   max="30"
                   value={values.age}
@@ -202,7 +234,7 @@ const CreatePost = () => {
               <FormGroup>
                 <Label className="createPostTitle makeCenter">Location</Label>
                 <Input
-                  type="location"
+                  type="text"
                   name="location"
                   id="location"
                   value={values.location}
@@ -213,12 +245,12 @@ const CreatePost = () => {
                 <Label className="createPostTitle makeCenter">Vaccination Status</Label>
                 <Select options={[{ value: 'true', label: 'Vaccinated' },
                     { value: 'false', label: 'Not Vaccinated' }]} value={values.vaccinated}
-                  onChange={handleChangeSelect}></Select>
+                  onChange={handleChangeVaccin}></Select>
               </FormGroup>
               <FormGroup>
                 <Label className="createPostTitle makeCenter">Extra Info</Label>
                 <Input
-                  type="extra_info"
+                  type="text"
                   name="extra_info"
                   id="extra_info"
                   value={values.extra_info}
@@ -228,7 +260,7 @@ const CreatePost = () => {
             </Col>
           
             <Col className="makeCenter">
-              <Upload></Upload>
+              <Upload id="upload"></Upload>
             </Col>
           </Row>
           <Row >

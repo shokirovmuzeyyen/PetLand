@@ -10,6 +10,8 @@ import {
   Input,
   Label,
 } from 'reactstrap';
+import { config } from './config';
+
 
 function validateInfo(values){
   let errors ={}
