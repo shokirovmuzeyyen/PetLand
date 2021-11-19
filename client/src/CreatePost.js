@@ -17,40 +17,15 @@ import bg from './assets/post_bg.png';
 import bg2 from './assets/post_bg2.jpeg';
 import { config } from './config';
 
-class Upload extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      file: null
-    }
-    this.handleChange = this.handleChange.bind(this)
-  }
-  handleChange(event) {
-    console.log("Event is:");
-    console.log(event);
-    this.setState({
-      file: URL.createObjectURL(event.target.files[0])
-    });
-    console.log(this.state.file);
-  }
-  returnFileName()
-  {
-    return this.state.file;
-  }
-  render() {
-    return (
-      <div>
-        <input type="file" onChange={this.handleChange}/>
-        <img className="photo" src={this.state.file}/>
-      </div>
-    );
-  }
-}
-
-const options = [
+const breedOptions = [
   { value: 'cat', label: 'Cat' },
   { value: 'dog', label: 'Dog' },
   { value: 'bird', label: 'Bird' }
+]
+
+const vaccinOptions = [
+  { value: 'true', label: 'Vaccinated' },
+  { value: 'false', label: 'Not Vaccinated' }
 ]
 
 function validateInfo(values){
@@ -87,7 +62,7 @@ const CreatePost = () => {
     name: '',
     breed: '',
     location: '',
-    age: '',
+    age: 0,
     p_image: '',
     extra_info: '',
     vaccinated: '',
@@ -110,13 +85,31 @@ const CreatePost = () => {
     });
   };
 
+  const handleChangeFile = e => {
+    const p_value = URL.createObjectURL(e.target.files[0]);
+    setValues({
+      ...values,
+      ["p_image"] : p_value
+    });
+  };
+
   const handleChangeBreed = e => {
+    const p_value = e.value;
+    setValues({
+      ...values,
+      ["breed"] : p_value
+    });
     console.log(e);
     values.breed = e.value;
     console.log(values.breed);
-  }
+  };
 
   const handleChangeVaccin = e => {
+    const p_value = e.value;
+    setValues({
+      ...values,
+      ["vaccinated"] : p_value
+    });
     console.log(e);
     values.vaccinated = e.value;
     console.log(values.vaccinated);
@@ -141,19 +134,13 @@ const CreatePost = () => {
 
   const createPost = () => {
     console.log("in");
-    console.log(Upload);
-    //console.log( Upload.props.file);
-    console.log( Upload.props);
-    console.log( Upload.properties.file);
-    console.log( Upload.properties.state.file);
-    //Axios.post("http://localhost:8000/api/createPost",
     Axios.post(`${config.SERVER_URI}/api/createPost`,
     {
       name: values.name,
       breed: values.breed,
       location: values.location,
       age: values.age,
-      p_image: Upload.props.file,
+      p_image: values.p_image,
       extra_info: values.extra_info,
       vaccinated: values.vaccinated,
       ts: new Date().toLocaleString() + ""
@@ -176,7 +163,7 @@ const CreatePost = () => {
             name: '',
             breed: '',
             location: '',
-            age: '',
+            age: 0,
             p_image: '',
             extra_info: '',
             vaccinated: '',
@@ -206,7 +193,7 @@ const CreatePost = () => {
             <Col>
               <FormGroup>
               <Label className="createPostTitle makeCenter">Breed</Label>
-              <Select options={options} value={values.breed}
+              <Select options={breedOptions} value={breedOptions[values.breed]}
                   onChange={handleChangeBreed}></Select>
               </FormGroup>
               <FormGroup>
@@ -243,8 +230,7 @@ const CreatePost = () => {
               </FormGroup>
               <FormGroup>
                 <Label className="createPostTitle makeCenter">Vaccination Status</Label>
-                <Select options={[{ value: 'true', label: 'Vaccinated' },
-                    { value: 'false', label: 'Not Vaccinated' }]} value={values.vaccinated}
+                <Select options={vaccinOptions} value={vaccinOptions[values.vaccinated]}
                   onChange={handleChangeVaccin}></Select>
               </FormGroup>
               <FormGroup>
@@ -260,7 +246,10 @@ const CreatePost = () => {
             </Col>
           
             <Col className="makeCenter">
-              <Upload id="upload"></Upload>
+              <div>
+                <input type="file" onChange={handleChangeFile}/>
+                <img className="photo" src={values.p_image}/>
+              </div>
             </Col>
           </Row>
           <Row >
