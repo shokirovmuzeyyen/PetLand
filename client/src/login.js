@@ -73,7 +73,10 @@ function Login() {
       if (!response){
         console.log("no error");
       }
-      history.push("/feed");
+      else{
+        console.log(response);
+      }
+      //history.push("/feed");
       setIsSubmitted(true);
     }).catch(error => {
         console.log(error.response);
