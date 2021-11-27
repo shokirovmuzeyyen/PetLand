@@ -10,6 +10,7 @@ import {
   Input,
   Label,
 } from 'reactstrap';
+import { config } from './config';
 
 function validateInfo(values){
   let errors ={}
@@ -65,7 +66,7 @@ function Login() {
   
   const login = () => {
     console.log("in");
-    Axios.post("http://localhost:8000/api/login",
+    Axios.post(`${config.SERVER_URI}/api/login`,
     {
       email:values.email,
       password:values.password
