@@ -4,7 +4,7 @@ CREATE TABLE users(
   user_id SERIAL PRIMARY KEY,
   name VARCHAR(20) NOT NULL,
   email citext UNIQUE NOT NULL,
-  password VARCHAR(20) NOT NULL,
+  password TEXT NOT NULL,
   phone TEXT NOT NULL,
   address VARCHAR(100) NOT NULL
 );
