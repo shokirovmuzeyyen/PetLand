@@ -77,7 +77,7 @@ function Login() {
       else{
         console.log(response);
       }
-      //history.push("/feed");
+      history.push("/feed");
       setIsSubmitted(true);
     }).catch(error => {
         console.log(error.response);
