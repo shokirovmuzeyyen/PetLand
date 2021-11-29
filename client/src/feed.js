@@ -12,7 +12,7 @@ import axios from 'axios';
 
 const Feed = () => {
   const [values, setValues] = useState({
-    namee: ''
+    namee: {}
   });
   const [repo, setRepo] = useState([
   ]);
@@ -21,15 +21,17 @@ const Feed = () => {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const history = useHistory();
-  const handleChangePosts = e => {
-      setValues({
-        ...values,
-        ["namee"] : e
-      });
-      console.log("e is:")
-      console.log(e);
-      values.namee = e;
-      console.log(values.name);
+  const handleChangePosts = (e) => {
+    console.log("e is "+ e);
+    setValues({
+      ...values,
+      ["namee"] : e
+    });
+    console.log("e is:")
+    console.log(e);
+    values.namee = e;
+    console.log("values.name");
+    console.log(values.namee);
     };
 
   const getRepo = () => {
@@ -45,7 +47,7 @@ const Feed = () => {
       console.log(items);
       console.log(res.data.posts);
       //setValues({name : res.data.posts});
-  
+      console.log("----");
       handleChangePosts(res.data.posts);
       console.log("this is values");
       console.log(values);
@@ -66,9 +68,9 @@ const Feed = () => {
           setIsSubmitted(true);
       }});
   }
-  /*useEffect(()=> 
+  useEffect(()=> 
     getRepo()
-  ,[]);*/
+  ,[]);
   return (
     <div style={{ backgroundImage: `url(https://st.depositphotos.com/2015673/4034/v/950/depositphotos_40343767-stock-illustration-forest-landscape.jpg)`, display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
       <div>
@@ -86,25 +88,35 @@ const Feed = () => {
             <Card.Text>
               
           <div>
+            {Object.entries(values.namee).forEach(([key, value]) => {
+              console.log(`Here ${key} ${value.name}`); // "a 5", "b 7", "c 9"
+             <Row>
+                <Col><label>Nameeee</label></Col>
+                <Col><label id="namee" >{value.name}</label></Col>
+            </Row>
+            })
+                        
+            }
+
             <Row>
               <Col><label>Name</label></Col>
-              <Col><label id="namee" >{values.namee[3]}</label></Col>
+              <Col><label id="namee" >{values.namee.name}</label></Col>
             </Row>
             <Row>
               <Col><label>Breed</label></Col>
-              <Col><label id="breed" >{values.namee[3]}</label></Col>
+              <Col><label id="breed" >{values.namee.breed}</label></Col>
             </Row>
             <Row>
               <Col><label>Age</label></Col>
-              <Col><label id="breed" >{values.namee[3]}</label></Col>
+              <Col><label id="breed" >{values.namee.age}</label></Col>
             </Row>
             <Row>
               <Col><label>Location</label></Col>
-              <Col><label id="breed" >{values.namee[3]}</label></Col>
+              <Col><label id="breed" >{values.namee.location}</label></Col>
             </Row>
             <Row>
               <Col><label>Extra Info</label></Col>
-              <Col><label id="breed" >{values.namee[3]}</label></Col>
+              <Col><label id="breed" >{values.namee.extra_info}</label></Col>
             </Row>
           </div>
               
