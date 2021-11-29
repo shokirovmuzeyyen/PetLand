@@ -2,6 +2,7 @@ const db = require('../db')
 const { hash } = require('bcryptjs')
 const { sign } = require('jsonwebtoken')
 const { SECRET } = require('../constants')
+const { json } = require('express')
 
 exports.getUsers = async (req, res) => {
   try {
@@ -105,5 +106,22 @@ exports.createPost = async (req, res) => {
     return res.status(500).json({
       error: error.message,
     })
+  }
+}
+
+exports.getPosts = async (req, res) => {
+  try {
+    const { rows } = await db.query('select p_image, name, location, user_id, extra_info, ts, vaccinated, breed, age from post;')
+    console.log("No error in server.")
+
+    return res.status(200).json({
+      success: true,
+      message: "well done",
+      posts: rows
+    })
+  } catch (error) {
+    console.log("Yes error in server.")
+    console.log(error.message)
+    return json({success:false, message:"error occured in server"})
   }
 }

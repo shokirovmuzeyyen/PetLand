@@ -5,7 +5,8 @@ const {
   login,
   protected,
   logout,
-  createPost
+  createPost,
+  getPosts
 } = require('../controllers/auth')
 const {
   validationMiddleware,
@@ -20,5 +21,5 @@ router.post('/register', registerValidation, validationMiddleware, register)
 router.post('/login', loginValidation, validationMiddleware, login)
 router.get('/logout', userAuth, logout)
 router.post('/createPost', createPost)
-
+router.post('/get-posts', getPosts)
 module.exports = router
