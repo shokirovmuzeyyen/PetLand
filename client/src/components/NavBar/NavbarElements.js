@@ -13,5 +13,10 @@ export const NavBarElements = [
     title: 'Profile',
     url: '/profile',
     cName: 'nav-links'
+  },
+  {
+    title: 'Create Post',
+    url: '/createPost',
+    cName: 'nav-links'
   }
 ]
