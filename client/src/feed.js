@@ -81,7 +81,7 @@ const Feed = () => {
         {
           values.namee.length > 0 &&
           values.namee.map((p, i) => (
-            <Col xs={8} className="makeCenter">
+            <Col xs={6} className="makeCenter">
               <Row>
                 <label>The Image</label>
               </Row>
