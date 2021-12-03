@@ -261,7 +261,7 @@ const CreatePost = () => {
         <Card.Text>
         </Card.Text>
           
-        </Card.Body><myInput name="breed"/>
+        </Card.Body>
         </Form>
       </Card>
     </div>

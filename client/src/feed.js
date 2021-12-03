@@ -9,6 +9,8 @@ import { config } from './config';
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
 import axios from 'axios';
+import PostCard from './PostCard';
+import bg from './assets/trees.jpeg';
 
 const Feed = () => {
   const [values, setValues] = useState({
@@ -72,75 +74,34 @@ const Feed = () => {
     getRepo()
   ,[]);
   return (
-    <div style={{ backgroundImage: `url(https://st.depositphotos.com/2015673/4034/v/950/depositphotos_40343767-stock-illustration-forest-landscape.jpg)`, display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
-      <div>
-         <Button className="makeCenter" variant="success" size="lg" type="submit" onClick={()=> {getRepo();}}>Load Posts</Button>
-      <Row>
-        <Col>
-          <Card border="danger" bg={"light".toLowerCase()}
-            text={"light" === 'light' ? 'dark' : 'white'}
-            style={{ width: '18rem' }}
-            className="mb-2" style={{ width: '35rem' }}>
-            <Card.Img variant="top" src="" />
-            <Card.Body>
-              <Card.Title className="makeCenter" style={{fontSize:28}}>Meet with a friend</Card.Title>
-              <br/>
-            <Card.Text>
-              
-          <div>
-            {Object.entries(values.namee).forEach(([key, value]) => {
-              console.log(`Here ${key} ${value.name}`); // "a 5", "b 7", "c 9"
-             <Row>
-                <Col><label>Nameeee</label></Col>
-                <Col><label id="namee" >{value.name}</label></Col>
-            </Row>
-            })
-                        
-            }
+    <div style={{ 
+      backgroundImage: `url(${bg})`, padding:"10%"}} className="makeCenter">
+      
+        <Row>
+        {
+          values.namee.length > 0 &&
+          values.namee.map((p, i) => (
+            <Col xs={8} className="makeCenter">
+              <Row>
+                <label>The Image</label>
+              </Row>
+              <Row>
+                <img src={`data:image/png;base64,${p.p_image}`} />
 
-            <Row>
-              <Col><label>Name</label></Col>
-              <Col><label id="namee" >{values.namee.name}</label></Col>
-            </Row>
-            <Row>
-              <Col><label>Breed</label></Col>
-              <Col><label id="breed" >{values.namee.breed}</label></Col>
-            </Row>
-            <Row>
-              <Col><label>Age</label></Col>
-              <Col><label id="breed" >{values.namee.age}</label></Col>
-            </Row>
-            <Row>
-              <Col><label>Location</label></Col>
-              <Col><label id="breed" >{values.namee.location}</label></Col>
-            </Row>
-            <Row>
-              <Col><label>Extra Info</label></Col>
-              <Col><label id="breed" >{values.namee.extra_info}</label></Col>
-            </Row>
-          </div>
-              
-            </Card.Text>
-              
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col>
-          <Card border="danger" bg={"light".toLowerCase()}
-            text={"light" === 'light' ? 'dark' : 'white'}
-            style={{ width: '18rem' }}
-            className="mb-2" style={{ width: '35rem' }}>
-            <Card.Img variant="top" src="" />
-            <Card.Body>
-              <Card.Title className="makeCenter" style={{fontSize:28}}>Meet with a friend</Card.Title>
-              <br/>
-            <Card.Text>
-            </Card.Text>
-            </Card.Body><myInput name="breed"/>
-          </Card>
-        </Col>
-      </Row>
-      </div>
+              </Row>
+              <Row>
+              <PostCard
+                name={p.name}
+                breed={p.breed}
+                age={p.age}
+                location={p.location}
+                extra_info={p.extra_info}
+              />
+              </Row>
+            </Col>
+          ))
+        }
+        </Row>
     </div>
   )
 }
