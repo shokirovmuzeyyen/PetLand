@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import {  Link, Redirect } from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
-import { config } from './config';
+import { config } from '../../config';
 import { useState } from 'react';
 
 class Navbar extends Component{ 

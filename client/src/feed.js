@@ -1,5 +1,4 @@
 import React, { useState, useEffect} from 'react'
-import Navbar from "./components/NavBar/NavBar";
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button';
 
@@ -12,7 +11,7 @@ import axios from 'axios';
 import PostCard from './PostCard';
 import bg from './assets/trees.jpeg';
 import {decode as base64_decode, encode as base64_encode} from 'base-64';
-
+import NavBar from './components/NavBar/NavBar';
 const Feed = () => {
   const [values, setValues] = useState({
     namee: {}
@@ -80,7 +79,7 @@ const Feed = () => {
   return (
     <div style={{ 
       backgroundImage: `url(${bg})`, padding:"10%"}} className="makeCenter">
-      
+      <NavBar/>
         <Row>
         {
           values.namee.length > 0 &&
