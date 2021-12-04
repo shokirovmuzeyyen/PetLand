@@ -72,7 +72,7 @@ export default function Login({ setToken }) {
   
   function login() {
     console.log("in");
-    Axios.post('http://localhost:8000/api/login',
+    Axios.post(`${config.SERVER_URI}/api/login`,
     {
       email:values.email,
       password:values.password

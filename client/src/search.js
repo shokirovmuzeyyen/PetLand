@@ -21,7 +21,7 @@ export default function Search(){
   const {searchTerm, setSearchTerm} = useState('')
   const {posts, setPosts} = useState([])
   useEffect(() => {
-    axios.post('http://localhost:8000/api/search_all')
+    axios.post(`${config.SERVER_URI}/api/search_all`)
     .then((response) => {
     console.log(response.data);
     setPosts(response.data);

@@ -42,8 +42,8 @@ const Feed = () => {
 
   const getRepo = () => {
     console.log("in");
-    //Axios.get(`${config.SERVER_URI}/api/getPosts`,
-    Axios.post('http://localhost:8000/api/get-posts',
+    Axios.post(`${config.SERVER_URI}/api/getPosts`,
+    //Axios.post('http://localhost:8000/api/get-posts',
     {
     }).then(res => {
       const items = res.data;
