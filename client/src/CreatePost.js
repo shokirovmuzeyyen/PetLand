@@ -16,6 +16,7 @@ import Select from 'react-select'
 import bg from './assets/post_bg.png';
 import bg2 from './assets/post_bg2.jpeg';
 import { config } from './config';
+import {decode as base64_decode, encode as base64_encode} from 'base-64';
 
 const breedOptions = [
   { value: 'cat', label: 'Cat' },
@@ -58,6 +59,8 @@ function validateInfo(values){
 
 const CreatePost = () => {
 
+  const [baseImage, setBaseImage] = useState("");
+
   const [values, setValues] = useState({
     name: '',
     breed: '',
@@ -90,6 +93,30 @@ const CreatePost = () => {
     setValues({
       ...values,
       ["p_image"] : p_value
+    });
+  };
+
+  const uploadImage = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    console.log("base image is");
+    console.log(base64);
+    setBaseImage(base64);
+  };
+
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader  = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+
     });
   };
 
@@ -140,7 +167,7 @@ const CreatePost = () => {
       breed: values.breed,
       location: values.location,
       age: values.age,
-      p_image: values.p_image,
+      p_image: baseImage,
       extra_info: values.extra_info,
       vaccinated: values.vaccinated,
       ts: new Date().toLocaleString() + ""
@@ -167,7 +194,8 @@ const CreatePost = () => {
             p_image: '',
             extra_info: '',
             vaccinated: '',
-            ts: ''
+            ts: '',
+            baseImage: ''
           });
           err ='';
         }
@@ -247,8 +275,9 @@ const CreatePost = () => {
           
             <Col className="makeCenter">
               <div>
-                <input type="file" onChange={handleChangeFile}/>
+                <input type="file" onChange={(f) => {uploadImage(f);}}/>
                 <img className="photo" src={values.p_image}/>
+                <img className="photo" src={baseImage}></img>
               </div>
             </Col>
           </Row>

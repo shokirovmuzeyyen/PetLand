@@ -30,12 +30,12 @@ const Feed = () => {
     setValues({
       ...values,
       ["namee"] : e,
-      ["img"]: base64_encode(e[0].p_image.data)
+      ["img"]: e[12].p_image
     });
     console.log("e is:")
     console.log(e);
     values.namee = e;
-    values.img = base64_encode(e[0].p_image.data);
+    values.img = e[12].p_image;
     //values.img = Buffer.from(e[0].p_image.data).toString('base64');
     //values.img = base64_encode(btoa(String.fromCharCode.apply(null, new Uint8Array(e[0].p_image.data))));
     console.log("values.name");
@@ -94,15 +94,13 @@ const Feed = () => {
                 <label>The Image</label>
               </Row>
               <Row>
-                <img src={`data:image/jpg;base64, ${[values.img]}`} />
-              </Row>
-              <Row>
               <PostCard
                 name={p.name}
                 breed={p.breed}
                 age={p.age}
                 location={p.location}
                 extra_info={p.extra_info}
+                p_image={p.p_image}
               />
               </Row>
             </Col>

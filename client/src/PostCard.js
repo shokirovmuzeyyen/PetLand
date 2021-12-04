@@ -41,6 +41,9 @@ const PostCard = ({ name, breed, age, location, extra_info, p_image }) => {
               <Col><label>Extra Info:</label></Col>
               <Col className="makeCenter"><label id="extra_info" >{extra_info}</label></Col>
             </Row>
+            <Row>
+              <img src={p_image}></img>
+            </Row>
           </div>
               
             </Card.Text>
