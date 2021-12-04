@@ -112,7 +112,7 @@ exports.createPost = async (req, res) => {
 exports.search = async (req, res) => {
   const { id } = req.body
   try {
-    result = await db.query(`select name from users where user_id = ${id}`)
+    result = await db.query(`select * from posts where `)
     let username = result.rows[0]["name"]
     return res.status(201).json({
       name: `${username}`,
