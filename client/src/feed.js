@@ -93,6 +93,8 @@ const Feed = () => {
                 location={p.location}
                 extra_info={p.extra_info}
                 p_image={p.p_image}
+                vaccinated={p.vaccinated}
+                ts={p.ts}
               />
             </Col>
           ))
