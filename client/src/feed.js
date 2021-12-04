@@ -11,10 +11,12 @@ import Axios from 'axios';
 import axios from 'axios';
 import PostCard from './PostCard';
 import bg from './assets/trees.jpeg';
+import {decode as base64_decode, encode as base64_encode} from 'base-64';
 
 const Feed = () => {
   const [values, setValues] = useState({
-    namee: {}
+    namee: {},  
+    img: ''
   });
   const [repo, setRepo] = useState([
   ]);
@@ -27,13 +29,19 @@ const Feed = () => {
     console.log("e is "+ e);
     setValues({
       ...values,
-      ["namee"] : e
+      ["namee"] : e,
+      ["img"]: base64_encode(e[0].p_image.data)
     });
     console.log("e is:")
     console.log(e);
     values.namee = e;
+    values.img = base64_encode(e[0].p_image.data);
+    //values.img = Buffer.from(e[0].p_image.data).toString('base64');
+    //values.img = base64_encode(btoa(String.fromCharCode.apply(null, new Uint8Array(e[0].p_image.data))));
     console.log("values.name");
     console.log(values.namee);
+    console.log(values.img);
+    
     };
 
   const getRepo = () => {
@@ -86,8 +94,7 @@ const Feed = () => {
                 <label>The Image</label>
               </Row>
               <Row>
-                <img src={`data:image/png;base64,${p.p_image}`} />
-
+                <img src={`data:image/jpg;base64, ${[values.img]}`} />
               </Row>
               <Row>
               <PostCard
