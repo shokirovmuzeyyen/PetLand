@@ -86,10 +86,6 @@ const Feed = () => {
           values.namee.length > 0 &&
           values.namee.map((p, i) => (
             <Col xs={6} className="makeCenter">
-              <Row>
-                <label>The Image</label>
-              </Row>
-              <Row>
               <PostCard
                 name={p.name}
                 breed={p.breed}
@@ -98,7 +94,6 @@ const Feed = () => {
                 extra_info={p.extra_info}
                 p_image={p.p_image}
               />
-              </Row>
             </Col>
           ))
         }
