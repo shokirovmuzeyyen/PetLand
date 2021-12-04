@@ -85,6 +85,10 @@ export default function Login({ setToken }) {
       else{
         console.log(response);
       }
+<<<<<<< HEAD
+=======
+      history.push("/feed");
+>>>>>>> f7f37a8788543661467312c16d1bf65d581c90a6
       setIsSubmitted(true);
       setToken(token);
       console.log("token set");
