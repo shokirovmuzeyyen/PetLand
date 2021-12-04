@@ -128,15 +128,19 @@ exports.getPosts = async (req, res) => {
 }
 
 exports.search = async (req, res) => {
-  const { id } = req.body
+  console.log(req.body)
+  const { search_name, search_breed, search_location } = req.body
+  console.log(search_breed)
   try {
-    result = await db.query(`select * from posts where `)
-    let username = result.rows[0]["name"]
-    return res.status(201).json({
-      name: `${username}`,
+    const { rows } = await db.query(`select * from post where breed like $1 and location like $2 and name like $3;`, [search_breed, search_location, search_name])
+    console.log(rows)
+    console.log("Query terminated.")
+    return res.status(200).json({
+      success: true,
+      posts: rows
     })
   } catch (error) {
-    console.log(error.message);
+    console.log(error.message)
     return res.status(500).json({
       error: error.message,
     })

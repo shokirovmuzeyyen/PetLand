@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 export default function useToken() {
   const getToken = () => {
-    const tokenString = sessionStorage.getItem('token');
+    const tokenString = sessionStorage.getItem('token'); // get user id
     const userToken = tokenString;
     if (userToken) {return true;}
     else {return false;}

@@ -32,8 +32,6 @@ const Feed = () => {
     console.log("e is:")
     console.log(e);
     values.namee = e;
-    //values.img = Buffer.from(e[0].p_image.data).toString('base64');
-    //values.img = base64_encode(btoa(String.fromCharCode.apply(null, new Uint8Array(e[0].p_image.data))));
     console.log("values.name");
     console.log(values.namee);
     
@@ -51,14 +49,11 @@ const Feed = () => {
       console.log(res);
       console.log(items);
       console.log(res.data.posts);
-      //setValues({name : res.data.posts});
       console.log("----");
       handleChangePosts(res.data.posts);
       console.log("this is values");
       console.log(values);
       
-      //repo = res.data.posts;
-      //console.log(repo);
     }).catch(error => {
         console.log("error in");
         console.log(error.response);
