@@ -41,7 +41,7 @@ const Feed = () => {
 
   const getRepo = () => {
     console.log("in");
-    Axios.post(`${config.SERVER_URI}/api/getPosts`,
+    Axios.post(`${config.SERVER_URI}/api/get-posts`,
     //Axios.post('http://localhost:8000/api/get-posts',
     {
     }).then(res => {
@@ -77,28 +77,31 @@ const Feed = () => {
     getRepo()
   ,[]);
   return (
-    <div style={{ 
-      backgroundImage: `url(${bg})`, padding:"10%"}} className="makeCenter">
+    <div>
       <NavBar/>
-        <Row>
-        {
-          values.namee.length > 0 &&
-          values.namee.map((p, i) => (
-            <Col xs={6} className="makeCenter">
-              <PostCard
-                name={p.name}
-                breed={p.breed}
-                age={p.age}
-                location={p.location}
-                extra_info={p.extra_info}
-                p_image={p.p_image}
-                vaccinated={p.vaccinated}
-                ts={p.ts}
-              />
-            </Col>
-          ))
-        }
-        </Row>
+      <div style={{ 
+        backgroundImage: `url(${bg})`, padding:"10%"}} className="makeCenter">
+        
+          <Row>
+          {
+            values.namee.length > 0 &&
+            values.namee.map((p, i) => (
+              <Col xs={6} className="makeCenter">
+                <PostCard
+                  name={p.name}
+                  breed={p.breed}
+                  age={p.age}
+                  location={p.location}
+                  extra_info={p.extra_info}
+                  p_image={p.p_image}
+                  vaccinated={p.vaccinated}
+                  ts={p.ts}
+                />
+              </Col>
+            ))
+          }
+          </Row>
+      </div>
     </div>
   )
 }
