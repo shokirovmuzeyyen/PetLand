@@ -50,12 +50,12 @@ exports.login = async (req, res) => {
   }
 
   try {
-    const token = await sign(payload, SECRET)
-
+    const token = sign(payload, SECRET);
     return res.status(200).cookie('token', token, { httpOnly: true }).json({
       success: true,
-      message: 'Logged in successfully.',
-    })
+      message: 'Logged in successfully. HI',
+      token: `${user.user_id}`,
+    }) 
   } catch (error) {
     console.log(error.message)
     return res.status(500).json({
@@ -109,6 +109,7 @@ exports.createPost = async (req, res) => {
   }
 }
 
+
 exports.getPosts = async (req, res) => {
   try {
     const { rows } = await db.query('select p_image, name, location, user_id, extra_info, ts, vaccinated, breed, age from post;')
@@ -123,5 +124,20 @@ exports.getPosts = async (req, res) => {
     console.log("Yes error in server.")
     console.log(error.message)
     return json({success:false, message:"error occured in server"})
+
+exports.search = async (req, res) => {
+  const { id } = req.body
+  try {
+    result = await db.query(`select * from posts where `)
+    let username = result.rows[0]["name"]
+    return res.status(201).json({
+      name: `${username}`,
+    })
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({
+      error: error.message,
+    })
+
   }
 }
