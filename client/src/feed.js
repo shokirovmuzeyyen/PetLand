@@ -15,8 +15,7 @@ import {decode as base64_decode, encode as base64_encode} from 'base-64';
 
 const Feed = () => {
   const [values, setValues] = useState({
-    namee: {},  
-    img: ''
+    namee: {}
   });
   const [repo, setRepo] = useState([
   ]);
@@ -29,18 +28,15 @@ const Feed = () => {
     console.log("e is "+ e);
     setValues({
       ...values,
-      ["namee"] : e,
-      ["img"]: e[12].p_image
+      ["namee"] : e
     });
     console.log("e is:")
     console.log(e);
     values.namee = e;
-    values.img = e[12].p_image;
     //values.img = Buffer.from(e[0].p_image.data).toString('base64');
     //values.img = base64_encode(btoa(String.fromCharCode.apply(null, new Uint8Array(e[0].p_image.data))));
     console.log("values.name");
     console.log(values.namee);
-    console.log(values.img);
     
     };
 

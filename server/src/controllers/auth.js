@@ -124,6 +124,8 @@ exports.getPosts = async (req, res) => {
     console.log("Yes error in server.")
     console.log(error.message)
     return json({success:false, message:"error occured in server"})
+  }
+}
 
 exports.search = async (req, res) => {
   const { id } = req.body
