@@ -96,7 +96,6 @@ exports.createPost = async (req, res) => {
   try {
     await db.query('insert into post(name, breed, location, p_image, extra_info, vaccinated, ts, age, user_id ) values ($1,$2,$3,$4,$5,$6,$7,$8,$9);', 
     [name, breed, location, p_image, extra_info, vaccinated, ts, age, 29])
-
     return res.status(201).json({
       success: true,
       message: 'The post creation was successful.',
@@ -108,7 +107,6 @@ exports.createPost = async (req, res) => {
     })
   }
 }
-
 
 exports.getPosts = async (req, res) => {
   try {
