@@ -1,7 +1,8 @@
 import './App.css';
 import React, {useState} from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import Axios from 'axios';
+
 import {
   Button,
   Card,
@@ -11,6 +12,7 @@ import {
   Label,
 } from 'reactstrap';
 import { config } from './config';
+import PropTypes from 'prop-types';
 
 function validateInfo(values){
   let errors ={}
@@ -29,12 +31,16 @@ function validateInfo(values){
 }
 
 
-function Login() {
+export default function Login({ setToken }) {
+  //console.log({setToken});
   const [errors, setErrors] = useState('');
   const history = useHistory();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [backend_error, setbackendError] = useState('');
-
+  //if (sessionStorage.getItem('token')){
+   // sessionStorage.removeItem('token');
+  //}
+ 
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -64,20 +70,27 @@ function Login() {
 
 
   
-  const login = () => {
+  function login() {
     console.log("in");
     Axios.post(`${config.SERVER_URI}/api/login`,
     {
       email:values.email,
       password:values.password
     }).then((response) => {
+      let token = response.data.token;
+      console.log("Token:", token);
       if (!response){
         console.log("no error");
       }
-      history.push("/feed");
+      else{
+        console.log(response);
+      }
       setIsSubmitted(true);
+      setToken(token);
+      console.log("token set");
+      history.push("/feed");
     }).catch(error => {
-        console.log(error.response);
+        console.log(error);
         let err = error.response.data.errors[0].msg;
         console.log(err);
         if (err){
@@ -94,6 +107,7 @@ function Login() {
           history.push("/feed");
           setIsSubmitted(true);
       }});
+     
       }
   
 
@@ -143,4 +157,7 @@ function Login() {
   );
 }
 
-export default Login;
+Login.propTypes = {
+  setToken: PropTypes.func.isRequired
+};
+

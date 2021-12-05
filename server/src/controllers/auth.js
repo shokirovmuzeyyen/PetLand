@@ -2,6 +2,7 @@ const db = require('../db')
 const { hash } = require('bcryptjs')
 const { sign } = require('jsonwebtoken')
 const { SECRET } = require('../constants')
+const { json } = require('express')
 
 exports.getUsers = async (req, res) => {
   try {
@@ -49,12 +50,12 @@ exports.login = async (req, res) => {
   }
 
   try {
-    const token = await sign(payload, SECRET)
-
+    const token = sign(payload, SECRET);
     return res.status(200).cookie('token', token, { httpOnly: true }).json({
       success: true,
-      message: 'Logged in successfully.',
-    })
+      message: 'Logged in successfully. HI',
+      token: `${user.user_id}`,
+    }) 
   } catch (error) {
     console.log(error.message)
     return res.status(500).json({
@@ -93,10 +94,8 @@ exports.logout = async (req, res) => {
 exports.createPost = async (req, res) => {
   const { name, breed, age, location, p_image, extra_info, vaccinated, ts } = req.body
   try {
-    console.log(name, breed);
-    await db.query('insert into post(name, breed, location, p_image, extra_info, vaccinated, ts, user_id) values ($1,$2,$3,$4,$5,$6,$7,$8);',
-    [name, breed, location, p_image, extra_info, vaccinated, ts, 29])
-
+    await db.query('insert into post(name, breed, location, p_image, extra_info, vaccinated, ts, age, user_id ) values ($1,$2,$3,$4,$5,$6,$7,$8,$9);', 
+    [name, breed, location, p_image, extra_info, vaccinated, ts, age, 29])
     return res.status(201).json({
       success: true,
       message: 'The post creation was successful.',
@@ -106,5 +105,43 @@ exports.createPost = async (req, res) => {
     return res.status(500).json({
       error: error.message,
     })
+  }
+}
+
+exports.getPosts = async (req, res) => {
+  try {
+    const { rows } = await db.query('select p_image, name, location, user_id, extra_info, ts, vaccinated, breed, age from post;')
+    console.log("No error in server.")
+
+    return res.status(200).json({
+      success: true,
+      message: "well done",
+      posts: rows
+    })
+  } catch (error) {
+    console.log("Yes error in server.")
+    console.log(error.message)
+    return json({success:false, message:"error occured in server"})
+  }
+}
+
+exports.search = async (req, res) => {
+  console.log(req.body)
+  const { search_name, search_breed, search_location } = req.body
+  console.log(search_breed)
+  try {
+    const { rows } = await db.query(`select * from post where breed like $1 and location like $2 and name like $3;`, [search_breed, search_location, search_name])
+    console.log(rows)
+    console.log("Query terminated.")
+    return res.status(200).json({
+      success: true,
+      posts: rows
+    })
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({
+      error: error.message,
+    })
+
   }
 }

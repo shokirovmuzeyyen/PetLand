@@ -16,41 +16,17 @@ import Select from 'react-select'
 import bg from './assets/post_bg.png';
 import bg2 from './assets/post_bg2.jpeg';
 import { config } from './config';
+import {decode as base64_decode, encode as base64_encode} from 'base-64';
 
-class Upload extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      file: null
-    }
-    this.handleChange = this.handleChange.bind(this)
-  }
-  handleChange(event) {
-    console.log("Event is:");
-    console.log(event);
-    this.setState({
-      file: URL.createObjectURL(event.target.files[0])
-    });
-    console.log(this.state.file);
-  }
-  returnFileName()
-  {
-    return this.state.file;
-  }
-  render() {
-    return (
-      <div>
-        <input type="file" onChange={this.handleChange}/>
-        <img className="photo" src={this.state.file}/>
-      </div>
-    );
-  }
-}
-
-const options = [
+const breedOptions = [
   { value: 'cat', label: 'Cat' },
   { value: 'dog', label: 'Dog' },
   { value: 'bird', label: 'Bird' }
+]
+
+const vaccinOptions = [
+  { value: 'true', label: 'Vaccinated' },
+  { value: 'false', label: 'Not Vaccinated' }
 ]
 
 function validateInfo(values){
@@ -83,11 +59,13 @@ function validateInfo(values){
 
 const CreatePost = () => {
 
+  const [baseImage, setBaseImage] = useState("");
+
   const [values, setValues] = useState({
     name: '',
     breed: '',
     location: '',
-    age: '',
+    age: 0,
     p_image: '',
     extra_info: '',
     vaccinated: '',
@@ -110,13 +88,55 @@ const CreatePost = () => {
     });
   };
 
+  const handleChangeFile = e => {
+    const p_value = URL.createObjectURL(e.target.files[0]);
+    setValues({
+      ...values,
+      ["p_image"] : p_value
+    });
+  };
+
+  const uploadImage = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    console.log("base image is");
+    console.log(base64);
+    setBaseImage(base64);
+  };
+
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader  = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+
+    });
+  };
+
   const handleChangeBreed = e => {
+    const p_value = e.value;
+    setValues({
+      ...values,
+      ["breed"] : p_value
+    });
     console.log(e);
     values.breed = e.value;
     console.log(values.breed);
-  }
+  };
 
   const handleChangeVaccin = e => {
+    const p_value = e.value;
+    setValues({
+      ...values,
+      ["vaccinated"] : p_value
+    });
     console.log(e);
     values.vaccinated = e.value;
     console.log(values.vaccinated);
@@ -141,19 +161,13 @@ const CreatePost = () => {
 
   const createPost = () => {
     console.log("in");
-    console.log(Upload);
-    //console.log( Upload.props.file);
-    console.log( Upload.props);
-    console.log( Upload.properties.file);
-    console.log( Upload.properties.state.file);
-    //Axios.post("http://localhost:8000/api/createPost",
     Axios.post(`${config.SERVER_URI}/api/createPost`,
     {
       name: values.name,
       breed: values.breed,
       location: values.location,
       age: values.age,
-      p_image: Upload.props.file,
+      p_image: baseImage,
       extra_info: values.extra_info,
       vaccinated: values.vaccinated,
       ts: new Date().toLocaleString() + ""
@@ -176,11 +190,12 @@ const CreatePost = () => {
             name: '',
             breed: '',
             location: '',
-            age: '',
+            age: 0,
             p_image: '',
             extra_info: '',
             vaccinated: '',
-            ts: ''
+            ts: '',
+            baseImage: ''
           });
           err ='';
         }
@@ -206,7 +221,7 @@ const CreatePost = () => {
             <Col>
               <FormGroup>
               <Label className="createPostTitle makeCenter">Breed</Label>
-              <Select options={options} value={values.breed}
+              <Select options={breedOptions} value={breedOptions[values.breed]}
                   onChange={handleChangeBreed}></Select>
               </FormGroup>
               <FormGroup>
@@ -243,8 +258,7 @@ const CreatePost = () => {
               </FormGroup>
               <FormGroup>
                 <Label className="createPostTitle makeCenter">Vaccination Status</Label>
-                <Select options={[{ value: 'true', label: 'Vaccinated' },
-                    { value: 'false', label: 'Not Vaccinated' }]} value={values.vaccinated}
+                <Select options={vaccinOptions} value={vaccinOptions[values.vaccinated]}
                   onChange={handleChangeVaccin}></Select>
               </FormGroup>
               <FormGroup>
@@ -260,7 +274,11 @@ const CreatePost = () => {
             </Col>
           
             <Col className="makeCenter">
-              <Upload id="upload"></Upload>
+              <div>
+                <input type="file" onChange={(f) => {uploadImage(f);}}/>
+                <img className="photo" src={values.p_image}/>
+                <img className="photo" src={baseImage}></img>
+              </div>
             </Col>
           </Row>
           <Row >
@@ -272,7 +290,7 @@ const CreatePost = () => {
         <Card.Text>
         </Card.Text>
           
-        </Card.Body><myInput name="breed"/>
+        </Card.Body>
         </Form>
       </Card>
     </div>

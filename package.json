@@ -4,6 +4,7 @@
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {
+    "base-64": "^1.0.0",
     "react-select": "^5.2.1",
     "use-turkey-cities": "^0.1.1"
   }
