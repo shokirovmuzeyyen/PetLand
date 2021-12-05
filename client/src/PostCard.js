@@ -2,11 +2,19 @@ import React, { useState, useEffect} from 'react'
 import Navbar from "./components/NavBar/NavBar";
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button';
-
+import { useHistory, Redirect } from "react-router-dom";
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-const PostCard = ({ name, breed, age, location, extra_info, p_image, vaccinated, ts }) => {
+const PostCard = ({ post_id, name, breed, age, location, extra_info, p_image, vaccinated, ts }) => {
+  const history = useHistory();
+  function handleClick(e){
+    e.preventDefault();
+    history.push({ 
+      pathname: '/postcomment',
+      state: post_id
+     });
+  }
 
   return (
     <div>
@@ -52,6 +60,18 @@ const PostCard = ({ name, breed, age, location, extra_info, p_image, vaccinated,
             <Row>
               <Col><label style={{fontSize:"10px", position: "absolute", right:0, marginRight:"10%"}} className="makeCenter" id="extra_info" >{ts.substring(0,10)}</label></Col>
             </Row>
+            
+            <Row className="makeCenter">
+              <Col sm={2} className="my-1">
+              <a href="/feed" className="btn btn-outline-white wow fadeInDown"><i className="far fa-bookmark"> </i> </a>
+              </Col>
+              <Col sm={2} className="my-1">
+              <a href='/postcomment' onClick={handleClick}  className="btn btn-outline-white wow fadeInDown"><i className="far fa-comments"> </i> </a>           
+              </Col>
+            </Row>
+
+
+
           </div>
               
             </Card.Text>

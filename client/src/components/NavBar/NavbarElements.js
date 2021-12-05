@@ -1,7 +1,7 @@
 export const NavBarElements = [
   {
     title: 'Home',
-    url: '#',
+    url: '/feed',
     cName: 'nav-links'
   },
   {

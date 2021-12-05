@@ -110,7 +110,7 @@ exports.createPost = async (req, res) => {
 
 exports.getPosts = async (req, res) => {
   try {
-    const { rows } = await db.query('select p_image, name, location, user_id, extra_info, ts, vaccinated, breed, age from post;')
+    const { rows } = await db.query('select post_id, p_image, name, location, user_id, extra_info, ts, vaccinated, breed, age from post;')
     console.log("No error in server.")
 
     return res.status(200).json({
@@ -131,11 +131,28 @@ exports.search = async (req, res) => {
   console.log(search_breed)
   try {
     const { rows } = await db.query(`select * from post where breed like $1 and location like $2 and name like $3;`, [search_breed, search_location, search_name])
-    console.log(rows)
-    console.log("Query terminated.")
+    //console.log(rows)
+    //console.log("Query terminated.")
     return res.status(200).json({
       success: true,
       posts: rows
+    })
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({
+      error: error.message,
+    })
+
+  }
+}
+
+exports.post = async (req, res) => {
+  const post_id  = req.body.id
+  try {
+    const { rows } = await db.query(`select post_id, p_image, name, location, user_id, extra_info, ts, vaccinated, breed, age  from post where post_id = $1 ;`, [post_id])
+    return res.status(200).json({
+      success: true,
+      posts: rows,
     })
   } catch (error) {
     console.log(error.message)

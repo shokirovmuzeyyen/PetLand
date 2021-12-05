@@ -8,7 +8,7 @@ import DM from './dm';
 import Profile from './profile';
 import CreatePost from './CreatePost';
 import Search from './search';
-
+import PostComment  from './postcomment';
 import {BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 //run npm install react-router-dom --save
 //npm install --save bootstrap
@@ -61,7 +61,7 @@ function App() {
       <Route path="/dm" component={DM} />
       <Route path="/profile" component={Profile} />
       <Route path="/search" component={Search} />
-
+      <Route path="/postcomment" component={PostComment} />
       </Switch>
     </Router>
   );
