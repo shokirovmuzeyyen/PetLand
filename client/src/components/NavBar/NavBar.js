@@ -11,7 +11,7 @@ import { withRouter } from 'react-router-dom';
 import { config } from '../../config';
 import { useState } from 'react';
 
-class Navbar extends Component{ 
+class Navbar extends Component{
   constructor(props) {
     super(props);
     console.log(this.props);
@@ -26,7 +26,7 @@ class Navbar extends Component{
         //state: param
     });
   }
- 
+
 
   state = {clicked: false}
   handleClick =() => {
@@ -37,7 +37,7 @@ class Navbar extends Component{
     console.log("out");
     Axios.post(`${config.SERVER_URI}/api/logout`,
     {
-      logout: true,   
+      logout: true,
     }).then((response) => {
       if (!response){
         console.log("no error");
@@ -45,7 +45,7 @@ class Navbar extends Component{
       else{
         console.log(response);
         sessionStorage.removeItem('token');
-        //history.push('/feed')   
+        //history.push('/feed')
         this.props.history.push("/feed");
       }
 
@@ -55,7 +55,7 @@ class Navbar extends Component{
         if (err){
           console.log(err);
         }});
-     
+
     };
 
 
@@ -63,7 +63,7 @@ class Navbar extends Component{
   render(){
     return(
       <nav className="NavbarItems">
-        <h1 className="navbar-logo">PetLand<i className="fab fa-thin fa-react"></i></h1>
+        <h1 className="navbar-logo">PetLand</h1>
         <div className="menu-icon" onClick={this.handleClick}>
           <i className={this.state.clicked ? "fas fa-times" : "fas fa-bars"}></i>
         </div>

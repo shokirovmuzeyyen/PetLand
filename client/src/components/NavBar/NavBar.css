@@ -6,7 +6,7 @@
   );
   height: 80px;
   display: flex;
-  justify-content: cneter;
+  justify-content: center;
   align-items: center;
   font-size: 1.2rem;
 }
@@ -26,7 +26,7 @@
 .nav-menu {
   display: grid;
   grid-template-columns: repeat(5, auto);
-  grid-gap: 10 px;
+  grid-gap: 10px;
   list-style: none;
   text-align: center;
   width: 70vw;
