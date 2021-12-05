@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 import Axios from 'axios';
 import axios from 'axios';
 import PostCard from './PostCard';
-import bg from './assets/trees.jpeg';
+import bg from './assets/green_bg.jpg';
 import {decode as base64_decode, encode as base64_encode} from 'base-64';
 import NavBar from './components/NavBar/NavBar';
 const Feed = () => {
