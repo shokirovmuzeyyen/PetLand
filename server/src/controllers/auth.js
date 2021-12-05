@@ -162,3 +162,22 @@ exports.post = async (req, res) => {
 
   }
 }
+
+
+
+exports.comment = async (req, res) => {
+  const post_id  = req.body.id
+  try {
+    const { rows } = await db.query(`select *  from comment where post_id = $1 ;`, [post_id])
+    return res.status(200).json({
+      success: true,
+      comments: rows,
+    })
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({
+      error: error.message,
+    })
+
+  }
+}

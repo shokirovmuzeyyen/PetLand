@@ -40,22 +40,43 @@ function PostComment(props) {
     }});
   }
 
-  const handleChangePosts = (posts, comments) => {
-    console.log("posts are "+ posts);
-    console.log("comments are " + comments);
-
+  const handleChangePosts = (posts) => {
     setValues({
       ...values,
       ["posts"] : posts,
-      ["comments"] : comments,
     });
     values.posts = posts;
+  };
+
+  const handleChangeComments = (comments) => {
+    setValues({
+      ...values,
+      ["comments"] : comments,
+    });
     values.comments = comments;    
   };
+
+
+  const getComments= (post_id) => {
+    Axios.post('http://localhost:8000/api/comment',
+    {
+      id: post_id, 
+    }).then( response => {
+      if (response){
+      console.log(response);
+      handleChangeComments(response.data.comments);
+      }
+    }).catch(error => {
+      console.log("error in");
+      console.log(error.response);
+    });
+  }
+
 
   useEffect(()=> {
     const post_id = location.state;
     getData(post_id);
+    getComments(post_id);
    },[]);
   return (
       <div style={{ 

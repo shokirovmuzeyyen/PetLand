@@ -7,7 +7,7 @@ const {
   logout,
   createPost,
   getPosts,
- search, post
+ search, post, comment
 } = require('../controllers/auth')
 const {
   validationMiddleware,
@@ -25,5 +25,5 @@ router.post('/createPost', createPost)
 router.post('/get-posts', getPosts)
 router.post('/search', search)
 router.post('/post', post)
-
+router.post('/comment', comment)
 module.exports = router
