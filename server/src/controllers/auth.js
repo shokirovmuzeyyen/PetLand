@@ -92,10 +92,10 @@ exports.logout = async (req, res) => {
 /* Create Post add to the db */
 
 exports.createPost = async (req, res) => {
-  const { name, breed, age, location, p_image, extra_info, vaccinated, ts } = req.body
+  const { name, breed, age, location, p_image, extra_info, vaccinated, ts, user_id } = req.body
   try {
     await db.query('insert into post(name, breed, location, p_image, extra_info, vaccinated, ts, age, user_id ) values ($1,$2,$3,$4,$5,$6,$7,$8,$9);', 
-    [name, breed, location, p_image, extra_info, vaccinated, ts, age, 29])
+    [name, breed, location, p_image, extra_info, vaccinated, ts, age, user_id])
     return res.status(201).json({
       success: true,
       message: 'The post creation was successful.',
@@ -110,7 +110,7 @@ exports.createPost = async (req, res) => {
 
 exports.getPosts = async (req, res) => {
   try {
-    const { rows } = await db.query('select post_id, p_image, name, location, user_id, extra_info, ts, vaccinated, breed, age from post;')
+    const { rows } = await db.query('select post_id, p_image, name, location, user_id, extra_info, ts, vaccinated, breed, age from post ORDER BY ts DESC;')
     console.log("No error in server.")
 
     return res.status(200).json({
@@ -131,8 +131,6 @@ exports.search = async (req, res) => {
   console.log(search_breed)
   try {
     const { rows } = await db.query(`select * from post where breed like $1 and location like $2 and name like $3;`, [search_breed, search_location, search_name])
-    //console.log(rows)
-    //console.log("Query terminated.")
     return res.status(200).json({
       success: true,
       posts: rows
@@ -142,7 +140,6 @@ exports.search = async (req, res) => {
     return res.status(500).json({
       error: error.message,
     })
-
   }
 }
 
@@ -159,7 +156,6 @@ exports.post = async (req, res) => {
     return res.status(500).json({
       error: error.message,
     })
-
   }
 }
 

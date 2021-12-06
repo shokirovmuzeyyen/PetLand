@@ -28,10 +28,6 @@ const vaccinOptions = [
 
 function validateInfo(values){
   let errors ={}
-  /*console.log(values.breed);
-  console.log(values.name);
-  console.log(values.location);
-  console.log(values.extra_info);*/
   if (!values.breed === "Select"){
     errors.name = "Breed required"
   }
@@ -55,7 +51,7 @@ function validateInfo(values){
 }
 
 const CreatePost = () => {
-
+  const tokenString = sessionStorage.getItem('token');
   const [baseImage, setBaseImage] = useState("");
 
   const [values, setValues] = useState({
@@ -77,27 +73,15 @@ const CreatePost = () => {
 
   const handleChange = e => {
     const {name, value} = e.target;
-    console.log(name);
-    console.log(value);
     setValues({
       ...values,
       [name] : value
     });
   };
 
-  const handleChangeFile = e => {
-    const p_value = URL.createObjectURL(e.target.files[0]);
-    setValues({
-      ...values,
-      ["p_image"] : p_value
-    });
-  };
-
   const uploadImage = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
-    console.log("base image is");
-    console.log(base64);
     setBaseImage(base64);
   };
 
@@ -123,9 +107,7 @@ const CreatePost = () => {
       ...values,
       ["breed"] : p_value
     });
-    console.log(e);
     values.breed = e.value;
-    console.log(values.breed);
   };
 
   const handleChangeVaccin = e => {
@@ -134,9 +116,7 @@ const CreatePost = () => {
       ...values,
       ["vaccinated"] : p_value
     });
-    console.log(e);
     values.vaccinated = e.value;
-    console.log(values.vaccinated);
   }
 
   const handleSubmit = e => {
@@ -155,8 +135,8 @@ const CreatePost = () => {
       p_image: baseImage,
       extra_info: values.extra_info,
       vaccinated: values.vaccinated,
-      ts: new Date().toLocaleString() + ""
-
+      ts: new Date().toLocaleString() + "",
+      user_id: tokenString
     }).then(response => {
       setIsSubmitted(true);
       history.push("/feed");
