@@ -23,5 +23,10 @@ export const NavBarElements = [
     title: 'Search',
     url: '/search',
     cName: 'nav-links'
+  },
+  { 
+    title: 'Near by Me',
+    url: '/nearByMe',
+    cName: 'nav-links'
   }
 ]
