@@ -7,6 +7,7 @@ const {
   logout,
   createPost,
   getPosts,
+  getUserPosts,
  search, post, comment
 } = require('../controllers/auth')
 const {
@@ -26,4 +27,6 @@ router.post('/get-posts', getPosts)
 router.post('/search', search)
 router.post('/post', post)
 router.post('/comment', comment)
+router.post('/get-user-posts', getUserPosts)
+
 module.exports = router

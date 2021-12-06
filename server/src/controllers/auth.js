@@ -177,3 +177,19 @@ exports.comment = async (req, res) => {
 
   }
 }
+
+exports.getUserPosts = async (req, res) => {
+  const user_id = req.body.user_id
+  try {
+    const { rows } = await db.query(`select post_id, p_image, name, location, extra_info, ts, vaccinated, breed, age from post where user_id = $1;`, [user_id])
+    return res.status(200).json({
+      success: true,
+      posts: rows,
+    })
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({
+      error: error.message,
+    })
+  }
+}
