@@ -12,7 +12,8 @@ import useToken from './useToken';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import PostCard from './PostCard';
-
+import bg from './assets/green_bg.jpg';
+import NavBar from './components/NavBar/NavBar';
 
 export default function Search(){
   const [values, setValues] = useState({
@@ -23,7 +24,7 @@ export default function Search(){
   });
 
   async function getData(){
-    Axios.post(`${config.SERVER_URI}/api/search`,
+    Axios.post('http://localhost:8000/api/search',
     {
       search_breed: '%' + values.search_breed + '%',
       search_name: '%' + values.search_name + '%' ,
@@ -62,8 +63,16 @@ export default function Search(){
     });
   };
   return (
-    <div className="search">
-      <Form className="form" onSubmit={handleSubmit}>
+    <div style={{ 
+      backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat', height:"100%"}}>
+      <NavBar/>
+      
+      <Form onSubmit={handleSubmit}>
+      <div className="makeCenter">
+      <Row className="makeCenter">
+        <Col sm={3} className="my-1">
         <FormGroup>
           <label>Breed</label>
           <Input
@@ -73,6 +82,8 @@ export default function Search(){
               onChange={handleChange}
             />
         </FormGroup>
+        </Col>
+        <Col sm={3} className="my-1">
         <FormGroup>
           <label>Name</label>
         <Input
@@ -82,6 +93,8 @@ export default function Search(){
               onChange={handleChange}
             />
         </FormGroup>
+        </Col>
+        <Col sm={3} className="my-1">
         <FormGroup>
           <label>Location</label>
         <Input
@@ -91,8 +104,18 @@ export default function Search(){
               onChange={handleChange}
             />
         </FormGroup>
-        <Button className="makeCenter" variant="success" size="lg" type="submit">POST</Button>
+        </Col>
+        <Col sm={2} className="my-1">
+        <Button className="makeCenter" variant="success" size="lg" type="submit">Search</Button>
+        </Col>
+        </Row>
+        </div>
       </Form>
+      
+      <div style={{ 
+        backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat' }} className="makeCenter">
       <Row>
         {
           values.posts.length > 0 &&
@@ -113,5 +136,7 @@ export default function Search(){
         }
         </Row>
       </div>
+      </div>
+
   );
 }

@@ -84,7 +84,7 @@ function Register() {
 
   const register = () => {
     console.log("in");
-    Axios.post(`${config.SERVER_URI}/api/register`,
+    Axios.post('http://localhost:8000/api/register',
     {
       name:values.name,
       email:values.email,

@@ -12,22 +12,6 @@ import { config } from '../../config';
 import { useState } from 'react';
 
 class Navbar extends Component{
-  constructor(props) {
-    super(props);
-    console.log(this.props);
-     const { history } = this.props;
-    this.routingFunction = this.routingFunction.bind(this);
-    //this.logout() = this.logout.bind(this);
-  }
-
-  routingFunction = () => {
-    this.props.history.push({
-        pathname: '/feed',
-        //state: param
-    });
-  }
-
-
   state = {clicked: false}
   handleClick =() => {
     this.state({clicked: !this.state.clicked})
@@ -35,7 +19,7 @@ class Navbar extends Component{
 
   async logout(e) {
     console.log("out");
-    Axios.post(`${config.SERVER_URI}/api/logout`,
+    Axios.post('http://localhost:8000/api/logout',
     {
       logout: true,
     }).then((response) => {
@@ -45,11 +29,8 @@ class Navbar extends Component{
       else{
         console.log(response);
         sessionStorage.removeItem('token');
-        //history.push('/feed')
-        this.props.history.push("/feed");
       }
-
-    }).catch(error => {
+        }).catch(error => {
         console.log(error);
         let err = error.response;
         if (err){
@@ -65,7 +46,7 @@ class Navbar extends Component{
       <nav className="NavbarItems">
         <h1 className="navbar-logo">PetLand</h1>
         <div className="menu-icon" onClick={this.handleClick}>
-          <i className={this.state.clicked ? "fas fa-times" : "fas fa-bars"}></i>
+          <i className={this.state.clicked ? "fas fa-cat" : "fas fa-cat"}></i>
         </div>
         <ul className={this.state.clicked ? "nav-menu active" : "nav-menu"}>
           {NavBarElements.map((item, index) => {

@@ -5,7 +5,8 @@ import { config } from './config';
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
 import PostCard from './PostCard';
-import bg from './assets/trees.jpeg';
+import bg from './assets/green_bg.jpg';
+import {decode as base64_decode, encode as base64_encode} from 'base-64';
 import NavBar from './components/NavBar/NavBar';
 
 const Feed = () => {
@@ -30,6 +31,7 @@ const Feed = () => {
 
   const getRepo = () => {
     Axios.post(`${config.SERVER_URI}/api/get-posts`,
+
     //Axios.post('http://localhost:8000/api/get-posts',
     {
     }).then(res => {
@@ -69,6 +71,7 @@ const Feed = () => {
                   p_image={p.p_image}
                   vaccinated={p.vaccinated}
                   ts={p.ts}
+                  post_id = {p.post_id}
                 />
               </Col>
             ))
