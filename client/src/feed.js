@@ -55,7 +55,7 @@ const Feed = () => {
     <div>
       <NavBar/>
       <div style={{ 
-        backgroundImage: `url(${bg})`, padding:"10%"}} className="makeCenter">
+        backgroundImage: `url(${bg})`, padding:"5%"}} className="makeCenter">
         
           <Row>
           {

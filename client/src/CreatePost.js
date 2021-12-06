@@ -192,7 +192,7 @@ const CreatePost = () => {
         <Card border="danger" bg={"light".toLowerCase()}
           text={"light" === 'light' ? 'dark' : 'white'}
           style={{ width: '18rem' }}
-          className="mb-2" style={{ width: '60rem' }}>
+          className="mb-2" style={{ width: '50rem', height: '44rem' }}>
           <Form className="form" onSubmit={handleSubmit}>
           <Card.Img variant="top" src="" />
           <Card.Body>
@@ -261,13 +261,15 @@ const CreatePost = () => {
                   <img className="photo" src={baseImage}></img>
                 </div>
               </Col>
-            </Row>
+            
             <Row >
-              <Col md={{offset: 8 }}>
+              <Col >
                 <Button className="makeCenter" variant="danger" size="lg" onClick={()=> {history.push("/feed");}} style={{marginRight:10}}>CANCEL</Button>
+              </Col>
+              <Col >
                 <Button className="makeCenter" variant="success" size="lg" type="submit">POST</Button>
               </Col>
-            </Row>
+            </Row></Row>
           <Card.Text>
           </Card.Text>
             
