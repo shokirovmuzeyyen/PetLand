@@ -19,7 +19,7 @@ class Navbar extends Component{
 
   async logout(e) {
     console.log("out");
-    Axios.post('http://localhost:8000/api/logout',
+    Axios.post(`${config.SERVER_URI}/api/logout`,
     {
       logout: true,
     }).then((response) => {

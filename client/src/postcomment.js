@@ -18,7 +18,7 @@ function PostComment(props) {
     
     
   const getData= (post_id) => {
-    Axios.post('http://localhost:8000/api/post',
+    Axios.post(`${config.SERVER_URI}/api/post`,
     {
       id: post_id, 
     }).then( response => {
@@ -58,7 +58,7 @@ function PostComment(props) {
 
 
   const getComments= (post_id) => {
-    Axios.post('http://localhost:8000/api/comment',
+    Axios.post(`${config.SERVER_URI}/api/comment`,
     {
       id: post_id, 
     }).then( response => {
