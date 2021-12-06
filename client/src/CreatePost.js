@@ -13,11 +13,8 @@ import {
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Select from 'react-select'
-import bg from './assets/post_bg.png';
-import bg2 from './assets/post_bg2.jpeg';
 import { config } from './config';
-import {decode as base64_decode, encode as base64_encode} from 'base-64';
-
+import NavBar from './components/NavBar/NavBar';
 const breedOptions = [
   { value: 'cat', label: 'Cat' },
   { value: 'dog', label: 'Dog' },
