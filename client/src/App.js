@@ -10,6 +10,8 @@ import CreatePost from './CreatePost';
 import Search from './search';
 import PostComment  from './postcomment';
 import {BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import MyPosts from './myPosts';
+
 //run npm install react-router-dom --save
 //npm install --save bootstrap
 // npm install axios
@@ -62,6 +64,8 @@ function App() {
       <Route path="/profile" component={Profile} />
       <Route path="/search" component={Search} />
       <Route path="/postcomment" component={PostComment} />
+      <Route path="/myPosts" component={MyPosts} />
+
       </Switch>
     </Router>
   );

@@ -193,3 +193,36 @@ exports.getUserPosts = async (req, res) => {
     })
   }
 }
+
+exports.getUserInfo = async (req, res) => {
+  const user_id = req.body.user_id
+  try {
+    const { rows } = await db.query(`select name, email, phone, address from users where user_id = $1;`, [user_id])
+    return res.status(200).json({
+      success: true,
+      info: rows,
+    })
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({
+      error: error.message,
+    })
+  }
+}
+
+exports.updateUser = async (req, res) => {
+  const { name, email, address, phone, user_id } = req.body
+  try {
+    const { rows } = await db.query(`update users set name = $1, email = $2, phone = $4, address = $3 where user_id = $5;`, [name, email, address, phone, user_id])
+    return res.status(200).json({
+      success: true,
+      info: rows,
+    })
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({
+      error: error.message,
+    })
+  }
+}
+

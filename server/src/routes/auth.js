@@ -8,6 +8,8 @@ const {
   createPost,
   getPosts,
   getUserPosts,
+  getUserInfo,
+  updateUser,
  search, post, comment
 } = require('../controllers/auth')
 const {
@@ -28,5 +30,7 @@ router.post('/search', search)
 router.post('/post', post)
 router.post('/comment', comment)
 router.post('/get-user-posts', getUserPosts)
+router.post('/get-user-info', getUserInfo)
+router.post('/update-user', updateUser)
 
 module.exports = router
