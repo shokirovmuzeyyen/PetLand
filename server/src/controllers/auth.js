@@ -159,8 +159,6 @@ exports.post = async (req, res) => {
   }
 }
 
-
-
 exports.comment = async (req, res) => {
   const post_id  = req.body.id
   try {
@@ -175,5 +173,24 @@ exports.comment = async (req, res) => {
       error: error.message,
     })
 
+  }
+}
+
+exports.nearByMe = async (req, res) => {
+  console.log("before req.body")
+  const { user_id } = req.body
+  console.log("after req.body")
+  console.log(user_id)
+  try {
+    const { rows } = await db.query(`SELECT p.p_image, p.location, p.extra_info, p.name, p.breed, p.ts, p.vaccinated, p.age FROM users u , post p WHERE u.user_id = $1 and u.address = p.location;`, [user_id])
+    return res.status(200).json({
+      success: true,
+      posts: rows
+    })
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({
+      error: error.message,
+    })
   }
 }
