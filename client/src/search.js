@@ -66,6 +66,12 @@ export default function Search(){
     { value: "ZEYTİNBURNU", label: "ZEYTİNBURNU" }
   ]
 
+  const breedOptions = [
+    { value: 'cat', label: 'Cat' },
+    { value: 'dog', label: 'Dog' },
+    { value: 'bird', label: 'Bird' }
+  ]
+
   const handleChangeAddress = e => {
     const p_value = e.value;
     setValues({
@@ -73,6 +79,15 @@ export default function Search(){
       ["search_location"] : p_value
     });
     values.search_location = e.value;
+  };
+
+  const handleChangeBreed = e => {
+    const p_value = e.value;
+    setValues({
+      ...values,
+      ["breed"] : p_value
+    });
+    values.breed = e.value;
   };
 
   async function getData(){
@@ -122,42 +137,36 @@ export default function Search(){
       <NavBar/>
       
       <Form onSubmit={handleSubmit}>
-      <div className="makeCenter">
-      <Row className="makeCenter">
-        <Col sm={3} className="my-1">
-        <FormGroup>
-          <label>Breed</label>
+        <Row className="makeCenter">
+          <Col md={3} >
+          <FormGroup>
+            <label>Breed</label>
+            <Select options={breedOptions} value={breedOptions[values.breed]}
+              onChange={handleChangeBreed}></Select>
+          </FormGroup>
+          </Col>
+          <Col md={3} className="my-1">
+          <FormGroup>
+            <label>Name</label>
           <Input
-              name="search_breed"
-              id="search_breed"
-              value={values.search_breed}
-              onChange={handleChange}
-            />
-        </FormGroup>
-        </Col>
-        <Col sm={3} className="my-1">
-        <FormGroup>
-          <label>Name</label>
-        <Input
-              name="search_name"
-              id="search_name"
-              value={values.search_name}
-              onChange={handleChange}
-            />
-        </FormGroup>
-        </Col>
-        <Col sm={3} className="my-1">
-        <FormGroup>
-          <label>Location</label>
-        <Select options={Districts} value={Districts[values.search_location]}
-                  onChange={handleChangeAddress}></Select>
-        </FormGroup>
-        </Col>
-        <Col sm={2} className="my-1">
-        <Button className="makeCenter" variant="success" size="lg" type="submit">Search</Button>
-        </Col>
+                name="search_name"
+                id="search_name"
+                value={values.search_name}
+                onChange={handleChange}
+              />
+          </FormGroup>
+          </Col>
+          <Col md={3} className="my-1">
+          <FormGroup>
+            <label>Location</label>
+          <Select options={Districts} value={Districts[values.search_location]}
+                    onChange={handleChangeAddress}></Select>
+          </FormGroup>
+          </Col>
+          <Col md={2} className="my-1">
+          <Button className="makeCenter" variant="success" size="lg" type="submit">Search</Button>
+          </Col>
         </Row>
-        </div>
       </Form>
       
       <div style={{ 

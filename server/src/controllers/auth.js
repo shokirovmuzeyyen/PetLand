@@ -127,9 +127,7 @@ exports.getPosts = async (req, res) => {
 }
 
 exports.search = async (req, res) => {
-  console.log(req.body)
   const { search_name, search_breed, search_location } = req.body
-  console.log(search_breed)
   try {
     const { rows } = await db.query(`select * from post p where p.breed like $1 and p.location like $2 and p.name like $3;`, [search_breed, search_location, search_name])
     return res.status(200).json({

@@ -42,8 +42,8 @@ const PostCard = ({ post_id, name, breed, age, location, extra_info, p_image, va
               <Col className="makeCenter"><label id="age" >{age}</label></Col>
             </Row>
             <Row>
-              <Col><label className="postTitle">Location:</label></Col>
-              <Col className="makeCenter"><label id="location" >{location}</label></Col>
+              <Col><label className="postTitle" >Location:</label></Col>
+              <Col className="makeCenter"><label id="location" style={{textTransform: 'uppercase'}}>{location}</label></Col>
             </Row>
             <Row>
               <Col><label className="postTitle">Vaccinated:</label></Col>
