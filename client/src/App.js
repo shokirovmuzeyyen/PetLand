@@ -11,15 +11,13 @@ import Search from './search';
 import PostComment  from './postcomment';
 import {BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import MyPosts from './myPosts';
-
+import NearByMe from './nearByMe';
 //run npm install react-router-dom --save
 //npm install --save bootstrap
 // npm install axios
 // npm install react-scroll
 
 import useToken from './useToken';
-import { config } from './config';
-
 
 function App() {
   const { token, setToken } = useToken();
@@ -65,7 +63,7 @@ function App() {
       <Route path="/search" component={Search} />
       <Route path="/postcomment" component={PostComment} />
       <Route path="/myPosts" component={MyPosts} />
-
+      <Route path="/nearByMe" component={NearByMe} />
       </Switch>
     </Router>
   );

@@ -10,7 +10,7 @@ const {
   getUserPosts,
   getUserInfo,
   updateUser,
- search, post, comment
+ search, post, comment, nearByMe
 } = require('../controllers/auth')
 const {
   validationMiddleware,
@@ -32,5 +32,6 @@ router.post('/comment', comment)
 router.post('/get-user-posts', getUserPosts)
 router.post('/get-user-info', getUserInfo)
 router.post('/update-user', updateValidation, validationMiddleware, updateUser)
+router.post('/nearByMe', nearByMe)
 
 module.exports = router

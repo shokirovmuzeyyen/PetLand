@@ -14,6 +14,7 @@ import Col from 'react-bootstrap/Col'
 import PostCard from './PostCard';
 import bg from './assets/green_bg.jpg';
 import NavBar from './components/NavBar/NavBar';
+import Select from 'react-select'
 
 export default function Search(){
   const [values, setValues] = useState({
@@ -22,13 +23,79 @@ export default function Search(){
     search_location: '',
     search_breed: ''
   });
+  
+  const Districts = [
+    { value: "ADALAR", label: "ADALAR" },
+    { value: "ARNAVUTKÖY", label: "ARNAVUTKÖY" },
+    { value: "ATAŞEHİR", label: "ATAŞEHİR" },
+    { value: "AVCILAR", label: "AVCILAR" },
+    { value: "BAĞCILAR", label: "BAĞCILAR" },
+    { value: "BAHÇELİEVLER", label: "BAHÇELİEVLER" },
+    { value: "BAKIRKÖY", label: "BAKIRKÖY" },
+    { value: "BAŞAKŞEHİR", label: "BAŞAKŞEHİR" },
+    { value: "BAYRAMPAŞA", label: "BAYRAMPAŞA" },
+    { value: "BEYKOZ", label: "BEYKOZ" },
+    { value: "BEYLİKDÜZÜ", label: "BEYLİKDÜZÜ" },
+    { value: "BEYOĞLU", label: "BEYOĞLU" },
+    { value: "BÜYÜKÇEKMECE", label: "BÜYÜKÇEKMECE" },
+    { value: "ÇATALCA", label: "ÇATALCA" },
+    { value: "ÇEKMEKÖY", label: "ÇEKMEKÖY" },
+    { value: "ESENLER", label: "ESENLER" },
+    { value: "ESENYURT", label: "ESENYURT" },
+    { value: "EYÜPSULTAN", label: "EYÜPSULTAN" },
+    { value: "FATİH", label: "FATİH" },
+    { value: "GAZİOSMANPAŞA", label: "GAZİOSMANPAŞA" },
+    { value: "GÜNGÖREN", label: "GÜNGÖREN" },
+    { value: "KADIKÖY", label: "KADIKÖY" },
+    { value: "KAĞITHANE", label: "KAĞITHANE" },
+    { value: "KARTAL", label: "KARTAL" },
+    { value: "KÜÇÜKÇEKMECE", label: "KÜÇÜKÇEKMECE" },
+    { value: "MALTEPE", label: "MALTEPE" },
+    { value: "KÜÇÜKÇEKMECE", label: "KÜÇÜKÇEKMECE" },
+    { value: "PENDİK", label: "PENDİK" },
+    { value: "SANCAKTEPE", label: "SANCAKTEPE" },
+    { value: "SARIYER", label: "SARIYER" },
+    { value: "SİLİVRİ", label: "SİLİVRİ" },
+    { value: "SULTANBEYLİ", label: "SULTANBEYLİ" },
+    { value: "SULTANGAZİ", label: "SULTANGAZİ" },
+    { value: "ŞİLE", label: "ŞİLE" },
+    { value: "ŞİŞLİ", label: "ŞİŞLİ" },
+    { value: "TUZLA", label: "TUZLA" },
+    { value: "ÜMRANİYE", label: "ÜMRANİYE" },
+    { value: "ÜSKÜDAR", label: "ÜSKÜDAR" },
+    { value: "ZEYTİNBURNU", label: "ZEYTİNBURNU" }
+  ]
+
+  const breedOptions = [
+    { value: 'cat', label: 'Cat' },
+    { value: 'dog', label: 'Dog' },
+    { value: 'bird', label: 'Bird' }
+  ]
+
+  const handleChangeAddress = e => {
+    const p_value = e.value;
+    setValues({
+      ...values,
+      ["search_location"] : p_value
+    });
+    values.search_location = e.value;
+  };
+
+  const handleChangeBreed = e => {
+    const p_value = e.value;
+    setValues({
+      ...values,
+      ["breed"] : p_value
+    });
+    values.breed = e.value;
+  };
 
   async function getData(){
     Axios.post(`${config.SERVER_URI}/api/search`,
     {
-      search_breed: '%' + values.search_breed + '%',
-      search_name: '%' + values.search_name + '%' ,
-      search_location: '%' + values.search_location + '%' 
+      search_breed: '%' + (values.search_breed).toLowerCase() + '%',
+      search_name: '%' + (values.search_name).toUpperCase() + '%' ,
+      search_location: '%' + (values.search_location).toLowerCase() + '%' 
     }).then( response => {
       console.log(response);
       handleChangePosts(response.data.posts);
@@ -70,46 +137,36 @@ export default function Search(){
       <NavBar/>
       
       <Form onSubmit={handleSubmit}>
-      <div className="makeCenter">
-      <Row className="makeCenter">
-        <Col sm={3} className="my-1">
-        <FormGroup>
-          <label>Breed</label>
+        <Row className="makeCenter">
+          <Col md={3} >
+          <FormGroup>
+            <label>Breed</label>
+            <Select options={breedOptions} value={breedOptions[values.breed]}
+              onChange={handleChangeBreed}></Select>
+          </FormGroup>
+          </Col>
+          <Col md={3} className="my-1">
+          <FormGroup>
+            <label>Name</label>
           <Input
-              name="search_breed"
-              id="search_breed"
-              value={values.search_breed}
-              onChange={handleChange}
-            />
-        </FormGroup>
-        </Col>
-        <Col sm={3} className="my-1">
-        <FormGroup>
-          <label>Name</label>
-        <Input
-              name="search_name"
-              id="search_name"
-              value={values.search_name}
-              onChange={handleChange}
-            />
-        </FormGroup>
-        </Col>
-        <Col sm={3} className="my-1">
-        <FormGroup>
-          <label>Location</label>
-        <Input
-              name="search_location"
-              id="search_location"
-              value={values.search_location}
-              onChange={handleChange}
-            />
-        </FormGroup>
-        </Col>
-        <Col sm={2} className="my-1">
-        <Button className="makeCenter" variant="success" size="lg" type="submit">Search</Button>
-        </Col>
+                name="search_name"
+                id="search_name"
+                value={values.search_name}
+                onChange={handleChange}
+              />
+          </FormGroup>
+          </Col>
+          <Col md={3} className="my-1">
+          <FormGroup>
+            <label>Location</label>
+          <Select options={Districts} value={Districts[values.search_location]}
+                    onChange={handleChangeAddress}></Select>
+          </FormGroup>
+          </Col>
+          <Col md={2} className="my-1">
+          <Button className="makeCenter" variant="success" size="lg" type="submit">Search</Button>
+          </Col>
         </Row>
-        </div>
       </Form>
       
       <div style={{ 
