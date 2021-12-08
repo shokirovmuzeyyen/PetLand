@@ -26,9 +26,9 @@ export default function Search(){
   async function getData(){
     Axios.post(`${config.SERVER_URI}/api/search`,
     {
-      search_breed: '%' + values.search_breed + '%',
-      search_name: '%' + values.search_name + '%' ,
-      search_location: '%' + values.search_location + '%' 
+      search_breed: '%' + (values.search_breed).toLowerCase() + '%',
+      search_name: '%' + (values.search_name).toUpperCase() + '%' ,
+      search_location: '%' + (values.search_location).toLowerCase() + '%' 
     }).then( response => {
       console.log(response);
       handleChangePosts(response.data.posts);

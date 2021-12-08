@@ -16,14 +16,16 @@ const NearByMe = () => {
   });
   const tokenString = sessionStorage.getItem('token');
   async function getData(){
-      console.log("in getData()");
-    Axios.post(`${config.SERVER_URI}/api/nearByMe`,
-    {
-      user_id: tokenString
-    }).then( response => {
-        console.log("the data is:");
-      console.log(response);
-      handleChangePosts(response.data.posts);
+    console.log("in getData()");
+  
+    Axios.post('http://localhost:8000/api/nearByMe',
+  //Axios.post(`${config.SERVER_URI}/api/nearByMe`,
+  {
+    user_id: tokenString
+  }).then( response => {
+      console.log("the data is:");
+    console.log(response);
+    handleChangePosts(response.data.posts);
     }).catch(error => {
       console.log(error.response);
       let err = error.response.data.errors[0].msg;
@@ -52,7 +54,8 @@ const NearByMe = () => {
             backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat' }} className="makeCenter">
-        <Row>
+        <Row style={{marginTop: "3%"}}>
+            <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'white', fontSize:"18px"}}>{values.posts.length > 0 ?"You are seeing the post that are near by you: " + values.posts[0].location:"Unfortunately, we could not find any post close to you."}</label>
             {
             values.posts.length > 0 &&
             values.posts.map((p, i) => (

@@ -65,6 +65,56 @@ const CreatePost = () => {
     ts: ''
   });
 
+  const Districts = [
+    { value: "ADALAR", label: "ADALAR" },
+    { value: "ARNAVUTKÖY", label: "ARNAVUTKÖY" },
+    { value: "ATAŞEHİR", label: "ATAŞEHİR" },
+    { value: "AVCILAR", label: "AVCILAR" },
+    { value: "BAĞCILAR", label: "BAĞCILAR" },
+    { value: "BAHÇELİEVLER", label: "BAHÇELİEVLER" },
+    { value: "BAKIRKÖY", label: "BAKIRKÖY" },
+    { value: "BAŞAKŞEHİR", label: "BAŞAKŞEHİR" },
+    { value: "BAYRAMPAŞA", label: "BAYRAMPAŞA" },
+    { value: "BEYKOZ", label: "BEYKOZ" },
+    { value: "BEYLİKDÜZÜ", label: "BEYLİKDÜZÜ" },
+    { value: "BEYOĞLU", label: "BEYOĞLU" },
+    { value: "BÜYÜKÇEKMECE", label: "BÜYÜKÇEKMECE" },
+    { value: "ÇATALCA", label: "ÇATALCA" },
+    { value: "ÇEKMEKÖY", label: "ÇEKMEKÖY" },
+    { value: "ESENLER", label: "ESENLER" },
+    { value: "ESENYURT", label: "ESENYURT" },
+    { value: "EYÜPSULTAN", label: "EYÜPSULTAN" },
+    { value: "FATİH", label: "FATİH" },
+    { value: "GAZİOSMANPAŞA", label: "GAZİOSMANPAŞA" },
+    { value: "GÜNGÖREN", label: "GÜNGÖREN" },
+    { value: "KADIKÖY", label: "KADIKÖY" },
+    { value: "KAĞITHANE", label: "KAĞITHANE" },
+    { value: "KARTAL", label: "KARTAL" },
+    { value: "KÜÇÜKÇEKMECE", label: "KÜÇÜKÇEKMECE" },
+    { value: "MALTEPE", label: "MALTEPE" },
+    { value: "KÜÇÜKÇEKMECE", label: "KÜÇÜKÇEKMECE" },
+    { value: "PENDİK", label: "PENDİK" },
+    { value: "SANCAKTEPE", label: "SANCAKTEPE" },
+    { value: "SARIYER", label: "SARIYER" },
+    { value: "SİLİVRİ", label: "SİLİVRİ" },
+    { value: "SULTANBEYLİ", label: "SULTANBEYLİ" },
+    { value: "SULTANGAZİ", label: "SULTANGAZİ" },
+    { value: "ŞİLE", label: "ŞİLE" },
+    { value: "ŞİŞLİ", label: "ŞİŞLİ" },
+    { value: "TUZLA", label: "TUZLA" },
+    { value: "ÜMRANİYE", label: "ÜMRANİYE" },
+    { value: "ÜSKÜDAR", label: "ÜSKÜDAR" },
+    { value: "ZEYTİNBURNU", label: "ZEYTİNBURNU" }
+  ]
+  const handleChangeAddress = e => {
+      const p_value = e.value;
+      setValues({
+        ...values,
+        ["location"] : p_value
+      });
+      values.location = e.value;
+    };
+
   const [errors, setErrors] = useState('');
   const [backend_error, setbackendError] = useState('');
 
@@ -128,9 +178,9 @@ const CreatePost = () => {
   const createPost = () => {
     Axios.post(`${config.SERVER_URI}/api/createPost`,
     {
-      name: values.name,
+      name: values.name.toUpperCase(),
       breed: values.breed,
-      location: values.location,
+      location: values.location.toLowerCase(),
       age: values.age,
       p_image: baseImage,
       extra_info: values.extra_info,
@@ -209,13 +259,8 @@ const CreatePost = () => {
                 </FormGroup>
                 <FormGroup>
                   <Label className="createPostTitle makeCenter">Location</Label>
-                  <Input
-                    type="text"
-                    name="location"
-                    id="location"
-                    value={values.location}
-                    onChange={handleChange}
-                  />
+                  <Select options={Districts} value={Districts[values.location]}
+                  onChange={handleChangeAddress}></Select>
                 </FormGroup>
                 <FormGroup>
                   <Label className="createPostTitle makeCenter">Vaccination Status</Label>
