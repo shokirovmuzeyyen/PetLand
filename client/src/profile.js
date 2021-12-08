@@ -28,7 +28,7 @@ function validateInfo(values) {
   else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)){
     errors.email = "Invalid email"
   }
-  
+
   if (!values.address.trim()){
     errors.address = "Cannot leave address empty"
   }
@@ -138,7 +138,7 @@ const Settings = () => {
     {
       name: values.name,
       email: values.email,
-      address: values.address,
+      address: values.address.toLowerCase(),
       phone: values.phone,
       user_id: tokenString
     }).then(response => {
