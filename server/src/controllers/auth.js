@@ -93,6 +93,7 @@ exports.logout = async (req, res) => {
 
 exports.createPost = async (req, res) => {
   const { name, breed, age, location, p_image, extra_info, vaccinated, ts, user_id } = req.body
+  console.log(location)
   try {
     await db.query('insert into post(name, breed, location, p_image, extra_info, vaccinated, ts, age, user_id ) values ($1,$2,$3,$4,$5,$6,$7,$8,$9);', 
     [name, breed, location, p_image, extra_info, vaccinated, ts, age, user_id])
@@ -130,7 +131,7 @@ exports.search = async (req, res) => {
   const { search_name, search_breed, search_location } = req.body
   console.log(search_breed)
   try {
-    const { rows } = await db.query(`select * from post p where p.breed like $1 and p.location like $2 and LOWER(p.name) like $3;`, [search_breed, search_location, search_name])
+    const { rows } = await db.query(`select * from post p where p.breed like $1 and p.location like $2 and p.name like $3;`, [search_breed, search_location, search_name])
     return res.status(200).json({
       success: true,
       posts: rows

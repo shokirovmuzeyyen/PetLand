@@ -106,7 +106,7 @@ const CreatePost = () => {
     { value: "ÜSKÜDAR", label: "ÜSKÜDAR" },
     { value: "ZEYTİNBURNU", label: "ZEYTİNBURNU" }
   ]
-  const handleChangeAddress = e => {
+  const handleChangeLoc = e => {
       const p_value = e.value;
       setValues({
         ...values,
@@ -178,9 +178,9 @@ const CreatePost = () => {
   const createPost = () => {
     Axios.post(`${config.SERVER_URI}/api/createPost`,
     {
-      name: values.name.toUpperCase(),
+      name: (values.name).toUpperCase(),
       breed: values.breed,
-      location: values.location.toLowerCase(),
+      location: (values.location).toLowerCase(),
       age: values.age,
       p_image: baseImage,
       extra_info: values.extra_info,
@@ -259,8 +259,8 @@ const CreatePost = () => {
                 </FormGroup>
                 <FormGroup>
                   <Label className="createPostTitle makeCenter">Location</Label>
-                  <Select options={Districts} value={Districts[values.location]}
-                  onChange={handleChangeAddress}></Select>
+                  <Select options={Districts} value={Districts[(values.location).toUpperCase()]}
+                  onChange={handleChangeLoc}></Select>
                 </FormGroup>
                 <FormGroup>
                   <Label className="createPostTitle makeCenter">Vaccination Status</Label>

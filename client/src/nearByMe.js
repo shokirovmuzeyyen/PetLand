@@ -18,8 +18,8 @@ const NearByMe = () => {
   async function getData(){
     console.log("in getData()");
   
-    Axios.post('http://localhost:8000/api/nearByMe',
-  //Axios.post(`${config.SERVER_URI}/api/nearByMe`,
+   // Axios.post('http://localhost:8000/api/nearByMe',
+  Axios.post(`${config.SERVER_URI}/api/nearByMe`,
   {
     user_id: tokenString
   }).then( response => {
