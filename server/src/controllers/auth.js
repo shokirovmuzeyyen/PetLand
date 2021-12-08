@@ -130,7 +130,7 @@ exports.search = async (req, res) => {
   const { search_name, search_breed, search_location } = req.body
   console.log(search_breed)
   try {
-    const { rows } = await db.query(`select * from post where breed like $1 and location like $2 and name like $3;`, [search_breed, search_location, search_name])
+    const { rows } = await db.query(`select * from post p where p.breed like $1 and p.location like $2 and LOWER(p.name) like $3;`, [search_breed, search_location, search_name])
     return res.status(200).json({
       success: true,
       posts: rows
@@ -159,8 +159,6 @@ exports.post = async (req, res) => {
   }
 }
 
-
-
 exports.comment = async (req, res) => {
   const post_id  = req.body.id
   try {
@@ -175,5 +173,21 @@ exports.comment = async (req, res) => {
       error: error.message,
     })
 
+  }
+}
+
+exports.nearByMe = async (req, res) => {
+  const { user_id } = req.body
+  try {
+    const { rows } = await db.query(`SELECT p.p_image, p.location, p.extra_info, p.name, p.breed, p.ts, p.vaccinated, p.age, u.address FROM users u , post p WHERE u.user_id = $1 and u.address = p.location;`, [user_id])
+    return res.status(200).json({
+      success: true,
+      posts: rows
+    })
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({
+      error: error.message,
+    })
   }
 }
