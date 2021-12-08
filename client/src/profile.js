@@ -16,24 +16,30 @@ import { config } from './config';
 import NavBar from './components/NavBar/NavBar';
 
 function validateInfo(values) {
+  console.log("validate")
   let errors = {}
   if (!values.name.trim()){
     errors.name = "Cannot leave name empty"
   }
   if (!values.email.trim()){
-    errors.email = "Email required"
+    errors.email = "Cannot leave email empty"
   }
   else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)){
-    errors.email = "Email address is invalid"
+    errors.email = "Invalid email"
   }
 
   if (!values.phone.trim()){
     errors.phone = "Cannot leave phone empty"
   }
+
+  if (!values.address.trim()){
+    errors.address = "Cannot leave address empty"
+  }
+
   return errors;
 }
 
-const Profile = () => {
+const Settings = () => {
   const tokenString = sessionStorage.getItem('token');
 
   const [values, setValues] = useState({
@@ -43,7 +49,7 @@ const Profile = () => {
     phone: '',
   });
 
-  const [setbackendError] = useState('');
+  const [backend_error, setbackendError] = useState('');
   const [errors, setErrors] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const history = useHistory();
@@ -74,6 +80,9 @@ const Profile = () => {
   const handleSubmit = e => {
     e.preventDefault();
     setErrors(validateInfo(values))
+    if (errors === {}) {
+      console.log("no error")
+    }
     updateUser();
   }
 
@@ -153,6 +162,7 @@ const Profile = () => {
                     value={values.name}
                     onChange= {handleChange}
                   />
+                  {errors.name && <p className="text-danger">{errors.name}</p>}
                 </FormGroup>
                 <FormGroup>
                   <Label className="createPostTitle makeCenter">Email</Label>
@@ -163,6 +173,7 @@ const Profile = () => {
                     value={values.email}
                     onChange={handleChange}
                   />
+                  {errors.email && <p className="text-danger">{errors.email}</p>}
                 </FormGroup>
                 <FormGroup>
                   <Label className="createPostTitle makeCenter">Address</Label>
@@ -173,6 +184,7 @@ const Profile = () => {
                     value={values.address}
                     onChange={handleChange}
                   />
+                  {errors.address && <p className="text-danger">{errors.address}</p>}
                 </FormGroup>
                 <FormGroup>
                   <Label className="createPostTitle makeCenter">Phone</Label>
@@ -183,15 +195,17 @@ const Profile = () => {
                     value={values.phone}
                     onChange={handleChange}
                   />
+                  {errors.phone && <p className="text-danger">{errors.phone}</p>}
                 </FormGroup>
               </Col>            
-            <Row >
+            <Row className="justify-content-evenly">
               <Col >
-                <Button className="makeCenter" variant="danger" size="lg" onClick={()=> {history.push("/feed");}} style={{marginRight:10}}>CANCEL</Button>
+                <Button variant="danger" size="lg" onClick={()=> {history.push("/feed");}}>CANCEL</Button>
               </Col>
               <Col >
-                <Button className="makeCenter" variant="success" size="lg" type="submit">UPDATE</Button>
+                <Button variant="success" size="lg" type="submit">UPDATE</Button>
               </Col>
+              {backend_error && <h3 className="text-black text-center">{backend_error}</h3>}
             </Row></Row>
           <Card.Text>
           </Card.Text>
@@ -203,4 +217,4 @@ const Profile = () => {
   );
 }
 
-export default Profile
+export default Settings

@@ -15,7 +15,7 @@ const {
 const {
   validationMiddleware,
 } = require('../middlewares/validations-middleware')
-const { registerValidation, loginValidation } = require('../validators/auth')
+const { registerValidation, loginValidation, updateValidation } = require('../validators/auth')
 const { userAuth } = require('../middlewares/auth-middleware')
 const router = Router()
 
@@ -31,6 +31,6 @@ router.post('/post', post)
 router.post('/comment', comment)
 router.post('/get-user-posts', getUserPosts)
 router.post('/get-user-info', getUserInfo)
-router.post('/update-user', updateUser)
+router.post('/update-user', updateValidation, validationMiddleware, updateUser)
 
 module.exports = router

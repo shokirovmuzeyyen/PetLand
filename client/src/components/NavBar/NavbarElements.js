@@ -10,8 +10,8 @@ export const NavBarElements = [
     cName: 'nav-links'
   },
   {
-    title: 'Profile',
-    url: '/profile',
+    title: 'Settings',
+    url: '/settings',
     cName: 'nav-links'
   },
   {
