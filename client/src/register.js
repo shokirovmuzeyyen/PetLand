@@ -172,10 +172,6 @@ function Register() {
       }});
   };
 
- 
-
- 
-
   return (
     <div className="App">
       <Card style={{height:"100vh", overflow: "auto"}} className="bg-dark">
