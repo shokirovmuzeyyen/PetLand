@@ -7,12 +7,15 @@ const {
   logout,
   createPost,
   getPosts,
+  getUserPosts,
+  getUserInfo,
+  updateUser,
  search, post, comment, nearByMe
 } = require('../controllers/auth')
 const {
   validationMiddleware,
 } = require('../middlewares/validations-middleware')
-const { registerValidation, loginValidation } = require('../validators/auth')
+const { registerValidation, loginValidation, updateValidation } = require('../validators/auth')
 const { userAuth } = require('../middlewares/auth-middleware')
 const router = Router()
 
@@ -26,5 +29,9 @@ router.post('/get-posts', getPosts)
 router.post('/search', search)
 router.post('/post', post)
 router.post('/comment', comment)
+router.post('/get-user-posts', getUserPosts)
+router.post('/get-user-info', getUserInfo)
+router.post('/update-user', updateValidation, validationMiddleware, updateUser)
 router.post('/nearByMe', nearByMe)
+
 module.exports = router

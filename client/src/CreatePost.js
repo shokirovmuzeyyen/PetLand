@@ -226,7 +226,7 @@ const CreatePost = () => {
           <Form className="form" onSubmit={handleSubmit}>
           <Card.Img variant="top" src="" />
           <Card.Body>
-            <Card.Title className="makeCenter" style={{fontSize:28}}>Let's find a home for our pet friends !!</Card.Title>
+            <Card.Title className="makeCenter" style={{fontSize:28}}>Let's find a home for our pet friend!</Card.Title>
             <br/>
             <Row>
               <Col>

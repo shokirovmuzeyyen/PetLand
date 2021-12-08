@@ -5,11 +5,12 @@ import Register from './register';
 import Welcome from './welcome';
 import Feed from './feed';
 import DM from './dm';
-import Profile from './profile';
+import Settings from './profile';
 import CreatePost from './CreatePost';
 import Search from './search';
 import PostComment  from './postcomment';
 import {BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import MyPosts from './myPosts';
 import NearByMe from './nearByMe';
 //run npm install react-router-dom --save
 //npm install --save bootstrap
@@ -58,9 +59,10 @@ function App() {
       <Route path="/feed" component={Feed} />
       <Route path="/createPost" component={CreatePost} />
       <Route path="/dm" component={DM} />
-      <Route path="/profile" component={Profile} />
+      <Route path="/settings" component={Settings} />
       <Route path="/search" component={Search} />
       <Route path="/postcomment" component={PostComment} />
+      <Route path="/myPosts" component={MyPosts} />
       <Route path="/nearByMe" component={NearByMe} />
       </Switch>
     </Router>
