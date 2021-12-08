@@ -14,6 +14,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { config } from './config';
 import NavBar from './components/NavBar/NavBar';
+import Select from 'react-select'
 
 function validateInfo(values) {
   console.log("validate")
@@ -27,11 +28,7 @@ function validateInfo(values) {
   else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)){
     errors.email = "Invalid email"
   }
-
-  if (!values.phone.trim()){
-    errors.phone = "Cannot leave phone empty"
-  }
-
+  
   if (!values.address.trim()){
     errors.address = "Cannot leave address empty"
   }
@@ -53,6 +50,47 @@ const Settings = () => {
   const [errors, setErrors] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const history = useHistory();
+  const Districts = [
+    { value: "ADALAR", label: "ADALAR" },
+    { value: "ARNAVUTKÖY", label: "ARNAVUTKÖY" },
+    { value: "ATAŞEHİR", label: "ATAŞEHİR" },
+    { value: "AVCILAR", label: "AVCILAR" },
+    { value: "BAĞCILAR", label: "BAĞCILAR" },
+    { value: "BAHÇELİEVLER", label: "BAHÇELİEVLER" },
+    { value: "BAKIRKÖY", label: "BAKIRKÖY" },
+    { value: "BAŞAKŞEHİR", label: "BAŞAKŞEHİR" },
+    { value: "BAYRAMPAŞA", label: "BAYRAMPAŞA" },
+    { value: "BEYKOZ", label: "BEYKOZ" },
+    { value: "BEYLİKDÜZÜ", label: "BEYLİKDÜZÜ" },
+    { value: "BEYOĞLU", label: "BEYOĞLU" },
+    { value: "BÜYÜKÇEKMECE", label: "BÜYÜKÇEKMECE" },
+    { value: "ÇATALCA", label: "ÇATALCA" },
+    { value: "ÇEKMEKÖY", label: "ÇEKMEKÖY" },
+    { value: "ESENLER", label: "ESENLER" },
+    { value: "ESENYURT", label: "ESENYURT" },
+    { value: "EYÜPSULTAN", label: "EYÜPSULTAN" },
+    { value: "FATİH", label: "FATİH" },
+    { value: "GAZİOSMANPAŞA", label: "GAZİOSMANPAŞA" },
+    { value: "GÜNGÖREN", label: "GÜNGÖREN" },
+    { value: "KADIKÖY", label: "KADIKÖY" },
+    { value: "KAĞITHANE", label: "KAĞITHANE" },
+    { value: "KARTAL", label: "KARTAL" },
+    { value: "KÜÇÜKÇEKMECE", label: "KÜÇÜKÇEKMECE" },
+    { value: "MALTEPE", label: "MALTEPE" },
+    { value: "KÜÇÜKÇEKMECE", label: "KÜÇÜKÇEKMECE" },
+    { value: "PENDİK", label: "PENDİK" },
+    { value: "SANCAKTEPE", label: "SANCAKTEPE" },
+    { value: "SARIYER", label: "SARIYER" },
+    { value: "SİLİVRİ", label: "SİLİVRİ" },
+    { value: "SULTANBEYLİ", label: "SULTANBEYLİ" },
+    { value: "SULTANGAZİ", label: "SULTANGAZİ" },
+    { value: "ŞİLE", label: "ŞİLE" },
+    { value: "ŞİŞLİ", label: "ŞİŞLİ" },
+    { value: "TUZLA", label: "TUZLA" },
+    { value: "ÜMRANİYE", label: "ÜMRANİYE" },
+    { value: "ÜSKÜDAR", label: "ÜSKÜDAR" },
+    { value: "ZEYTİNBURNU", label: "ZEYTİNBURNU" }
+  ]
 
   const handleChangeUserInfo = e => {
     console.log(e);
@@ -63,7 +101,7 @@ const Settings = () => {
     });
     values.name = e.name;
     values.email = e.email;
-    values.address = e.address;
+    //values.address = e.address;
     values.phone = e.phone;
     console.log(values.name);
   };
@@ -75,6 +113,15 @@ const Settings = () => {
       ...values,
       [name] : value
     });
+  };
+
+  const handleChangeAddress = e => {
+    const p_value = e.value;
+    setValues({
+      ...values,
+      ["address"] : p_value
+    });
+    values.address = e.value;
   };
 
   const handleSubmit = e => {
@@ -177,13 +224,8 @@ const Settings = () => {
                 </FormGroup>
                 <FormGroup>
                   <Label className="createPostTitle makeCenter">Address</Label>
-                  <Input
-                    type="text"
-                    name="address"
-                    id="address"
-                    value={values.address}
-                    onChange={handleChange}
-                  />
+                  <Select options={Districts} value={Districts[values.search_location]}
+                    onChange={handleChangeAddress}></Select>
                   {errors.address && <p className="text-danger">{errors.address}</p>}
                 </FormGroup>
                 <FormGroup>
