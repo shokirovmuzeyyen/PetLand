@@ -93,11 +93,21 @@ const Settings = () => {
       ...values,
       [name] : value
     });
+    setValues({
+      ...values,
+      ["old_name"] : e.name,
+      ["old_email"] : e.email,
+      ["old_address"] : e.address,
+      ["old_phone"] : e.email,
+    });
     values.name = e.name;
     values.email = e.email;
-    //values.address = e.address;
     values.phone = e.phone;
-    console.log(values.name);
+
+    values.old_name = e.name;
+    values.old_email = e.email;
+    values.old_address = e.address;
+    values.old_phone = e.phone;
   };
 
   const handleChange = e => {
@@ -163,6 +173,10 @@ const Settings = () => {
     email: '',
     address: '',
     phone: '',
+    old_name: '',
+    old_email: '',
+    old_address: '',
+    old_phone: ''
   });
 
   const getInfo = () => {
@@ -209,7 +223,7 @@ const Settings = () => {
                     name="name"
                     id="name"
                     value={values.name}
-                    placeholder={values.name}
+                    placeholder={values.old_name}
                     onChange= {handleChange}
                   />
                   {errors.name && <p className="text-danger">{errors.name}</p>}
@@ -221,6 +235,7 @@ const Settings = () => {
                     name="email"
                     id="email"
                     value={values.email}
+                    placeholder={values.old_email}
                     onChange={handleChange}
                   />
                   {errors.email && <p className="text-danger">{errors.email}</p>}
@@ -228,7 +243,7 @@ const Settings = () => {
                 <FormGroup>
                   <Label className="createPostTitle makeCenter">Address</Label>
                   <Select options={Districts} value={Districts[values.search_location]}
-                    onChange={handleChangeAddress}></Select>
+                    onChange={handleChangeAddress} placeholder={values.old_address}></Select>
                   {errors.address && <p className="text-danger">{errors.address}</p>}
                 </FormGroup>
                 <FormGroup>
@@ -238,6 +253,7 @@ const Settings = () => {
                     name="phone"
                     id="phone"
                     value={values.phone}
+                    placeholder={values.old_phone}
                     onChange={handleChange}
                   />
                   {errors.phone && <p className="text-danger">{errors.phone}</p>}
