@@ -48,14 +48,12 @@ const MyPosts = () => {
     getRepo()
   ,[]);
   return (
-    <div>
+    <div style={{ 
+      backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
+      height:"100%"}}>
       <NavBar/>
-      <div style={{ 
-            backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
-            height: "100%"}} className="makeCenter">
           <Row style={{marginTop: "3%"}}>
-          <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>The announcements that you have posted so far</label>
-          {
+          <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.posts ? "The announcements that you have posted so far" : "You have not posted anything yet."}</label>          {
             values.namee.length > 0 &&
             values.namee.map((p, i) => (
               <Col xs={6} className="makeCenter">
@@ -75,7 +73,6 @@ const MyPosts = () => {
           }
           </Row>
       </div>
-    </div>
   )
 }
 
