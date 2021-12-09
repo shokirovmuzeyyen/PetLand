@@ -5,7 +5,7 @@ import { config } from './config';
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
 import PostCard from './PostCard';
-import bg from './assets/green_bg.jpg';
+import bg from './assets/bg.jpg';
 import NavBar from './components/NavBar/NavBar';
 
 const MyPosts = () => {
@@ -51,8 +51,10 @@ const MyPosts = () => {
     <div>
       <NavBar/>
       <div style={{ 
-        backgroundImage: `url(${bg})`, padding:"5%"}} className="makeCenter">
-          <Row>
+            backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
+            height: "100%"}} className="makeCenter">
+          <Row style={{marginTop: "3%"}}>
+          <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>The announcements that you have posted so far</label>
           {
             values.namee.length > 0 &&
             values.namee.map((p, i) => (

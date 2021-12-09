@@ -5,7 +5,7 @@ export const NavBarElements = [
     cName: 'nav-links'
   },
   {
-    title: 'DM',
+    title: 'Messages',
     url: '/dm',
     cName: 'nav-links'
   },
