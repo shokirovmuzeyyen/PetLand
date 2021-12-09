@@ -5,7 +5,7 @@ import { config } from './config';
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
 import PostCard from './PostCard';
-import bg from './assets/green_bg.jpg';
+import bg from './assets/bg.jpg';
 import NavBar from './components/NavBar/NavBar';
 
 const Feed = () => {

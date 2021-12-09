@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button';
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
+import bg from './assets/bg.jpg';
 import {
   Form,
   FormGroup,
@@ -217,7 +218,7 @@ const CreatePost = () => {
   return (
     <div>
       <NavBar/>
-      <div style={{ backgroundImage: `url(https://st.depositphotos.com/2015673/4034/v/950/depositphotos_40343767-stock-illustration-forest-landscape.jpg)`, display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
+      <div style={{ backgroundImage: `url(${bg})`, display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
         
         <Card border="danger" bg={"light".toLowerCase()}
           text={"light" === 'light' ? 'dark' : 'white'}

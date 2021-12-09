@@ -12,7 +12,7 @@ import useToken from './useToken';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import PostCard from './PostCard';
-import bg from './assets/green_bg.jpg';
+import bg from './assets/bg.jpg';
 import NavBar from './components/NavBar/NavBar';
 import Select from 'react-select'
 
@@ -132,8 +132,7 @@ export default function Search(){
   return (
     <div style={{ 
       backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat', height:"100%"}}>
+      height:"100%"}}>
       <NavBar/>
       
       <Form onSubmit={handleSubmit}>
