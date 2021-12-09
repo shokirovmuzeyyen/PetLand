@@ -7,7 +7,7 @@ import useToken from './useToken';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import PostCard from './PostCard';
-import bg from './assets/green_bg.jpg';
+import bg from './assets/bg.jpg';
 import NavBar from './components/NavBar/NavBar';
 
 const NearByMe = () => {
@@ -45,17 +45,15 @@ const NearByMe = () => {
     };
     return (
     <div style={{ 
-        backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat', height:"100%"}}>
+      backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
+      height:"100%"}}>
         <NavBar/>
         
         <div style={{ 
             backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat' }} className="makeCenter">
+            height: "100%"}} className="makeCenter">
         <Row style={{marginTop: "3%"}}>
-            <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'white', fontSize:"18px"}}>{values.posts.length > 0 ?"You are seeing the post that are near by you: " + values.posts[0].location:"Unfortunately, we could not find any post close to you."}</label>
+            <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.posts.length > 0 ?"You are seeing the post that are near by you: " + values.posts[0].location:"Unfortunately, we could not find any post close to you."}</label>
             {
             values.posts.length > 0 &&
             values.posts.map((p, i) => (
