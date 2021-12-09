@@ -44,11 +44,10 @@ const NearByMe = () => {
     values.posts = e;
     };
     return (
-    <div>
+      <div style={{ 
+        backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
+        height:"100%"}}>
         <NavBar/>
-        <div style={{ 
-            backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
-            height: "100%"}} className="makeCenter">
         <Row style={{marginTop: "3%"}}>
             <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.posts.length > 0 ?"You are seeing the posts that are near to you: " + values.posts[0].location:"Unfortunately, we could not find any posts close to you."}</label>
             {
@@ -70,8 +69,6 @@ const NearByMe = () => {
             }
             </Row>
         </div>
-    </div>
-
   );
 }
 
