@@ -17,26 +17,6 @@ import { config } from './config';
 import NavBar from './components/NavBar/NavBar';
 import Select from 'react-select'
 
-function validateInfo(values) {
-  console.log("validate")
-  let errors = {}
-  if (!values.name.trim()){
-    errors.name = "Cannot leave name empty"
-  }
-  if (!values.email.trim()){
-    errors.email = "Cannot leave email empty"
-  }
-  else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)){
-    errors.email = "Invalid email"
-  }
-
-  if (!values.address.trim()){
-    errors.address = "Cannot leave address empty"
-  }
-
-  return errors;
-}
-
 const Settings = () => {
   const tokenString = sessionStorage.getItem('token');
 
@@ -98,7 +78,7 @@ const Settings = () => {
       ["old_name"] : e.name,
       ["old_email"] : e.email,
       ["old_address"] : e.address,
-      ["old_phone"] : e.email,
+      ["old_phone"] : e.phone,
     });
     values.name = e.name;
     values.email = e.email;
@@ -130,20 +110,16 @@ const Settings = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    setErrors(validateInfo(values))
-    if (errors === {}) {
-      console.log("no error")
-    }
     updateUser();
   }
 
   const updateUser = () => {
     Axios.post(`${config.SERVER_URI}/api/update-user`,
     {
-      name: values.name,
-      email: values.email,
-      address: values.address.toLowerCase(),
-      phone: values.phone,
+      name: values.name || values.old_name,
+      email: values.email || values.old_email,
+      address: values.address.toLowerCase() || values.old_address.toLowerCase(),
+      phone: values.phone || values.old_phone,
       user_id: tokenString
     }).then(response => {
       setIsSubmitted(true);
@@ -153,12 +129,7 @@ const Settings = () => {
         if (err){
           console.log(err);
           setbackendError(err);
-          setValues({
-            name: '',
-            email: '',
-            address: '',
-            phone: '',
-          });
+          history.push("/settings");
           err ='';
         }
         else{
@@ -241,7 +212,7 @@ const Settings = () => {
                   {errors.email && <p className="text-danger">{errors.email}</p>}
                 </FormGroup>
                 <FormGroup>
-                  <Label className="createPostTitle makeCenter">Address</Label>
+                  <Label className="createPostTitle makeCenter">Address (District)</Label>
                   <Select options={Districts} value={Districts[values.search_location]}
                     onChange={handleChangeAddress} placeholder={values.old_address}></Select>
                   {errors.address && <p className="text-danger">{errors.address}</p>}
