@@ -224,7 +224,6 @@ exports.getUserInfo = async (req, res) => {
 }
 
 exports.updateUser = async (req, res) => {
-  console.log("girdi")
   const { name, email, address, phone, user_id } = req.body
   try {
     const { rows } = await db.query(`update users set name = $1, email = $2, phone = $4, address = $3 where user_id = $5;`, [name, email, address, phone, user_id])

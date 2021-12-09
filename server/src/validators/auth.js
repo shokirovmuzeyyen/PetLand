@@ -43,15 +43,14 @@ const loginFieldsCheck = check('email').custom(async (value, { req }) => {
 //update information validation
 const updateInformationCheck = check('email').custom(async (value, { req }) => {
   const user = await db.query('SELECT * from users WHERE email = $1', [value])
-  if (user.rows.length > 0 && req.body.user_id == user.rows[0].user_id.toString()) {
+  if (user.rows.length > 0 && req.body.user_id == user.rows[0].user_id.toString() && user.rows[0].email) {
     throw new Error('This is already your email.')
   }
-
   req.user = user.rows[0]
 })
 
 module.exports = {
   registerValidation: [email, password, emailExists],
-  updateValidation: [email, updateInformationCheck],
+  updateValidation: [email],
   loginValidation: [loginFieldsCheck],
 }
