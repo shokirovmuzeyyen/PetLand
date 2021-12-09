@@ -44,16 +44,13 @@ const NearByMe = () => {
     values.posts = e;
     };
     return (
-    <div style={{ 
-      backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
-      height:"100%"}}>
+    <div>
         <NavBar/>
-        
         <div style={{ 
             backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
             height: "100%"}} className="makeCenter">
         <Row style={{marginTop: "3%"}}>
-            <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.posts.length > 0 ?"You are seeing the post that are near by you: " + values.posts[0].location:"Unfortunately, we could not find any post close to you."}</label>
+            <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.posts.length > 0 ?"You are seeing the post that are near by you: " + values.posts[0].location:"Unfortunately, we could not find any posts close to you."}</label>
             {
             values.posts.length > 0 &&
             values.posts.map((p, i) => (

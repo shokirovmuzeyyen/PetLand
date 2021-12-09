@@ -43,15 +43,8 @@ const loginFieldsCheck = check('email').custom(async (value, { req }) => {
 //update information validation
 const updateInformationCheck = check('email').custom(async (value, { req }) => {
   const user = await db.query('SELECT * from users WHERE email = $1', [value])
-
-  if (!user.rows.length) {
-    throw new Error('Email does not exist.')
-  }
-
-  const validPassword =  await compare(req.body.password, user.rows[0].password) //req.body.password === user.rows[0].password
-
-  if (!validPassword) {
-    throw new Error('Wrong password.')
+  if (user.rows.length > 0 && req.body.user_id == user.rows[0].user_id.toString()) {
+    throw new Error('This is already your email.')
   }
 
   req.user = user.rows[0]
