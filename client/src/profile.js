@@ -214,7 +214,7 @@ const Settings = () => {
                 <FormGroup>
                   <Label className="createPostTitle makeCenter">Address (District)</Label>
                   <Select options={Districts} value={Districts[values.search_location]}
-                    onChange={handleChangeAddress} placeholder={values.old_address}></Select>
+                    onChange={handleChangeAddress} placeholder={values.old_address.toUpperCase()}></Select>
                   {errors.address && <p className="text-danger">{errors.address}</p>}
                 </FormGroup>
                 <FormGroup>
