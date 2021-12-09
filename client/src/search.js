@@ -170,8 +170,7 @@ export default function Search(){
       
       <div style={{ 
         backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat' }} className="makeCenter">
+      }} className="makeCenter">
       <Row>
         {
           values.posts.length > 0 &&
