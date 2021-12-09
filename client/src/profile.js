@@ -40,13 +40,6 @@ function validateInfo(values) {
 const Settings = () => {
   const tokenString = sessionStorage.getItem('token');
 
-  const [values, setValues] = useState({
-    name: '',
-    email: '',
-    address: '',
-    phone: '',
-  });
-
   const [backend_error, setbackendError] = useState('');
   const [errors, setErrors] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -164,6 +157,14 @@ const Settings = () => {
           setIsSubmitted(true);
       }});
   }
+  
+  const [values, setValues] = useState({
+    name: '',
+    email: '',
+    address: '',
+    phone: '',
+  });
+
   const getInfo = () => {
     Axios.post(`${config.SERVER_URI}/api/get-user-info`,
     {
@@ -208,6 +209,7 @@ const Settings = () => {
                     name="name"
                     id="name"
                     value={values.name}
+                    placeholder={values.name}
                     onChange= {handleChange}
                   />
                   {errors.name && <p className="text-danger">{errors.name}</p>}
@@ -242,10 +244,10 @@ const Settings = () => {
                 </FormGroup>
               </Col>            
             <Row className="justify-content-evenly">
-              <Col >
+              <Col className='makeCenter'>
                 <Button variant="danger" size="lg" onClick={()=> {history.push("/feed");}}>CANCEL</Button>
               </Col>
-              <Col >
+              <Col className='makeCenter'>
                 <Button variant="success" size="lg" type="submit">UPDATE</Button>
               </Col>
               {backend_error && <h3 className="text-black text-center">{backend_error}</h3>}

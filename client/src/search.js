@@ -85,9 +85,9 @@ export default function Search(){
     const p_value = e.value;
     setValues({
       ...values,
-      ["breed"] : p_value
+      ["search_breed"] : p_value
     });
-    values.breed = e.value;
+    values.search_breed = e.value;
   };
 
   async function getData(){
@@ -140,7 +140,7 @@ export default function Search(){
           <Col md={3} >
           <FormGroup>
             <label>Breed</label>
-            <Select options={breedOptions} value={breedOptions[values.breed]}
+            <Select options={breedOptions} value={breedOptions[values.search_breed]}
               onChange={handleChangeBreed}></Select>
           </FormGroup>
           </Col>
