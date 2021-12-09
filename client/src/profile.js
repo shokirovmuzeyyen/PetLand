@@ -242,10 +242,10 @@ const Settings = () => {
                 </FormGroup>
               </Col>            
             <Row className="justify-content-evenly">
-              <Col >
+              <Col className='makeCenter'>
                 <Button variant="danger" size="lg" onClick={()=> {history.push("/feed");}}>CANCEL</Button>
               </Col>
-              <Col >
+              <Col className='makeCenter'>
                 <Button variant="success" size="lg" type="submit">UPDATE</Button>
               </Col>
               {backend_error && <h3 className="text-black text-center">{backend_error}</h3>}
