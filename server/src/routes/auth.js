@@ -6,13 +6,12 @@ const {
   protected,
   logout,
   createPost,
-  getPosts,
- search, post, get_comments, add_comment,  delete_comment, edit_comment, get_username,
+  getPosts,  get_comments, add_comment,  delete_comment, edit_comment, get_username,
   getUserPosts,
   getUserInfo,
   updateUser,
   changePassword,
- search, post, comment, nearByMe
+ search, post,  nearByMe
 } = require('../controllers/auth')
 const {
   validationMiddleware,
