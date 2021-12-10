@@ -128,7 +128,6 @@ exports.getPosts = async (req, res) => {
 exports.search = async (req, res) => {
   console.log(req.body)
   const { search_name, search_breed, search_location } = req.body
-  console.log(search_breed)
   try {
     const { rows } = await db.query(`select * from post where breed like $1 and location like $2 and name like $3;`, [search_breed, search_location, search_name])
     //console.log(rows)
@@ -167,10 +166,8 @@ exports.post = async (req, res) => {
 
 exports.get_comments = async (req, res) => {
   const post_id  = req.body.id
-  console.log(post_id)
   try {
     const { rows } = await db.query(`select *  from comment where post_id = $1 ;`, [post_id])
-    console.log(rows)
     return res.status(200).json({
       success: true,
       comments: rows,

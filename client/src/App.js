@@ -6,7 +6,7 @@ import Welcome from './welcome';
 import Feed from './feed';
 import DM from './dm';
 import Profile from './profile';
-import CreatePost from './CreatePost';
+import CreatePost from './createPost';
 import Search from './search';
 import PostComment  from './postcomment';
 import {BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
