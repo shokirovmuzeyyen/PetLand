@@ -241,6 +241,9 @@ const Settings = () => {
             </Row></Row>
           <Card.Text>
           </Card.Text>
+          <Col className='makeCenter'>
+                <Button variant="primary" size="lg" onClick={()=> {history.push("/changePassword");}} >Change password?</Button>
+              </Col>
           </Card.Body>
           </Form>
         </Card>

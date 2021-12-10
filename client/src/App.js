@@ -12,6 +12,7 @@ import PostComment  from './postcomment';
 import {BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import MyPosts from './myPosts';
 import NearByMe from './nearByMe';
+import ChangePassword from './changePassword'
 //run npm install react-router-dom --save
 //npm install --save bootstrap
 // npm install axios
@@ -61,9 +62,10 @@ function App() {
       <Route path="/dm" component={DM} />
       <Route path="/settings" component={Settings} />
       <Route path="/search" component={Search} />
-      <Route path="/postcomment" component={PostComment} />
+      <Route path="/postComment" component={PostComment} />
       <Route path="/myPosts" component={MyPosts} />
       <Route path="/nearByMe" component={NearByMe} />
+      <Route path="/changePassword" component={ChangePassword} />
       </Switch>
     </Router>
   );
