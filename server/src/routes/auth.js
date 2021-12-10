@@ -12,7 +12,11 @@ const {
   getUserInfo,
   updateUser,
   changePassword,
+<<<<<<< HEAD
  search, post, nearByMe
+=======
+ search, post, comment, nearByMe
+>>>>>>> 30cb7d499c1fb6c5a2c666a37c1bfc6268f2e98f
 } = require('../controllers/auth')
 const {
   validationMiddleware,
