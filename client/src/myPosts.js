@@ -11,7 +11,7 @@ import NavBar from './components/NavBar/NavBar';
 const MyPosts = () => {
   const tokenString = sessionStorage.getItem('token');
   const [values, setValues] = useState({
-    namee: {}
+    posts: {}
   });
   const history = useHistory();
   const [setbackendError] = useState('');
@@ -21,9 +21,9 @@ const MyPosts = () => {
     console.log("e is "+ e);
     setValues({
       ...values,
-      ["namee"] : e
+      ["posts"] : e
     });
-    values.namee = e;    
+    values.posts = e;    
     };
 
   const getRepo = () => {
@@ -53,9 +53,9 @@ const MyPosts = () => {
       height:"100%"}}>
       <NavBar/>
           <Row style={{marginTop: "3%"}}>
-          <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.posts ? "The announcements that you have posted so far" : "You have not posted anything yet."}</label>          {
-            values.namee.length > 0 &&
-            values.namee.map((p, i) => (
+          <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.posts.length > 0 ? "The announcements that you have posted so far" : "You have not posted anything yet."}</label>          {
+            values.posts.length > 0 &&
+            values.posts.map((p, i) => (
               <Col xs={6} className="makeCenter">
                 <PostCard
                   name={p.name}
