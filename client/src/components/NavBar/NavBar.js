@@ -3,13 +3,8 @@ import {NavBarElements} from './NavbarElements'
 import './NavBar.css'
 import {Button} from 'reactstrap';
 import Axios from 'axios';
-import useToken from '../../useToken';
-import { useHistory } from "react-router-dom";
-import {  Link, Redirect } from 'react-router-dom';
-import {useNavigate} from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { config } from '../../config';
-import { useState } from 'react';
 
 class Navbar extends Component{
   state = {clicked: false}

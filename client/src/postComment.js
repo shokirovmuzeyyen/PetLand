@@ -1,3 +1,4 @@
+   
 import React, {useState, useEffect}from 'react'
 import NavBar from './components/NavBar/NavBar';
 import bg from './assets/green_bg.jpg';
@@ -9,10 +10,13 @@ import { config } from './config';
 import { useLocation } from "react-router-dom";
 import Comments from './components/Comment/Comments';
 
+
 function PostComment(props) {
   const location = useLocation();
   const [values, setValues] = useState({
     posts: {},
+
+    comments: {},
   });
     
     
@@ -47,10 +51,30 @@ function PostComment(props) {
     values.posts = posts;
   };
 
-  
+
+  const handleChangeComments = (comments) => {
+    setValues({
+      ...values,
+      ["comments"] : comments,
+    });
+    values.comments = comments;    
+  };
 
 
- 
+  const getComments= (post_id) => {
+    Axios.post(`${config.SERVER_URI}/api/comment`,
+    {
+      id: post_id, 
+    }).then( response => {
+      if (response){
+      console.log(response);
+      handleChangeComments(response.data.comments);
+      }
+    }).catch(error => {
+      console.log("error in");
+      console.log(error.response);
+    });
+  }
 
 
   useEffect(()=> {
@@ -66,6 +90,7 @@ function PostComment(props) {
          <div className="makeCenter" style={{ padding:"20px",
         backgroundImage: `url(${bg})`, backgroundSize: "cover",  backgroundRepeat: 'no-repeat', backgroundPosition: "center", height:"100%"}}>
            <div >
+
            <Row>
           {
             values.posts.length > 0 &&
@@ -96,9 +121,8 @@ function PostComment(props) {
         </div>
       </Row>
   </div>
+
   )
 }
 
 export default PostComment
-
-

@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button';
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
+import bg from './assets/bg.jpg';
 import {
   Form,
   FormGroup,
@@ -28,10 +29,6 @@ const vaccinOptions = [
 
 function validateInfo(values){
   let errors ={}
-  /*console.log(values.breed);
-  console.log(values.name);
-  console.log(values.location);
-  console.log(values.extra_info);*/
   if (!values.breed === "Select"){
     errors.name = "Breed required"
   }
@@ -55,7 +52,7 @@ function validateInfo(values){
 }
 
 const CreatePost = () => {
-
+  const tokenString = sessionStorage.getItem('token');
   const [baseImage, setBaseImage] = useState("");
 
   const [values, setValues] = useState({
@@ -69,6 +66,56 @@ const CreatePost = () => {
     ts: ''
   });
 
+  const Districts = [
+    { value: "ADALAR", label: "ADALAR" },
+    { value: "ARNAVUTKÖY", label: "ARNAVUTKÖY" },
+    { value: "ATAŞEHİR", label: "ATAŞEHİR" },
+    { value: "AVCILAR", label: "AVCILAR" },
+    { value: "BAĞCILAR", label: "BAĞCILAR" },
+    { value: "BAHÇELİEVLER", label: "BAHÇELİEVLER" },
+    { value: "BAKIRKÖY", label: "BAKIRKÖY" },
+    { value: "BAŞAKŞEHİR", label: "BAŞAKŞEHİR" },
+    { value: "BAYRAMPAŞA", label: "BAYRAMPAŞA" },
+    { value: "BEYKOZ", label: "BEYKOZ" },
+    { value: "BEYLİKDÜZÜ", label: "BEYLİKDÜZÜ" },
+    { value: "BEYOĞLU", label: "BEYOĞLU" },
+    { value: "BÜYÜKÇEKMECE", label: "BÜYÜKÇEKMECE" },
+    { value: "ÇATALCA", label: "ÇATALCA" },
+    { value: "ÇEKMEKÖY", label: "ÇEKMEKÖY" },
+    { value: "ESENLER", label: "ESENLER" },
+    { value: "ESENYURT", label: "ESENYURT" },
+    { value: "EYÜPSULTAN", label: "EYÜPSULTAN" },
+    { value: "FATİH", label: "FATİH" },
+    { value: "GAZİOSMANPAŞA", label: "GAZİOSMANPAŞA" },
+    { value: "GÜNGÖREN", label: "GÜNGÖREN" },
+    { value: "KADIKÖY", label: "KADIKÖY" },
+    { value: "KAĞITHANE", label: "KAĞITHANE" },
+    { value: "KARTAL", label: "KARTAL" },
+    { value: "KÜÇÜKÇEKMECE", label: "KÜÇÜKÇEKMECE" },
+    { value: "MALTEPE", label: "MALTEPE" },
+    { value: "KÜÇÜKÇEKMECE", label: "KÜÇÜKÇEKMECE" },
+    { value: "PENDİK", label: "PENDİK" },
+    { value: "SANCAKTEPE", label: "SANCAKTEPE" },
+    { value: "SARIYER", label: "SARIYER" },
+    { value: "SİLİVRİ", label: "SİLİVRİ" },
+    { value: "SULTANBEYLİ", label: "SULTANBEYLİ" },
+    { value: "SULTANGAZİ", label: "SULTANGAZİ" },
+    { value: "ŞİLE", label: "ŞİLE" },
+    { value: "ŞİŞLİ", label: "ŞİŞLİ" },
+    { value: "TUZLA", label: "TUZLA" },
+    { value: "ÜMRANİYE", label: "ÜMRANİYE" },
+    { value: "ÜSKÜDAR", label: "ÜSKÜDAR" },
+    { value: "ZEYTİNBURNU", label: "ZEYTİNBURNU" }
+  ]
+  const handleChangeLoc = e => {
+      const p_value = e.value;
+      setValues({
+        ...values,
+        ["location"] : p_value
+      });
+      values.location = e.value;
+    };
+
   const [errors, setErrors] = useState('');
   const [backend_error, setbackendError] = useState('');
 
@@ -77,27 +124,15 @@ const CreatePost = () => {
 
   const handleChange = e => {
     const {name, value} = e.target;
-    console.log(name);
-    console.log(value);
     setValues({
       ...values,
       [name] : value
     });
   };
 
-  const handleChangeFile = e => {
-    const p_value = URL.createObjectURL(e.target.files[0]);
-    setValues({
-      ...values,
-      ["p_image"] : p_value
-    });
-  };
-
   const uploadImage = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
-    console.log("base image is");
-    console.log(base64);
     setBaseImage(base64);
   };
 
@@ -123,9 +158,7 @@ const CreatePost = () => {
       ...values,
       ["breed"] : p_value
     });
-    console.log(e);
     values.breed = e.value;
-    console.log(values.breed);
   };
 
   const handleChangeVaccin = e => {
@@ -134,9 +167,7 @@ const CreatePost = () => {
       ...values,
       ["vaccinated"] : p_value
     });
-    console.log(e);
     values.vaccinated = e.value;
-    console.log(values.vaccinated);
   }
 
   const handleSubmit = e => {
@@ -148,15 +179,15 @@ const CreatePost = () => {
   const createPost = () => {
     Axios.post(`${config.SERVER_URI}/api/createPost`,
     {
-      name: values.name,
+      name: (values.name).toUpperCase(),
       breed: values.breed,
-      location: values.location,
+      location: (values.location).toLowerCase(),
       age: values.age,
       p_image: baseImage,
       extra_info: values.extra_info,
       vaccinated: values.vaccinated,
-      ts: new Date().toLocaleString() + ""
-
+      ts: new Date().toLocaleString() + "",
+      user_id: tokenString
     }).then(response => {
       setIsSubmitted(true);
       history.push("/feed");
@@ -187,16 +218,16 @@ const CreatePost = () => {
   return (
     <div>
       <NavBar/>
-      <div style={{ backgroundImage: `url(https://st.depositphotos.com/2015673/4034/v/950/depositphotos_40343767-stock-illustration-forest-landscape.jpg)`, display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
+      <div style={{ backgroundImage: `url(${bg})`, display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
         
         <Card border="danger" bg={"light".toLowerCase()}
           text={"light" === 'light' ? 'dark' : 'white'}
           style={{ width: '18rem' }}
-          className="mb-2" style={{ width: '60rem' }}>
+          className="mb-2" style={{ width: '50rem', height: '44rem' }}>
           <Form className="form" onSubmit={handleSubmit}>
           <Card.Img variant="top" src="" />
           <Card.Body>
-            <Card.Title className="makeCenter" style={{fontSize:28}}>Let's find a home for our pet friends !!</Card.Title>
+            <Card.Title className="makeCenter" style={{fontSize:28}}>Let's find a home for our pet friend!</Card.Title>
             <br/>
             <Row>
               <Col>
@@ -229,13 +260,8 @@ const CreatePost = () => {
                 </FormGroup>
                 <FormGroup>
                   <Label className="createPostTitle makeCenter">Location</Label>
-                  <Input
-                    type="text"
-                    name="location"
-                    id="location"
-                    value={values.location}
-                    onChange={handleChange}
-                  />
+                  <Select options={Districts} value={Districts[(values.location).toUpperCase()]}
+                  onChange={handleChangeLoc}></Select>
                 </FormGroup>
                 <FormGroup>
                   <Label className="createPostTitle makeCenter">Vaccination Status</Label>
@@ -261,13 +287,15 @@ const CreatePost = () => {
                   <img className="photo" src={baseImage}></img>
                 </div>
               </Col>
-            </Row>
+            
             <Row >
-              <Col md={{offset: 8 }}>
+              <Col >
                 <Button className="makeCenter" variant="danger" size="lg" onClick={()=> {history.push("/feed");}} style={{marginRight:10}}>CANCEL</Button>
+              </Col>
+              <Col >
                 <Button className="makeCenter" variant="success" size="lg" type="submit">POST</Button>
               </Col>
-            </Row>
+            </Row></Row>
           <Card.Text>
           </Card.Text>
             
