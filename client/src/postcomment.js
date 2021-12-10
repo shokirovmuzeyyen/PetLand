@@ -1,7 +1,7 @@
 import React, {useState, useEffect}from 'react'
 import NavBar from './components/NavBar/NavBar';
 import bg from './assets/green_bg.jpg';
-import PostCard from './PostCard';
+import PostCard from './postCard';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Axios from 'axios';
