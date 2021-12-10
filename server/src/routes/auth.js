@@ -7,16 +7,12 @@ const {
   logout,
   createPost,
   getPosts,
- search, post, get_comments, add_comment,  delete_comment, edit_comment, get_username,
+ get_comments, add_comment,  delete_comment, edit_comment, get_username,
   getUserPosts,
   getUserInfo,
   updateUser,
-  changePassword,
-<<<<<<< HEAD
+  changePassword, 
  search, post, nearByMe
-=======
- search, post, comment, nearByMe
->>>>>>> 30cb7d499c1fb6c5a2c666a37c1bfc6268f2e98f
 } = require('../controllers/auth')
 const {
   validationMiddleware,

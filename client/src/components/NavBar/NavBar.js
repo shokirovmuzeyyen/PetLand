@@ -41,11 +41,7 @@ class Navbar extends Component{
       <nav className="NavbarItems">
         <h1 className="navbar-logo">PetLand<i className="fas fa-cat"></i></h1>
         <div className="menu-icon" onClick={this.handleClick}>
-<<<<<<< HEAD
-          <i className={this.state.clicked ?  "fas fa-times" : "fas fa-bars"}></i>
-=======
           <i className={this.state.clicked ? "fas fa-times" : "fas fa-bars"}></i>
->>>>>>> 30cb7d499c1fb6c5a2c666a37c1bfc6268f2e98f
         </div>
         <ul className={this.state.clicked ? "nav-menu active" : "nav-menu"}>
           {NavBarElements.map((item, index) => {

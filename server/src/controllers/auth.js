@@ -191,25 +191,11 @@ exports.add_comment = async (req, res) => {
     const { rows } = await db.query(`select *  from comment where post_id = $1 ;`, [post_id])
     return res.status(200).json({
       success: true,
-      comments: rows,
-<<<<<<< HEAD
-=======
-
-exports.getUserPosts = async (req, res) => {
-  const user_id = req.body.user_id
-  try {
-    const { rows } = await db.query(`select post_id, p_image, name, location, extra_info, ts, vaccinated, breed, age from post where user_id = $1;`, [user_id])
-    return res.status(200).json({
-      success: true,
-      posts: rows,
->>>>>>> 30cb7d499c1fb6c5a2c666a37c1bfc6268f2e98f
-    })
-  } catch (error) {
-    console.log(error.message)
-    return res.status(500).json({
-      error: error.message,
-<<<<<<< HEAD
-    })}}
+      comments: rows,})} catch (error) {
+        console.log(error.message)
+        return res.status(500).json({
+          error: error.message,
+        })}}
 
 exports.getUserPosts = async (req, res) => {
   const user_id = req.body.user_id
@@ -223,8 +209,20 @@ exports.getUserPosts = async (req, res) => {
     console.log(error.message)
     return res.status(500).json({
       error: error.message,
-=======
->>>>>>> 30cb7d499c1fb6c5a2c666a37c1bfc6268f2e98f
+        })}}
+
+exports.getUserPosts = async (req, res) => {
+  const user_id = req.body.user_id
+  try {
+    const { rows } = await db.query(`select post_id, p_image, name, location, extra_info, ts, vaccinated, breed, age from post where user_id = $1;`, [user_id])
+    return res.status(200).json({
+      success: true,
+      posts: rows,
+    })
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({
+      error: error.message,
     })
 
   }
@@ -240,13 +238,16 @@ exports.delete_comment = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Comment deleted successfully",
-<<<<<<< HEAD
-      comments: rows})
-  }catch (error) {
-=======
       comments: rows
+    })
+    } catch (error) {
+      console.log(error.message)
+      return res.status(500).json({
+        error: error.message,
+      })
+  
+    }
   }
-}
       
 exports.nearByMe = async (req, res) => {
   const { user_id } = req.body
@@ -257,12 +258,10 @@ exports.nearByMe = async (req, res) => {
       posts: rows
     })
   } catch (error) {
->>>>>>> 30cb7d499c1fb6c5a2c666a37c1bfc6268f2e98f
     console.log(error.message)
     return res.status(500).json({
       error: error.message,
     })
-<<<<<<< HEAD
   }
 }
       
@@ -279,8 +278,6 @@ exports.nearByMe = async (req, res) => {
     return res.status(500).json({
       error: error.message,
     })}}
-=======
->>>>>>> 30cb7d499c1fb6c5a2c666a37c1bfc6268f2e98f
 
 
 exports.edit_comment = async (req, res) => {
@@ -294,15 +291,12 @@ exports.edit_comment = async (req, res) => {
       success: true,
       message: "Comment updated successfully",
       comments: rows
-<<<<<<< HEAD
     })
   }catch (error) {
     console.log(error.message)
     return res.status(500).json({
       error: error.message,
     })}
-=======
->>>>>>> 30cb7d499c1fb6c5a2c666a37c1bfc6268f2e98f
   }
 
 exports.getUserInfo = async (req, res) => {
@@ -318,10 +312,6 @@ exports.getUserInfo = async (req, res) => {
     return res.status(500).json({
       error: error.message,
     })
-<<<<<<< HEAD
-=======
-
->>>>>>> 30cb7d499c1fb6c5a2c666a37c1bfc6268f2e98f
   }
 }
 
@@ -334,17 +324,14 @@ exports.get_username = async (req, res) => {
     return res.status(200).json({
       success:true,
       name: rows[0].name
-<<<<<<< HEAD
   })} catch (error) {
   console.log(error.message)
   return res.status(500).json({
     error: error.message,
   })
 }
-=======
   }
->>>>>>> 30cb7d499c1fb6c5a2c666a37c1bfc6268f2e98f
-}
+
 
 exports.updateUser = async (req, res) => {
   const { name, email, address, phone, user_id } = req.body
@@ -359,12 +346,7 @@ exports.updateUser = async (req, res) => {
     return res.status(500).json({
       error: error.message,
     })
-<<<<<<< HEAD
-=======
 
-  }
-}
->>>>>>> 30cb7d499c1fb6c5a2c666a37c1bfc6268f2e98f
   }
 }
 
@@ -386,7 +368,3 @@ exports.changePassword = async (req, res) => {
       })
     }
 }
-<<<<<<< HEAD
- 
-=======
->>>>>>> 30cb7d499c1fb6c5a2c666a37c1bfc6268f2e98f
