@@ -14,7 +14,7 @@ const Comments = ({ post_id }) => {
   const [activeComment, setActiveComment] = useState(null);
 
   const getComments= (post_id) => {
-    Axios.post('http://localhost:8000/api/get_comments',
+    Axios.post(`${config.SERVER_URI}/api/get_comments`,
     {
       id: post_id, 
     }).then( response => {
@@ -42,7 +42,7 @@ const Comments = ({ post_id }) => {
 
   const addComment = (text) => {
     console.log("add Comment");
-    Axios.post('http://localhost:8000/api/add_comment',
+    Axios.post(`${config.SERVER_URI}/api/add_comment`,
     {      
       user_id: sessionStorage.getItem('token'), 
       post_id: post_id, 
@@ -63,7 +63,7 @@ const Comments = ({ post_id }) => {
 
   const updateComment = (text, comment_id) => {
     console.log("Update Comment");
-    Axios.post('http://localhost:8000/api/edit_comment',
+    Axios.post(`${config.SERVER_URI}/api/edit_comment`,
     {
       comment: text,
       id: comment_id, 
@@ -84,8 +84,9 @@ const Comments = ({ post_id }) => {
   const deleteComment = (commentId) => {
     console.log("Delete Comment") 
     if (window.confirm("Are you sure you want to remove comment?")) {
-      Axios.post('http://localhost:8000/api/delete_comment',
+      Axios.post(`${config.SERVER_URI}/api/delete_comment`,
       {
+        //'http://localhost:8000/
         id: commentId, 
         post_id: post_id
       }).then( response => {

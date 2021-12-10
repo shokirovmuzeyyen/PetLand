@@ -23,7 +23,7 @@ const Comment = ({comment_id, text, user_id, post_id, ts,
   const [name, setName] = useState("");
 
   const get_username = (user_id) => {
-      Axios.post('http://localhost:8000/api/get_username',
+      Axios.post(`${config.SERVER_URI}/api/get_username`,
       {
         id: user_id, 
       }).then( response => {

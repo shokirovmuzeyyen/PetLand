@@ -24,7 +24,7 @@ export default function Search(){
   });
 
   async function getData(){
-    Axios.post('http://localhost:8000/api/search',
+    Axios.post(`${config.SERVER_URI}/api/search`,
     {
       search_breed: '%' + values.search_breed + '%',
       search_name: '%' + values.search_name + '%' ,
