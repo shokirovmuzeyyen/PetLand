@@ -5,6 +5,7 @@ import Register from './register';
 import Welcome from './welcome';
 import Feed from './feed';
 import DM from './dm';
+import Profile from './profile';
 import Settings from './profile';
 import CreatePost from './createPost';
 import Search from './search';

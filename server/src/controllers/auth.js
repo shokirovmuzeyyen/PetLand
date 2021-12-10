@@ -159,7 +159,9 @@ exports.post = async (req, res) => {
   }
 }
 
-exports.comment = async (req, res) => {
+
+
+exports.get_comments = async (req, res) => {
   const post_id  = req.body.id
   try {
     const { rows } = await db.query(`select *  from comment where post_id = $1 ;`, [post_id])
@@ -176,6 +178,21 @@ exports.comment = async (req, res) => {
   }
 }
 
+
+exports.add_comment = async (req, res) => {
+  const {user_id, post_id, ts, comment}  = req.body
+  try {
+    await db.query('insert into comment(user_id,post_id,ts,comment) values ($1,$2,$3,$4)', [
+      user_id,
+      post_id,
+      ts,
+      comment
+    ])
+    const { rows } = await db.query(`select *  from comment where post_id = $1 ;`, [post_id])
+    return res.status(200).json({
+      success: true,
+      comments: rows,
+
 exports.getUserPosts = async (req, res) => {
   const user_id = req.body.user_id
   try {
@@ -189,6 +206,21 @@ exports.getUserPosts = async (req, res) => {
     return res.status(500).json({
       error: error.message,
     })
+
+  }
+}
+
+
+exports.delete_comment = async (req, res) => {
+  const comment_id  = req.body.id
+  const post_id = req.body.post_id
+  try {
+    await db.query('delete from comment where comment_id = $1', [comment_id])
+    const { rows } = await db.query(`select *  from comment where post_id = $1 ;`, [post_id])
+    return res.status(200).json({
+      success: true,
+      message: "Comment deleted successfully",
+      comments: rows
   }
 }
       
@@ -205,6 +237,21 @@ exports.nearByMe = async (req, res) => {
     return res.status(500).json({
       error: error.message,
     })
+
+  }
+}
+
+exports.edit_comment = async (req, res) => {
+  const comment_id  = req.body.id
+  const comment = req.body.comment
+  const post_id = req.body.post_id
+  try {
+    await db.query('update comment set comment=$1 where comment_id = $2;', [comment , comment_id])
+    const { rows } = await db.query(`select *  from comment where post_id = $1 ;`, [post_id])
+    return res.status(200).json({
+      success: true,
+      message: "Comment updated successfully",
+      comments: rows
   }
 }
 
@@ -221,6 +268,19 @@ exports.getUserInfo = async (req, res) => {
     return res.status(500).json({
       error: error.message,
     })
+
+  }
+}
+
+
+
+exports.get_username = async (req, res) => {
+  const user_id  = req.body.id
+  try {
+    const {rows} = await db.query(`select name from users where user_id = $1 ;`, [user_id])
+    return res.status(200).json({
+      success:true,
+      name: rows[0].name
   }
 }
 
@@ -237,6 +297,9 @@ exports.updateUser = async (req, res) => {
     return res.status(500).json({
       error: error.message,
     })
+
+  }
+}
   }
 }
 
