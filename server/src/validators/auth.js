@@ -7,6 +7,11 @@ const password = check('password')
   .isLength({ min: 6, max: 15 })
   .withMessage('Password has to be between 6 and 15 characters.')
 
+//new password
+const newPassword = check('new_password')
+.isLength({ min: 6, max: 15 })
+.withMessage('Password has to be between 6 and 15 characters.')
+
 //email
 const email = check('email')
   .isEmail()
@@ -53,4 +58,5 @@ module.exports = {
   registerValidation: [email, password, emailExists],
   updateValidation: [email],
   loginValidation: [loginFieldsCheck],
+  changePasswordValidation: [loginFieldsCheck, newPassword]
 }

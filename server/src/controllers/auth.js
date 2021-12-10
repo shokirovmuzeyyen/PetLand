@@ -3,6 +3,7 @@ const { hash } = require('bcryptjs')
 const { sign } = require('jsonwebtoken')
 const { SECRET } = require('../constants')
 const { json } = require('express')
+const { compare } = require('bcryptjs')
 
 exports.getUsers = async (req, res) => {
   try {
@@ -53,7 +54,7 @@ exports.login = async (req, res) => {
     const token = sign(payload, SECRET);
     return res.status(200).cookie('token', token, { httpOnly: true }).json({
       success: true,
-      message: 'Logged in successfully. HI',
+      message: 'Logged in successfully.',
       token: `${user.user_id}`,
     }) 
   } catch (error) {
@@ -237,4 +238,22 @@ exports.updateUser = async (req, res) => {
       error: error.message,
     })
   }
+}
+
+exports.changePassword = async (req, res) => {
+  console.log("validation passed")
+  const { user_id, new_password } = req.body
+    try {
+      const hashedPassword = await hash(new_password, 10)
+      await db.query(`update users set password = $2 where user_id = $1;`, [user_id, hashedPassword])
+      return res.status(200).json({
+        success: true,
+        message: 'Password has been changed successfully.',
+      })
+    } catch (error) {
+      console.log(error.message)
+      return res.status(500).json({
+        error: error.message,
+      })
+    }
 }
