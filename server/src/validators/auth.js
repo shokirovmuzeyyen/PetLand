@@ -7,6 +7,11 @@ const password = check('password')
   .isLength({ min: 6, max: 15 })
   .withMessage('Password has to be between 6 and 15 characters.')
 
+//new password
+const newPassword = check('new_password')
+.isLength({ min: 6, max: 15 })
+.withMessage('Password has to be between 6 and 15 characters.')
+
 //email
 const email = check('email')
   .isEmail()
@@ -40,7 +45,18 @@ const loginFieldsCheck = check('email').custom(async (value, { req }) => {
   req.user = user.rows[0]
 })
 
+//update information validation
+const updateInformationCheck = check('email').custom(async (value, { req }) => {
+  const user = await db.query('SELECT * from users WHERE email = $1', [value])
+  if (user.rows.length > 0 && req.body.user_id == user.rows[0].user_id.toString() && user.rows[0].email) {
+    throw new Error('This is already your email.')
+  }
+  req.user = user.rows[0]
+})
+
 module.exports = {
   registerValidation: [email, password, emailExists],
+  updateValidation: [email],
   loginValidation: [loginFieldsCheck],
+  changePasswordValidation: [loginFieldsCheck, newPassword]
 }

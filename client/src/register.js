@@ -11,7 +11,7 @@ import {
   Label,
 } from 'reactstrap';
 import { config } from './config';
-
+import Select from 'react-select'
 
 function validateInfo(values){
   let errors ={}
@@ -45,6 +45,7 @@ function validateInfo(values){
   return errors;
 }
 
+
 function Register() {
   const [values, setValues] = useState({
     name: '',
@@ -52,9 +53,59 @@ function Register() {
     phone: '',
     address: '',
     password: '',
-    password2: '',
-
+    password2: ''
   });
+
+  const Districts= [
+    { value: "ADALAR", label: "ADALAR" },
+    { value: "ARNAVUTKÖY", label: "ARNAVUTKÖY" },
+    { value: "ATAŞEHİR", label: "ATAŞEHİR" },
+    { value: "AVCILAR", label: "AVCILAR" },
+    { value: "BAĞCILAR", label: "BAĞCILAR" },
+    { value: "BAHÇELİEVLER", label: "BAHÇELİEVLER" },
+    { value: "BAKIRKÖY", label: "BAKIRKÖY" },
+    { value: "BAŞAKŞEHİR", label: "BAŞAKŞEHİR" },
+    { value: "BAYRAMPAŞA", label: "BAYRAMPAŞA" },
+    { value: "BEYKOZ", label: "BEYKOZ" },
+    { value: "BEYLİKDÜZÜ", label: "BEYLİKDÜZÜ" },
+    { value: "BEYOĞLU", label: "BEYOĞLU" },
+    { value: "BÜYÜKÇEKMECE", label: "BÜYÜKÇEKMECE" },
+    { value: "ÇATALCA", label: "ÇATALCA" },
+    { value: "ÇEKMEKÖY", label: "ÇEKMEKÖY" },
+    { value: "ESENLER", label: "ESENLER" },
+    { value: "ESENYURT", label: "ESENYURT" },
+    { value: "EYÜPSULTAN", label: "EYÜPSULTAN" },
+    { value: "FATİH", label: "FATİH" },
+    { value: "GAZİOSMANPAŞA", label: "GAZİOSMANPAŞA" },
+    { value: "GÜNGÖREN", label: "GÜNGÖREN" },
+    { value: "KADIKÖY", label: "KADIKÖY" },
+    { value: "KAĞITHANE", label: "KAĞITHANE" },
+    { value: "KARTAL", label: "KARTAL" },
+    { value: "KÜÇÜKÇEKMECE", label: "KÜÇÜKÇEKMECE" },
+    { value: "MALTEPE", label: "MALTEPE" },
+    { value: "KÜÇÜKÇEKMECE", label: "KÜÇÜKÇEKMECE" },
+    { value: "PENDİK", label: "PENDİK" },
+    { value: "SANCAKTEPE", label: "SANCAKTEPE" },
+    { value: "SARIYER", label: "SARIYER" },
+    { value: "SİLİVRİ", label: "SİLİVRİ" },
+    { value: "SULTANBEYLİ", label: "SULTANBEYLİ" },
+    { value: "SULTANGAZİ", label: "SULTANGAZİ" },
+    { value: "ŞİLE", label: "ŞİLE" },
+    { value: "ŞİŞLİ", label: "ŞİŞLİ" },
+    { value: "TUZLA", label: "TUZLA" },
+    { value: "ÜMRANİYE", label: "ÜMRANİYE" },
+    { value: "ÜSKÜDAR", label: "ÜSKÜDAR" },
+    { value: "ZEYTİNBURNU", label: "ZEYTİNBURNU" }
+  ]
+
+  const handleChangeAddress = e => {
+      const p_value = e.value;
+      setValues({
+        ...values,
+        ["address"] : p_value
+      });
+      values.address = e.value;
+    };
 
   const [errors, setErrors] = useState('');
   const [backend_error, setbackendError] = useState('');
@@ -89,7 +140,7 @@ function Register() {
       name:values.name,
       email:values.email,
       phone:values.phone,
-      address:values.address,
+      address:values.address.toLowerCase(),
       password:values.password
     }).then(response => {
       if (!response){
@@ -120,10 +171,6 @@ function Register() {
           setIsSubmitted(true);
       }});
   };
-
- 
-
- 
 
   return (
     <div className="App">
@@ -157,7 +204,7 @@ function Register() {
           <FormGroup>
             <Label className="text-white">Phone Number</Label>
             <Input
-              type="phone"
+              type="number"
               name="phone"
               id="phone"
               value={values.phone}
@@ -166,14 +213,9 @@ function Register() {
             {errors.phone && <p className="text-danger">{errors.phone}</p>}
           </FormGroup>
           <FormGroup>
-            <Label className="text-white">Address</Label>
-            <Input
-              type="address"
-              name="address"
-              id="address"
-              value={values.address}
-              onChange={handleChange}
-            />
+            <Label className="text-white">Address (District)</Label>
+            <Select options={Districts} value={Districts[values.address]}
+                  onChange={handleChangeAddress}></Select>
           </FormGroup>
           <FormGroup>
             <Label className="text-white">Password</Label>
@@ -199,13 +241,16 @@ function Register() {
           </FormGroup>
 
         <div className="row justify-content-evenly">
-        <div className="col">
-        <Button>Register</Button>
-        </div>
-        <div className="col">
-        <text className="text-danger">Already have an account?  </text>
-        <Button className="ml-1" onClick={()=> {history.push("/login");}}>Login</Button>
-        </div>
+          <div className="col-6">
+            <Button>Register</Button>
+          </div>
+        
+          <div className="col-3 makeCenter">
+            <label className="text-danger">Already have an account?</label>
+          </div>
+          <div className="col-3 makeCenter">
+            <Button className="ml-1" onClick={()=> {history.push("/login");}}>Login</Button>
+          </div>
         {backend_error && <h3 className="text-white text-center">{backend_error}</h3>}
         </div> 
         </Form>

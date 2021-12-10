@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { config } from './config';
@@ -8,30 +8,28 @@ import PostCard from './postCard';
 import bg from './assets/bg.jpg';
 import NavBar from './components/NavBar/NavBar';
 
-const Feed = () => {
+const MyPosts = () => {
+  const tokenString = sessionStorage.getItem('token');
   const [values, setValues] = useState({
-    namee: {}
+    posts: {}
   });
-  
-  const [errors, setErrors] = useState('');
-  const [backend_error, setbackendError] = useState('');
-
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const history = useHistory();
+  const [setbackendError] = useState('');
+  const [setIsSubmitted] = useState(false);
+
   const handleChangePosts = (e) => {
     console.log("e is "+ e);
     setValues({
       ...values,
-      ["namee"] : e
+      ["posts"] : e
     });
-    values.namee = e;    
+    values.posts = e;    
     };
 
   const getRepo = () => {
-    Axios.post(`${config.SERVER_URI}/api/get-posts`,
-
-    //Axios.post('http://localhost:8000/api/get-posts',
+    Axios.post(`${config.SERVER_URI}/api/get-user-posts`,
     {
+      user_id: tokenString
     }).then(res => {
       handleChangePosts(res.data.posts);
     }).catch(error => {
@@ -50,15 +48,14 @@ const Feed = () => {
     getRepo()
   ,[]);
   return (
-    <div>
+    <div style={{ 
+      backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
+      height:"100%"}}>
       <NavBar/>
-      <div style={{ 
-        backgroundImage: `url(${bg})`, padding:"5%"}} className="makeCenter">
-        
-          <Row>
-          {
-            values.namee.length > 0 &&
-            values.namee.map((p, i) => (
+          <Row style={{marginTop: "3%"}}>
+          <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.posts.length > 0 ? "The announcements that you have posted so far" : "You have not posted anything yet."}</label>          {
+            values.posts.length > 0 &&
+            values.posts.map((p, i) => (
               <Col xs={6} className="makeCenter">
                 <PostCard
                   name={p.name}
@@ -76,8 +73,7 @@ const Feed = () => {
           }
           </Row>
       </div>
-    </div>
   )
 }
 
-export default Feed
+export default MyPosts

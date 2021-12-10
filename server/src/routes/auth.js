@@ -7,12 +7,17 @@ const {
   logout,
   createPost,
   getPosts,
- search, post, get_comments, add_comment,  delete_comment, edit_comment, get_username
+ search, post, get_comments, add_comment,  delete_comment, edit_comment, get_username,
+  getUserPosts,
+  getUserInfo,
+  updateUser,
+  changePassword,
+ search, post, comment, nearByMe
 } = require('../controllers/auth')
 const {
   validationMiddleware,
 } = require('../middlewares/validations-middleware')
-const { registerValidation, loginValidation } = require('../validators/auth')
+const { registerValidation, loginValidation, updateValidation, changePasswordValidation } = require('../validators/auth')
 const { userAuth } = require('../middlewares/auth-middleware')
 const router = Router()
 
@@ -30,6 +35,10 @@ router.post('/add_comment', add_comment)
 router.post('/delete_comment', delete_comment)
 router.post('/edit_comment', edit_comment)
 router.post('/get_username', get_username)
-
+router.post('/get-user-posts', getUserPosts)
+router.post('/get-user-info', getUserInfo)
+router.post('/update-user', updateValidation, validationMiddleware, updateUser)
+router.post('/nearByMe', nearByMe)
+router.put('/change-password', changePasswordValidation, validationMiddleware, changePassword)
 
 module.exports = router
