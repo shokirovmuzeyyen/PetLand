@@ -11,7 +11,7 @@ const PostCard = ({ post_id, name, breed, age, location, extra_info, p_image, va
   function handleClick(e){
     e.preventDefault();
     history.push({ 
-      pathname: '/postcomment',
+      pathname: '/postComment',
       state: post_id
      });
   }
@@ -63,10 +63,10 @@ const PostCard = ({ post_id, name, breed, age, location, extra_info, p_image, va
             
             <Row className="makeCenter">
               <Col sm={2} className="my-1">
-              <a href="/feed" className="btn btn-outline-white wow fadeInDown"><i className="far fa-bookmark"> </i> </a>
+              <a href="/feed" className="btn btn-outline-white wow fadeInDown"><i className="far fa-heart"> </i> </a>
               </Col>
               <Col sm={2} className="my-1">
-              <a href='/postcomment' onClick={handleClick}  className="btn btn-outline-white wow fadeInDown"><i className="far fa-comments"> </i> </a>           
+              <a href='/postComment' onClick={handleClick}  className="btn btn-outline-white wow fadeInDown"><i className="far fa-comments"> </i> </a>           
               </Col>
             </Row>
 

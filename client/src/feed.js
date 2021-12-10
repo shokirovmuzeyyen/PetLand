@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col'
 import { config } from './config';
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
-import PostCard from './PostCard';
+import PostCard from './postCard';
 import bg from './assets/bg.jpg';
 import NavBar from './components/NavBar/NavBar';
 

@@ -33,7 +33,7 @@ function ChangePassword() {
   }
 
   const changePassword = () => {
-    Axios.post(`${config.SERVER_URI}/api/change-password`,
+    Axios.put(`${config.SERVER_URI}/api/change-password`,
         {
           email: email,
           password: oldPassword,

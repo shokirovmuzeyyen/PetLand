@@ -11,7 +11,7 @@ import { config } from './config';
 import useToken from './useToken';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import PostCard from './PostCard';
+import PostCard from './postCard';
 import bg from './assets/bg.jpg';
 import NavBar from './components/NavBar/NavBar';
 import Select from 'react-select'
