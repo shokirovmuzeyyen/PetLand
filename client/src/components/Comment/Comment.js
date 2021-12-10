@@ -1,8 +1,6 @@
 import CommentForm from "./CommentForm";
-import Comments from "./Comments";
 import './Comment.css';
 import { config } from '../../config';
-import postcomment from "../../postComment";
 import { useEffect } from "react";
 import Axios from 'axios';
 import { useState } from "react";

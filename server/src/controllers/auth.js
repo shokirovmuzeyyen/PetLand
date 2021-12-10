@@ -192,6 +192,15 @@ exports.add_comment = async (req, res) => {
     return res.status(200).json({
       success: true,
       comments: rows,
+    })
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({
+      error: error.message,
+    })
+
+  }
+}
 
 exports.getUserPosts = async (req, res) => {
   const user_id = req.body.user_id
@@ -221,7 +230,13 @@ exports.delete_comment = async (req, res) => {
       success: true,
       message: "Comment deleted successfully",
       comments: rows
-  }
+  } )} catch (error) {
+  console.log(error.message)
+  return res.status(500).json({
+    error: error.message,
+  })
+
+}
 }
       
 exports.nearByMe = async (req, res) => {
@@ -252,6 +267,12 @@ exports.edit_comment = async (req, res) => {
       success: true,
       message: "Comment updated successfully",
       comments: rows
+  })} catch (error) {
+    console.log(error.message)
+    return res.status(500).json({
+      error: error.message,
+    })
+
   }
 }
 
@@ -281,6 +302,13 @@ exports.get_username = async (req, res) => {
     return res.status(200).json({
       success:true,
       name: rows[0].name
+    })
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({
+      error: error.message,
+    })
+
   }
 }
 
@@ -298,8 +326,6 @@ exports.updateUser = async (req, res) => {
       error: error.message,
     })
 
-  }
-}
   }
 }
 

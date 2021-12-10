@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button';
 import { useHistory } from "react-router-dom";
@@ -8,19 +8,16 @@ import {
   Form,
   FormGroup,
   Input,
-  Label,
 } from 'reactstrap';
 
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { config } from './config';
 import NavBar from './components/NavBar/NavBar';
-import Select from 'react-select'
 
 function ChangePassword() {
   const tokenString = sessionStorage.getItem('token');
   const [backend_error, setbackendError] = useState('');
-  const [errors, setErrors] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const history = useHistory();
   const [oldPassword, setOldPassword] = useState("");

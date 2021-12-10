@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import CommentForm from "./CommentForm";
 import Comment from "./Comment";
-import { useHistory } from "react-router-dom";
 import Axios from 'axios';
 import "./Comment.css";
 import { config } from '../../config';
