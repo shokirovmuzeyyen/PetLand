@@ -34,6 +34,6 @@ router.post('/get-user-posts', getUserPosts)
 router.post('/get-user-info', getUserInfo)
 router.post('/update-user', updateValidation, validationMiddleware, updateUser)
 router.post('/nearByMe', nearByMe)
-router.post('/change-password', changePasswordValidation, validationMiddleware, changePassword)
+router.put('/change-password', changePasswordValidation, validationMiddleware, changePassword)
 
 module.exports = router
