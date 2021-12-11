@@ -81,11 +81,11 @@ function PostComment(props) {
    },[]);
   return (
       <div style={{  
-        backgroundImage: `url(${bg})`, backgroundSize: "cover",  backgroundRepeat: 'no-repeat', backgroundPosition: "center", height:"100%"}}>
+        backgroundImage: `url(${bg})`, backgroundPosition: "center", height:"100%"}}>
        <NavBar/>
          <Row > 
          <div className="makeCenter" style={{ padding:"20px",
-        backgroundImage: `url(${bg})`, backgroundSize: "cover",  backgroundRepeat: 'no-repeat', backgroundPosition: "center", height:"100%"}}>
+        backgroundImage: `url(${bg})`, backgroundPosition: "center", height:"100%"}}>
            <div >
 
            <Row>
