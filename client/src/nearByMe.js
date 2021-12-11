@@ -53,7 +53,9 @@ const NearByMe = () => {
             {
             values.posts.length > 0 &&
             values.posts.map((p, i) => (
-                <Col xs={6} className="makeCenter">
+                <Col xs={6} className="makeCenter" style={{ 
+                  backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
+                  height:"100%"}}>
                 <PostCard
                     name={p.name}
                     breed={p.breed}

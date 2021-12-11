@@ -1,6 +1,6 @@
 import React, {useState, useEffect}from 'react'
 import NavBar from './components/NavBar/NavBar';
-import bg from './assets/green_bg.jpg';
+import bg from './assets/bg.jpg';
 import PostCard from './postCard';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
