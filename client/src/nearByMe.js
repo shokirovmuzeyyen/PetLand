@@ -45,17 +45,14 @@ const NearByMe = () => {
     };
     return (
       <div style={{ 
-        backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
-        height:"100%"}}>
+        backgroundImage: `url(${bg})`,  backgroundPosition: 'center'}}>
         <NavBar/>
         <Row style={{marginTop: "3%"}}>
             <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.posts.length > 0 ?"You are seeing the posts that are near to you: " + values.posts[0].location:"Unfortunately, we could not find any posts close to you."}</label>
             {
             values.posts.length > 0 &&
             values.posts.map((p, i) => (
-                <Col xs={6} className="makeCenter" style={{ 
-                  backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
-                  height:"100%"}}>
+                <Col xs={6} className="makeCenter">
                 <PostCard
                     name={p.name}
                     breed={p.breed}
