@@ -49,14 +49,14 @@ const MyPosts = () => {
   ,[]);
   return (
     <div style={{ 
-      backgroundImage: `url(${bg})`,  backgroundPosition: 'center',
-      height:"100%"}}>
+      backgroundImage: `url(${bg})`,  backgroundPosition: 'center'}}>
       <NavBar/>
           <Row style={{marginTop: "3%"}}>
           <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.posts.length > 0 ? "The announcements that you have posted so far" : "You have not posted anything yet."}</label>          {
             values.posts.length > 0 &&
             values.posts.map((p, i) => (
-              <Col xs={6} className="makeCenter">
+              <Col xs={6} className="makeCenter" style={{ 
+                backgroundImage: `url(${bg})`,  backgroundPosition: 'center'}}>
                 <PostCard
                   name={p.name}
                   breed={p.breed}

@@ -130,8 +130,6 @@ const CreatePost = () => {
     });
   };
 
-
-
   const uploadImage = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
@@ -224,13 +222,11 @@ const CreatePost = () => {
   return (
     <div>
       <NavBar/>
-
       <div style={{ backgroundImage: `url(${bg})`, display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
         
         <Card border="danger" bg={"light".toLowerCase()}
           text={"light" === 'light' ? 'dark' : 'white'}
           style={{ width: '18rem' }}
-
           className="mb-2" style={{ width: '50rem', height: '44rem' }}>
           <Form className="form" onSubmit={handleSubmit}>
           <Card.Img variant="top" src="" />
@@ -268,7 +264,6 @@ const CreatePost = () => {
                 </FormGroup>
                 <FormGroup>
                   <Label className="createPostTitle makeCenter">Location</Label>
-
                   <Select options={Districts} value={Districts[(values.location).toUpperCase()]}
                   onChange={handleChangeLoc}></Select>
                 </FormGroup>
@@ -295,9 +290,7 @@ const CreatePost = () => {
                   <img className="photo" src={values.p_image}/>
                   <img className="photo" src={baseImage}></img>
                 </div>
-              </Col>
-
-            
+              </Col>            
             <Row >
               <Col >
                 <Button className="makeCenter" variant="danger" size="lg" onClick={()=> {history.push("/feed");}} style={{marginRight:10}}>CANCEL</Button>

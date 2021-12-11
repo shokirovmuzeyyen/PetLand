@@ -113,7 +113,7 @@ exports.createPost = async (req, res) => {
 exports.getPosts = async (req, res) => {
   try {
     const { rows } = await db.query('select post_id, p_image, name, location, user_id, extra_info, ts, vaccinated, breed, age from post ORDER BY ts DESC;')
-    console.log("No error in server.")
+    //console.log("No error in server.")
 
     return res.status(200).json({
       success: true,
