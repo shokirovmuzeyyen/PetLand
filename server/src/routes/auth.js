@@ -6,12 +6,12 @@ const {
   protected,
   logout,
   createPost,
-  getPosts,
+  getPosts,  get_comments, add_comment,  delete_comment, edit_comment, get_username,
   getUserPosts,
   getUserInfo,
   updateUser,
   changePassword,
- search, post, comment, nearByMe
+ search, post,  nearByMe
 } = require('../controllers/auth')
 const {
   validationMiddleware,
@@ -29,7 +29,11 @@ router.post('/createPost', createPost)
 router.post('/get-posts', getPosts)
 router.post('/search', search)
 router.post('/post', post)
-router.post('/comment', comment)
+router.post('/get_comments', get_comments)
+router.post('/add_comment', add_comment)
+router.post('/delete_comment', delete_comment)
+router.post('/edit_comment', edit_comment)
+router.post('/get_username', get_username)
 router.post('/get-user-posts', getUserPosts)
 router.post('/get-user-info', getUserInfo)
 router.post('/update-user', updateValidation, validationMiddleware, updateUser)

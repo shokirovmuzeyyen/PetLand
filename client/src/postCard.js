@@ -1,12 +1,10 @@
 import React, { useState, useEffect} from 'react'
+import Navbar from "./components/NavBar/NavBar";
 import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button';
 import { useHistory, Redirect } from "react-router-dom";
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Favorite from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 const PostCard = ({ post_id, name, breed, age, location, extra_info, p_image, vaccinated, ts }) => {
   const history = useHistory();
