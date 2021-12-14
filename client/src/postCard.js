@@ -9,8 +9,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import Axios from 'axios';
+import { config } from './config';
 
-const PostCard = ({ post_id, name, breed, age, location, extra_info, p_image, vaccinated, ts }) => {
+const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_image, vaccinated, ts }) => {
   const history = useHistory();
   function handleClick(e){
     e.preventDefault();
@@ -19,6 +21,24 @@ const PostCard = ({ post_id, name, breed, age, location, extra_info, p_image, va
       state: post_id
      });
   }
+  function handleDelete(e){
+    console.log("delete post")
+    console.log(post_id)
+    e.preventDefault();
+    if (window.confirm("Are you sure you want to delete this post?")) {
+    Axios.post(`${config.SERVER_URI}/api/delete-post`,
+  {
+    post_id: post_id
+  }).then( response => {
+    console.log(response);
+    }).catch(error => {
+      console.log(error.response);
+      let err = error.response.data.errors[0].msg;
+      console.log(err);
+    });
+    history.go(0);
+  }
+}
 
   return (
     <div>
@@ -75,6 +95,9 @@ const PostCard = ({ post_id, name, breed, age, location, extra_info, p_image, va
               </Col>
               <Col sm={2} className="my-1">
               <a href='/postComment' onClick={handleClick}  className="btn btn-outline-white wow fadeInDown"><i className="far fa-comments"> </i> </a>           
+              </Col>
+              <Col sm={2} className="my-1">
+              <a onClick={handleDelete}> <label>{user_id ? "Delete post" : ""}</label></a>
               </Col>
             </Row>
 

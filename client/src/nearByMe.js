@@ -54,6 +54,8 @@ const NearByMe = () => {
             values.posts.map((p, i) => (
                 <Col xs={6} className="makeCenter">
                 <PostCard
+                    user_id={false}
+                    post_id={p.post_id}
                     name={p.name}
                     breed={p.breed}
                     age={p.age}

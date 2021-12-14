@@ -58,6 +58,8 @@ const MyPosts = () => {
             values.posts.map((p, i) => (
               <Col xs={6} className="makeCenter">
                 <PostCard
+                  user_id={p.user_id==tokenString}
+                  post_id={p.post_id}
                   name={p.name}
                   breed={p.breed}
                   age={p.age}

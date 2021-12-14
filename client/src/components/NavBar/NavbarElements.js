@@ -1,9 +1,5 @@
 export const NavBarElements = [
-  {
-    title: 'Home',
-    url: '/feed',
-    cName: 'nav-links'
-  },
+ 
   {
     title: 'Messages',
     url: '/dm',
@@ -27,6 +23,11 @@ export const NavBarElements = [
   {
     title: 'My Posts',
     url: '/myPosts',
+    cName: 'nav-links'
+  },
+  {
+    title: 'My Favorites',
+    url: '/myFavorites',
     cName: 'nav-links'
   },
   { 

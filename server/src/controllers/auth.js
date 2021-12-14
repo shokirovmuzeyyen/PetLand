@@ -112,7 +112,7 @@ exports.createPost = async (req, res) => {
 
 exports.getPosts = async (req, res) => {
   try {
-    const { rows } = await db.query('select post_id, p_image, name, location, user_id, extra_info, ts, vaccinated, breed, age from post ORDER BY ts DESC;')
+    const { rows } = await db.query('select user_id, post_id, p_image, name, location, user_id, extra_info, ts, vaccinated, breed, age from post ORDER BY ts DESC;')
     //console.log("No error in server.")
 
     return res.status(200).json({
@@ -205,7 +205,7 @@ exports.add_comment = async (req, res) => {
 exports.getUserPosts = async (req, res) => {
   const user_id = req.body.user_id
   try {
-    const { rows } = await db.query(`select post_id, p_image, name, location, extra_info, ts, vaccinated, breed, age from post where user_id = $1;`, [user_id])
+    const { rows } = await db.query(`select user_id, post_id, p_image, name, location, extra_info, ts, vaccinated, breed, age from post where user_id = $1;`, [user_id])
     return res.status(200).json({
       success: true,
       posts: rows,
@@ -242,7 +242,7 @@ exports.delete_comment = async (req, res) => {
 exports.nearByMe = async (req, res) => {
   const { user_id } = req.body
   try {
-    const { rows } = await db.query(`SELECT p.p_image, p.location, p.extra_info, p.name, p.breed, p.ts, p.vaccinated, p.age, u.address FROM users u , post p WHERE u.user_id = $1 and u.address = p.location;`, [user_id])
+    const { rows } = await db.query(`SELECT p.user_id, p.post_id, p.p_image, p.location, p.extra_info, p.name, p.breed, p.ts, p.vaccinated, p.age, u.address FROM users u , post p WHERE u.user_id = $1 and u.address = p.location;`, [user_id])
     return res.status(200).json({
       success: true,
       posts: rows
@@ -345,4 +345,19 @@ exports.changePassword = async (req, res) => {
         error: error.message,
       })
     }
+}
+
+exports.deletePost = async (req, res) => {
+  const post_id = req.body.post_id
+  try {
+    await db.query(`delete from post where post_id = $1;`, [post_id])
+    return res.status(200).json({
+      success: true,
+    })
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({
+      error: error.message,
+    })
+  }
 }

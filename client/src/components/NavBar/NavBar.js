@@ -39,7 +39,7 @@ class Navbar extends Component{
   render(){
     return(
       <nav className="NavbarItems">
-        <h1 className="navbar-logo">PetLand<i className="fas fa-cat"></i></h1>
+        <a className="navbar-logo" href={"/feed"}><h1>PetLand<i className="fas fa-paw"></i></h1></a>
         <div className="menu-icon" onClick={this.handleClick}>
           <i className={this.state.clicked ? "fas fa-times" : "fas fa-bars"}></i>
         </div>
