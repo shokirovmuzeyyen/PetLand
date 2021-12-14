@@ -11,7 +11,7 @@ const {
   getUserInfo,
   updateUser,
   changePassword,
- search, post,  nearByMe
+ search, post,  nearByMe, deletePost
 } = require('../controllers/auth')
 const {
   validationMiddleware,
@@ -39,5 +39,6 @@ router.post('/get-user-info', getUserInfo)
 router.post('/update-user', updateValidation, validationMiddleware, updateUser)
 router.post('/nearByMe', nearByMe)
 router.put('/change-password', changePasswordValidation, validationMiddleware, changePassword)
+router.post('/delete-post', deletePost)
 
 module.exports = router

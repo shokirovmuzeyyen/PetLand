@@ -12,7 +12,7 @@ const Feed = () => {
   const [values, setValues] = useState({
     namee: {}
   });
-  
+  const tokenString = sessionStorage.getItem('token');
   const [errors, setErrors] = useState('');
   const [backend_error, setbackendError] = useState('');
 
@@ -61,6 +61,8 @@ const Feed = () => {
             values.namee.map((p, i) => (
               <Col xs={6} className="makeCenter">
                 <PostCard
+                  user_id={false}
+                  post_id={p.post_id}
                   name={p.name}
                   breed={p.breed}
                   age={p.age}
