@@ -350,6 +350,8 @@ exports.changePassword = async (req, res) => {
 exports.deletePost = async (req, res) => {
   const post_id = req.body.post_id
   try {
+    await db.query('delete from comment where post_id = $1;', [post_id])
+    await db.query('delete from favorite where post_id = $1;', [post_id])
     await db.query(`delete from post where post_id = $1;`, [post_id])
     return res.status(200).json({
       success: true,

@@ -75,7 +75,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
             </Row>
             <Row>
               <Col><label className="postTitle">Extra Info:</label></Col>
-              <Col className="makeCenter"><label id="extra_info" >{extra_info}</label></Col>
+              <Col className="makeCenter"><label id="extra_info" >{extra_info?extra_info:"-"}</label></Col>
             </Row>
             <br/>
             <Row className="makeCenter">
@@ -96,9 +96,9 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
               <Col sm={2} className="my-1">
               <a href='/postComment' onClick={handleClick}  className="btn btn-outline-white wow fadeInDown"><i className="far fa-comments"> </i> </a>           
               </Col>
-              <Col sm={2} className="my-1">
-              <a onClick={handleDelete}> <label>{user_id ? "Delete post" : ""}</label></a>
-              </Col>
+              {user_id ?<Col sm={2} className="my-1">
+              <a onClick={handleDelete}> <i class="far fa-trash-alt"></i></a>
+              </Col>: ""}
             </Row>
 
 

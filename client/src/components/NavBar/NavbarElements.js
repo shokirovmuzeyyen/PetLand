@@ -26,12 +26,12 @@ export const NavBarElements = [
     cName: 'nav-links'
   },
   {
-    title: 'My Favorites',
+    title: 'Favorites',
     url: '/myFavorites',
     cName: 'nav-links'
   },
   { 
-    title: 'Near by Me',
+    title: 'Nearby',
     url: '/nearByMe',
     cName: 'nav-links'
   }
