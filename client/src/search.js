@@ -15,13 +15,16 @@ import PostCard from './postCard';
 import bg from './assets/bg.jpg';
 import NavBar from './components/NavBar/NavBar';
 import Select from 'react-select'
+import { useHistory, Redirect } from "react-router-dom";
 
 export default function Search(){
+  const history = useHistory();
   const [values, setValues] = useState({
     posts: {},
     search_name: '',
     search_location: '',
-    search_breed: ''
+    search_breed: '',
+    message: ''
   });
   
   const Districts = [
@@ -81,6 +84,10 @@ export default function Search(){
     values.search_location = e.value;
   };
 
+  function Reset(){
+
+    history.go(0);
+  }
   const handleChangeBreed = e => {
     const p_value = e.value;
     setValues({
@@ -103,6 +110,11 @@ export default function Search(){
       console.log(error.response);
       let err = error.response.data.errors[0].msg;
       console.log(err);
+    });
+
+    setValues({
+      ...values,
+      ["message"] : "Sorry, we could not find any post as you searched."
     });
   }
   function handleSubmit(e){
@@ -162,8 +174,11 @@ export default function Search(){
                     onChange={handleChangeAddress}></Select>
           </FormGroup>
           </Col>
-          <Col md={2} className="my-1">
-          <Button className="makeCenter" variant="success" size="lg" type="submit">Search</Button>
+          <Col md={1} className="my-1">
+          <Button className="makeCenter btn btn-success" variant="success" size="lg" type="submit">Search</Button>
+          </Col>
+          <Col md={1} className="my-1">
+          <Button className="makeCenter btn btn-danger" variant="danger" size="lg" onClick={Reset}>Reset</Button>
           </Col>
         </Row>
       </Form>
@@ -173,7 +188,7 @@ export default function Search(){
       }} className="makeCenter">
       <Row>
         {
-          values.posts.length > 0 &&
+          values.posts.length > 0 ?
           values.posts.map((p, i) => (
             <Col xs={6} className="makeCenter">
               <PostCard
@@ -187,7 +202,7 @@ export default function Search(){
                 ts={p.ts}
               />
             </Col>
-          ))
+          )) : <h2>{values.message}</h2>
         }
         </Row>
       </div>
