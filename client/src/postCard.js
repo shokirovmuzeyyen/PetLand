@@ -126,7 +126,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
     user_id: current_user_id
   }).then( response => {
     console.log(response);
-    handleChangeFavorite(response.data.posts);
+    handleChangeFavorite(response.data.posts.rows);
     }).catch(error => {
       console.log(error.response);
       let err = error.response.data.errors[0].msg;
@@ -143,7 +143,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
     user_id: current_user_id
   }).then( response => {
     console.log(response);
-    handleChangeFavorite(response.data.posts);
+    handleChangeFavorite(response.data.posts.rows);
     }).catch(error => {
       console.log(error.response);
       let err = error.response.data.errors[0].msg;
