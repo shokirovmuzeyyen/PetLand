@@ -240,12 +240,12 @@ exports.getUserFavorites = async (req, res) => {
 }
 
 exports.addFavorite = async (req, res) => {
-  const user_id = req.body.user_id
   const post_id = req.body.post_id
+  const user_id = req.body.user_id
   console.log(user_id)
   try {
-    await db.query('update favorite set user_id=$1 where post_id = $2;', [user_id , post_id])
-    const { rows } = await db.query('select * from favorite where user_id = $1;', [user_id])
+    await db.query(`update favorite set user_id=$1 where post_id = $2;`, [user_id , post_id])
+    const { rows } = await db.query(`select * from favorite where user_id = $1;`, [user_id])
     console.log(rows)
     return res.status(200).json({
       success: true,
