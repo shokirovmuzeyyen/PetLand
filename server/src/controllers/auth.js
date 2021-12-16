@@ -245,12 +245,40 @@ exports.addFavorite = async (req, res) => {
   const user_id = req.body.user_id
   console.log(user_id)
   try {
-    await db.query(`insert into favorite(user_id,post_id) values ($1,$2)`, [user_id , post_id])
-    const { rows } = await db.query(`select * from favorite where user_id = $1;`, [user_id])
+    const { rows } = await db.query(`select from favorite where user_id=$2 and post_id=$1 `, [user_id , post_id])
+    if (rows.length>0){
+      await db.query(`insert into favorite(user_id,post_id) values ($1,$2)`, [user_id , post_id])
+    }
+    const { favorites } = await db.query(`select * from favorite where user_id = $1;`, [user_id])
     console.log(rows)
     return res.status(200).json({
       success: true,
-      posts: rows,
+      posts: favorites,
+    })
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({
+      error: error.message,
+    })
+
+  }
+}
+
+exports.deleteFavorite = async (req, res) => {
+  console.log("delete favorite")
+  const post_id = req.body.post_id
+  const user_id = req.body.user_id
+  console.log(user_id)
+  try {
+    const { rows } = await db.query(`select from favorite where user_id=$2 and post_id=$1 `, [user_id , post_id])
+    if (rows.length>0){
+      await db.query(`delete from favorite where user_id=$2 and post_id=$1 `, [user_id , post_id])
+    }
+    const { favorites } = await db.query(`select * from favorite where user_id = $1;`, [user_id])
+    console.log(rows)
+    return res.status(200).json({
+      success: true,
+      posts: favorites,
     })
   } catch (error) {
     console.log(error.message)

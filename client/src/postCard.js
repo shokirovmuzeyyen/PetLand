@@ -50,56 +50,100 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
   }
 }
 
-function getFavorite(){
-  console.log('getFavorite')
-  Axios.post(`${config.SERVER_URI}/api/get-user-favorites`,
-  {
-    user_id: current_user_id
-  }).then(res => {
-    handleChangeFavorite(res.data.posts);
-    values.favorites.map((p,i) => {
-      console.log(p.post_id);
-      console.log(post_id)
-    if (p.post_id === post_id){
-      setCheck(true);
-    }
-    else{
-      setCheck(false);
-    }
-  })  
-  }).catch(error => {
-      console.log(error.response);
-      let err = error.response.data.errors[0].msg;
-      console.log(err);
-      if (err){
-      }
-      else{
-        history.push("/feed");
-    }});
-    console.log('end getFavorite')
+  function getFavorite(){
+    console.log('getFavorite');
+    Axios.post(`${config.SERVER_URI}/api/get-user-favorites`,
+    {
+      user_id: current_user_id
+    }).then(res => {
+      handleChangeFavorite(res.data.posts);
+      console.log('Favorite1');
+      for (var i = 0; i < values.favorites.length; i++) {
+        if (values.favorites[i].post_id === post_id){
+          setCheck(true);
+          console.log('Favorite2');
+          break;
+        }
+        else{
+          setCheck(false);
+          console.log('Favorite3');
+        }
+      };
 
-}
+      // values.favorites.map((p,i) => {
+      //   console.log(p.post_id);
+      //   console.log(post_id)
+      // if (p.post_id === post_id){
+      //   setCheck(true);
+      // }
+      // else{
+      //   setCheck(false);
+      // }
+    //})  
+    }).catch(error => {
+        console.log(error.response);
+        let err = error.response.data.errors[0].msg;
+        console.log(err);
+        if (err){
+        }
+        else{
+          history.push("/feed");
+      }});
+      console.log('end getFavorite')
 
-const handleChangeFavorite = (e) => {
-  console.log("e is "+ e);
+  }
 
-  setValues({
-    ...values,
-    ["favorites"] : e
-  });
-  values.favorites = e;    
+  const handleChangeFavorite = (e) => {
+    console.log("e is "+ e[0].post_id);
+
+    setValues({
+      ...values,
+      ["favorites"] : e
+    });
+    values.favorites = e;    
   };
 
   function handleFavorite(e){
-  console.log("fav post")
-  //console.log(current_user_id, post_id);
+    console.log("fav post");
+    console.log(e);
+    //console.log(current_user_id, post_id);
+    if (e === true){
+      deleteFavorite();
+      setCheck(false);
+    }
+    else{
+      addFavorite();
+      setCheck(true);
+    }
+  }
 
+  function deleteFavorite(){
+  console.log("delete fav");
+  //console.log(current_user_id, post_id);
+  Axios.post(`${config.SERVER_URI}/api/delete_favorite`,
+  {
+    post_id: post_id,
+    user_id: current_user_id
+  }).then( response => {
+    console.log(response);
+    handleChangeFavorite(response.data.posts);
+    }).catch(error => {
+      console.log(error.response);
+      let err = error.response.data.errors[0].msg;
+      console.log(err);
+    });
+    history.go(0);
+  }
+
+  function addFavorite(){
+  console.log("add fav");
   Axios.post(`${config.SERVER_URI}/api/add_favorite`,
   {
     post_id: post_id,
     user_id: current_user_id
   }).then( response => {
     console.log(response);
+    handleChangeFavorite(response.data.posts);
     }).catch(error => {
       console.log(error.response);
       let err = error.response.data.errors[0].msg;
@@ -109,6 +153,7 @@ const handleChangeFavorite = (e) => {
   }
 
 
+      
   useEffect(()=> 
   getFavorite()
   ,[]);
@@ -163,15 +208,15 @@ const handleChangeFavorite = (e) => {
 
               <Col sm={2} className="my-1">
               <FormControlLabel 
-                control={<Checkbox onChange={handleFavorite} icon={<FavoriteBorder />} 
+                control={<Checkbox checked={check} checkedIcon={<Favorite />} onChange={(check) => handleFavorite(check)} icon={<FavoriteBorder />} 
                   checkedIcon={<Favorite />}
                     name="checkedH" />}
-                    checked={check} 
+                    
                 />
               </Col>
 
               <Col sm={2} className="my-1">
-              <a href='/postComment' onClick={handleClick}  className="btn btn-outline-white wow fadeInDown"><i className="far fa-comments"> </i> </a>           
+              <a href='/postComment' onClick={handleClick} className="btn btn-outline-white wow fadeInDown"><i className="far fa-comments"> </i> </a>           
               </Col>
 
               {user_id ?<Col sm={2} className="my-1">

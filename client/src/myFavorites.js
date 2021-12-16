@@ -9,7 +9,7 @@ import bg from './assets/bg.jpg';
 import NavBar from './components/NavBar/NavBar';
 
 const MyPosts = () => {
-  const tokenString = sessionStorage.getItem('token');
+  const current_user_id = parseInt(sessionStorage.getItem('token') , 10 ) ;  
   const [values, setValues] = useState({
     posts: {}
   });
@@ -29,7 +29,7 @@ const MyPosts = () => {
   const getRepo = () => {
     Axios.post(`${config.SERVER_URI}/api/get-user-favorites`,
     {
-      user_id: tokenString
+      user_id: current_user_id
     }).then(res => {
       handleChangePosts(res.data.posts);
     }).catch(error => {
@@ -58,7 +58,7 @@ const MyPosts = () => {
             values.posts.map((p, i) => (
               <Col xs={6} className="makeCenter">
                 <PostCard
-                  user_id={p.user_id==tokenString}
+                  user_id={p.user_id==current_user_id}
                   post_id={p.post_id}
                   name={p.name}
                   breed={p.breed}
