@@ -246,7 +246,7 @@ exports.addFavorite = async (req, res) => {
   console.log(user_id)
   try {
     const { rows } = await db.query(`select from favorite where user_id=$2 and post_id=$1 `, [user_id , post_id])
-    if (rows.length>0){
+    if (rows.length != 0){
       await db.query(`insert into favorite(user_id,post_id) values ($1,$2)`, [user_id , post_id])
     }
     const { favorites } = await db.query(`select * from favorite where user_id = $1;`, [user_id])
