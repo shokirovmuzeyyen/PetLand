@@ -14,7 +14,9 @@ import { config } from './config';
 
 const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_image, vaccinated, ts }) => {
   const history = useHistory();
-  const tokenString = sessionStorage.getItem('token');
+  //const tokenString = sessionStorage.getItem('token');
+  const current_user_id = parseInt(sessionStorage.getItem('token') , 10 ) ;  
+  console.log(current_user_id)
   const [values, setValues] = useState({
     favorites: {}
   });
@@ -28,7 +30,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
       state: post_id
      });
   }
-  
+
   function handleDelete(e){
     console.log("delete post")
     console.log(post_id)
@@ -52,7 +54,7 @@ function getFavorite(){
   console.log('getFavorite')
   Axios.post(`${config.SERVER_URI}/api/get-user-favorites`,
   {
-    user_id: tokenString
+    user_id: current_user_id
   }).then(res => {
     handleChangeFavorite(res.data.posts);
     values.favorites.map((p,i) => {
@@ -88,12 +90,14 @@ const handleChangeFavorite = (e) => {
   values.favorites = e;    
   };
 
-function handleFavorite(e){
+  function handleFavorite(e){
   console.log("fav post")
+  console.log(current_user_id, post_id);
+
   Axios.post(`${config.SERVER_URI}/api/add_favorite`,
   {
     post_id: post_id,
-    user_id: tokenString
+    user_id: current_user_id
   }).then( response => {
     console.log(response);
     }).catch(error => {
@@ -101,7 +105,7 @@ function handleFavorite(e){
       let err = error.response.data.errors[0].msg;
       console.log(err);
     });
-    history.go(0);
+    //history.go(0);
   }
 
 
@@ -156,19 +160,24 @@ function handleFavorite(e){
             </Row>
             
             <Row className="makeCenter">
+
               <Col sm={2} className="my-1">
               <FormControlLabel 
-                control={<Checkbox checked={check} onChange={handleFavorite} icon={<FavoriteBorder />} 
+                control={<Checkbox onChange={handleFavorite} icon={<FavoriteBorder />} 
                   checkedIcon={<Favorite />}
                     name="checkedH" />}
+                    checked={check} 
                 />
               </Col>
+
               <Col sm={2} className="my-1">
               <a href='/postComment' onClick={handleClick}  className="btn btn-outline-white wow fadeInDown"><i className="far fa-comments"> </i> </a>           
               </Col>
+
               {user_id ?<Col sm={2} className="my-1">
               <a onClick={handleDelete}> <i class="far fa-trash-alt"></i></a>
               </Col>: ""}
+
             </Row>
 
 
