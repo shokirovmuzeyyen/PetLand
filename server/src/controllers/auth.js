@@ -220,6 +220,45 @@ exports.getUserPosts = async (req, res) => {
 }
 
 
+exports.getUserFavorites = async (req, res) => {
+  const user_id = req.body.user_id
+  console.log(user_id)
+  try {
+    const { rows } = await db.query(`select * from favorite where user_id = $1;`, [user_id])
+    console.log(rows)
+    return res.status(200).json({
+      success: true,
+      posts: rows,
+    })
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({
+      error: error.message,
+    })
+
+  }
+}
+
+exports.addFavorite = async (req, res) => {
+  const user_id = req.body.user_id
+  const post_id = req.body.post_id
+  console.log(user_id)
+  try {
+    const { rows } = await db.query('update favorite set commuser_id=$1 where post_id = $2;', [user_id , comment_id])
+    console.log(rows)
+    return res.status(200).json({
+      success: true,
+      posts: rows,
+    })
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({
+      error: error.message,
+    })
+
+  }
+}
+
 exports.delete_comment = async (req, res) => {
   const comment_id  = req.body.id
   const post_id = req.body.post_id

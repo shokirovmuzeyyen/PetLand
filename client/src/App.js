@@ -14,6 +14,7 @@ import {BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-do
 import MyPosts from './myPosts';
 import NearByMe from './nearByMe';
 import ChangePassword from './changePassword'
+import Favorites from './myFavorites.js'
 //run npm install react-router-dom --save
 //npm install --save bootstrap
 // npm install axios
@@ -65,6 +66,7 @@ function App() {
       <Route path="/search" component={Search} />
       <Route path="/postComment" component={PostComment} />
       <Route path="/myPosts" component={MyPosts} />
+      <Route path="/myFavorites" component={Favorites} />
       <Route path="/nearByMe" component={NearByMe} />
       <Route path="/changePassword" component={ChangePassword} />
       <Route path="/profile" component={Profile} />

@@ -11,7 +11,7 @@ const {
   getUserInfo,
   updateUser,
   changePassword,
- search, post,  nearByMe, deletePost
+ search, post,  nearByMe, deletePost, getUserFavorites, addFavorite
 } = require('../controllers/auth')
 const {
   validationMiddleware,
@@ -35,6 +35,8 @@ router.post('/delete_comment', delete_comment)
 router.post('/edit_comment', edit_comment)
 router.post('/get_username', get_username)
 router.post('/get-user-posts', getUserPosts)
+router.post('/get-user-favorites', getUserFavorites)
+router.post('/add_favorite', addFavorite)
 router.post('/get-user-info', getUserInfo)
 router.post('/update-user', updateValidation, validationMiddleware, updateUser)
 router.post('/nearByMe', nearByMe)
