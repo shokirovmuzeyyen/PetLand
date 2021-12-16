@@ -14,6 +14,13 @@ import { config } from './config';
 
 const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_image, vaccinated, ts }) => {
   const history = useHistory();
+  const tokenString = sessionStorage.getItem('token');
+  const [values, setValues] = useState({
+    favorites: {}
+  });
+  const [check, setCheck] = useState('');
+
+
   function handleClick(e){
     e.preventDefault();
     history.push({ 
@@ -21,6 +28,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
       state: post_id
      });
   }
+  
   function handleDelete(e){
     console.log("delete post")
     console.log(post_id)
@@ -39,6 +47,68 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
     history.go(0);
   }
 }
+
+function getFavorite(){
+  console.log('getFavorite')
+  Axios.post(`${config.SERVER_URI}/api/get-user-favorites`,
+  {
+    user_id: tokenString
+  }).then(res => {
+    handleChangeFavorite(res.data.posts);
+    values.favorites.map((p,i) => {
+      console.log(p.post_id);
+      console.log(post_id)
+    if (p.post_id === post_id){
+      setCheck(true);
+    }
+    else{
+      setCheck(false);
+    }
+  })  
+  }).catch(error => {
+      console.log(error.response);
+      let err = error.response.data.errors[0].msg;
+      console.log(err);
+      if (err){
+      }
+      else{
+        history.push("/feed");
+    }});
+    console.log('end getFavorite')
+
+}
+
+const handleChangeFavorite = (e) => {
+  console.log("e is "+ e);
+
+  setValues({
+    ...values,
+    ["favorites"] : e
+  });
+  values.favorites = e;    
+  };
+
+function handleFavorite(e){
+  console.log("fav post")
+  Axios.post(`${config.SERVER_URI}/api/add_favorite`,
+  {
+    post_id: post_id,
+    user_id: tokenString
+  }).then( response => {
+    console.log(response);
+    }).catch(error => {
+      console.log(error.response);
+      let err = error.response.data.errors[0].msg;
+      console.log(err);
+    });
+    history.go(0);
+  }
+
+
+  useEffect(()=> 
+  getFavorite()
+  ,[]);
+
 
   return (
     <div>
@@ -88,7 +158,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
             <Row className="makeCenter">
               <Col sm={2} className="my-1">
               <FormControlLabel 
-                control={<Checkbox icon={<FavoriteBorder />} 
+                control={<Checkbox checked={check} onChange={handleFavorite} icon={<FavoriteBorder />} 
                   checkedIcon={<Favorite />}
                     name="checkedH" />}
                 />
