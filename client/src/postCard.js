@@ -16,7 +16,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
   const history = useHistory();
   //const tokenString = sessionStorage.getItem('token');
   const current_user_id = parseInt(sessionStorage.getItem('token') , 10 ) ;  
-  console.log(current_user_id)
+  //console.log(current_user_id)
   const [values, setValues] = useState({
     favorites: {}
   });
@@ -92,7 +92,7 @@ const handleChangeFavorite = (e) => {
 
   function handleFavorite(e){
   console.log("fav post")
-  console.log(current_user_id, post_id);
+  //console.log(current_user_id, post_id);
 
   Axios.post(`${config.SERVER_URI}/api/add_favorite`,
   {
