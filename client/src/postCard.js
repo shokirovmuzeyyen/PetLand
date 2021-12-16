@@ -109,11 +109,9 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
     //console.log(current_user_id, post_id);
     if (e === true){
       deleteFavorite();
-      setCheck(false);
     }
     else{
       addFavorite();
-      setCheck(true);
     }
   }
 
@@ -132,6 +130,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
       let err = error.response.data.errors[0].msg;
       console.log(err);
     });
+    setCheck(false);
     history.go(0);
   }
 
@@ -143,13 +142,14 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
     user_id: current_user_id
   }).then( response => {
     console.log(response);
-    handleChangeFavorite(response.data.posts.rows);
+    handleChangeFavorite(response.data.posts);
     }).catch(error => {
       console.log(error.response);
       let err = error.response.data.errors[0].msg;
       console.log(err);
     });
-    //history.go(0);
+    setCheck(true);
+    history.go(0);
   }
 
 
