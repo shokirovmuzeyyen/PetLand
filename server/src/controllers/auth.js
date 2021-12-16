@@ -272,7 +272,7 @@ exports.deleteFavorite = async (req, res) => {
   try {
     let { rows } = await db.query(`select from favorite where user_id=$2 and post_id=$1 `, [user_id , post_id])
     if (rows.length>0){
-      await db.query(`delete from favorite where user_id=$2 and post_id=$1 `, [user_id , post_id])
+      await db.query(`delete from favorite where user_id=$1 and post_id=$2 `, [user_id , post_id])
     }
     rows = await db.query(`select * from favorite where user_id = $1;`, [user_id])
     console.log(rows)
