@@ -30,12 +30,10 @@ const MyPosts = () => {
     {
       user_id: current_user_id
     }).then(res => {
-      console.log(res);
       handleChangePosts(res.data.posts);
     }).catch(error => {
         console.log(error);
         let err = error.response.data.errors[0].msg;
-        console.log(err);
         if (err){
         }
         else{
@@ -54,7 +52,7 @@ const MyPosts = () => {
       backgroundImage: `url(${bg})`,  backgroundPosition: 'center'}}>
       <NavBar/>
           <Row style={{marginTop: "3%"}}>
-          <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.posts.length > 0 ? "The announcements that you have posted so far" : "You have not posted anything yet."}</label>          
+          <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.posts.length > 0 ? "The announcements that you have favorited so far" : "You have not posted anything yet."}</label>          
           {
             values.posts.length > 0 &&
             values.posts.map((p, i) => (

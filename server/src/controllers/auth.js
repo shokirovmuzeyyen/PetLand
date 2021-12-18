@@ -222,10 +222,8 @@ exports.getUserPosts = async (req, res) => {
 
 exports.getUserFavorites = async (req, res) => {
   const user_id = req.body.user_id
-  console.log(user_id)
   try {
     const { rows } = await db.query(`select * from post where post_id = ANY(select post_id from favorite where user_id = $1);`, [user_id])
-    //console.log(rows)
     return res.status(200).json({
       success: true,
       posts: rows,

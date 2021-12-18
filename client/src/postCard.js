@@ -14,9 +14,7 @@ import { config } from './config';
 
 const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_image, vaccinated, ts }) => {
   const history = useHistory();
-  //const tokenString = sessionStorage.getItem('token');
   const current_user_id = parseInt(sessionStorage.getItem('token') , 10 ) ;  
-  //console.log(current_user_id)
   const [values, setValues] = useState({
     favorites: {}
   });
@@ -32,8 +30,6 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
   }
 
   function handleDelete(e){
-    console.log("delete post")
-    console.log(post_id)
     e.preventDefault();
     if (window.confirm("Are you sure you want to delete this post?")) {
     Axios.post(`${config.SERVER_URI}/api/delete-post`,
@@ -51,22 +47,18 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
 }
 
   function getFavorite(){
-    console.log('getFavorite');
     Axios.post(`${config.SERVER_URI}/api/get-user-favorites`,
     {
       user_id: current_user_id
     }).then(res => {
       handleChangeFavorite(res.data.posts);
-      console.log('Favorite1');
       for (var i = 0; i < values.favorites.length; i++) {
         if (values.favorites[i].post_id === post_id){
           setCheck(true);
-          console.log('Favorite2');
           break;
         }
         else{
           setCheck(false);
-          console.log('Favorite3');
         }
       };  
     }).catch(error => {
@@ -78,13 +70,9 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
         else{
           history.push("/feed");
       }});
-      console.log('end getFavorite')
-
   }
 
-  const handleChangeFavorite = (e) => {
-    console.log("e is "+ e[0].post_id);
-    
+  const handleChangeFavorite = (e) => {   
     setValues({
       ...values,
       ["favorites"] : e
@@ -93,11 +81,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
   };
 
   function handleFavorite(e){
-    console.log("fav post");
-    console.log(e.target.checked);
-    //console.log(current_user_id, post_id);
     if (e.target.checked === false){
-      console.log('delete it', e);
       deleteFavorite();
     }
     else{
@@ -106,8 +90,6 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
   }
 
   function deleteFavorite(){
-  console.log("delete fav");
-  //console.log(current_user_id, post_id);
   Axios.post(`${config.SERVER_URI}/api/delete_favorite`,
   {
     post_id: post_id,
@@ -125,7 +107,6 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
   }
 
   function addFavorite(){
-  console.log("add fav");
   Axios.post(`http://localhost:8000/api/add_favorite`,
   {
     //${config.SERVER_URI}
