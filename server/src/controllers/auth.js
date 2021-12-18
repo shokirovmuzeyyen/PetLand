@@ -224,8 +224,8 @@ exports.getUserFavorites = async (req, res) => {
   const user_id = req.body.user_id
   console.log(user_id)
   try {
-    const { rows } = await db.query(`select * from favorite where user_id = $1;`, [user_id])
-    console.log(rows)
+    const { rows } = await db.query(`select * from post where post_id = ANY(select post_id from favorite where user_id = $1);`, [post_ids])
+    //console.log(rows)
     return res.status(200).json({
       success: true,
       posts: rows,
@@ -243,15 +243,15 @@ exports.addFavorite = async (req, res) => {
   console.log("add favorite")
   const post_id = req.body.post_id
   const user_id = req.body.user_id
-  console.log(user_id)
+  //console.log(user_id)
   try {
     let { rows } = await db.query(`select from favorite where user_id=$1 and post_id=$2 `, [user_id , post_id])
-    console.log(rows)
+    //console.log(rows)
     if (rows.length === 0){
       await db.query(`insert into favorite(user_id,post_id) values ($1,$2)`, [user_id , post_id])
     }
     rows = await db.query(`select * from favorite where user_id = $1;`, [user_id])
-    console.log(rows)
+    //console.log(rows)
     return res.status(200).json({
       success: true,
       posts: rows,

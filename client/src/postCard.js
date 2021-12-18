@@ -68,18 +68,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
           setCheck(false);
           console.log('Favorite3');
         }
-      };
-
-      // values.favorites.map((p,i) => {
-      //   console.log(p.post_id);
-      //   console.log(post_id)
-      // if (p.post_id === post_id){
-      //   setCheck(true);
-      // }
-      // else{
-      //   setCheck(false);
-      // }
-    //})  
+      };  
     }).catch(error => {
         console.log(error.response);
         let err = error.response.data.errors[0].msg;
@@ -95,7 +84,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
 
   const handleChangeFavorite = (e) => {
     console.log("e is "+ e[0].post_id);
-
+    
     setValues({
       ...values,
       ["favorites"] : e
@@ -105,9 +94,10 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
 
   function handleFavorite(e){
     console.log("fav post");
-    console.log(e);
+    console.log(e.target.checked);
     //console.log(current_user_id, post_id);
-    if (e === true){
+    if (e.target.checked === false){
+      console.log('delete it', e);
       deleteFavorite();
     }
     else{
@@ -131,25 +121,26 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
       console.log(err);
     });
     setCheck(false);
-    history.go(0);
+    //history.go(0);
   }
 
   function addFavorite(){
   console.log("add fav");
-  Axios.post(`${config.SERVER_URI}/api/add_favorite`,
+  Axios.post(`http://localhost:8000/api/add_favorite`,
   {
+    //${config.SERVER_URI}
     post_id: post_id,
     user_id: current_user_id
   }).then( response => {
     console.log(response);
-    handleChangeFavorite(response.data.posts);
+    handleChangeFavorite(response.data.posts.rows);
     }).catch(error => {
       console.log(error.response);
       let err = error.response.data.errors[0].msg;
       console.log(err);
     });
     setCheck(true);
-    history.go(0);
+    //history.go(0);
   }
 
 
@@ -209,7 +200,6 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
               <Col sm={2} className="my-1">
               <FormControlLabel 
                 control={<Checkbox checked={check} checkedIcon={<Favorite />} onChange={(check) => handleFavorite(check)} icon={<FavoriteBorder />} 
-                  checkedIcon={<Favorite />}
                     name="checkedH" />}
                     
                 />
