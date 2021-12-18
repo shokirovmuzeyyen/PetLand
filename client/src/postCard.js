@@ -90,6 +90,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
   }
 
   function deleteFavorite(){
+    console.log('delete fav');
   Axios.post(`${config.SERVER_URI}/api/delete_favorite`,
   {
     post_id: post_id,
@@ -103,11 +104,13 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
       console.log(err);
     });
     setCheck(false);
+    //window.location.reload();  //sorun delete fav yapildiginda sayfa refreshlenmesi favi geri getiriyor
     //history.go(0);
   }
 
   function addFavorite(){
-  Axios.post(`http://localhost:8000/api/add_favorite`,
+  
+  Axios.post(`${config.SERVER_URI}/api/add_favorite`,
   {
     //${config.SERVER_URI}
     post_id: post_id,
@@ -121,13 +124,13 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
       console.log(err);
     });
     setCheck(true);
-    //history.go(0);
+    history.go(0);  //sorun add fav yapildiginda sayfa refreshlenmesi no problem
   }
 
 
       
   useEffect(()=> 
-  getFavorite()
+    getFavorite()
   ,[]);
 
 

@@ -26,7 +26,7 @@ const MyPosts = () => {
   };
 
   const getRepo = (current_user_id) => {
-    Axios.post(`http://localhost:8000/api/get-user-favorites`,
+    Axios.post(`${config.SERVER_URI}/api/get-user-favorites`,
     {
       user_id: current_user_id
     }).then(res => {
@@ -52,7 +52,7 @@ const MyPosts = () => {
       backgroundImage: `url(${bg})`,  backgroundPosition: 'center'}}>
       <NavBar/>
           <Row style={{marginTop: "3%"}}>
-          <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.posts.length > 0 ? "The announcements that you have favorited so far" : "You have not posted anything yet."}</label>          
+          <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.posts.length > 0 ? "The announcements that you have favorited so far" : "You have not any favorite post yet."}</label>          
           {
             values.posts.length > 0 &&
             values.posts.map((p, i) => (
@@ -68,7 +68,6 @@ const MyPosts = () => {
                   p_image={p.p_image}
                   vaccinated={p.vaccinated}
                   ts={p.ts}
-                  post_id = {p.post_id}
                 />
               </Col>
             ))
