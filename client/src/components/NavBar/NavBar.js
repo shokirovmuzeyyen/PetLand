@@ -12,30 +12,6 @@ class Navbar extends Component{
     this.state({clicked: !this.state.clicked})
   };
 
-  async logout(e) {
-    console.log("out");
-    Axios.post(`${config.SERVER_URI}/api/logout`,
-    {
-      logout: true,
-    }).then((response) => {
-      if (!response){
-        console.log("no error");
-      }
-      else{
-        console.log(response);
-        sessionStorage.removeItem('token');
-      }
-        }).catch(error => {
-        console.log(error);
-        let err = error.response;
-        if (err){
-          console.log(err);
-        }});
-
-    };
-
-
-
   render(){
     return(
       <nav className="NavbarItems">
@@ -54,7 +30,6 @@ class Navbar extends Component{
               )})
           }
         </ul>
-        <Button onClick={this.logout}>Log Out</Button>
       </nav>
     )
   }

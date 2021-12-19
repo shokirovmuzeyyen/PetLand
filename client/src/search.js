@@ -116,6 +116,7 @@ export default function Search(){
       ...values,
       ["message"] : "Sorry, we could not find any post as you searched."
     });
+    values.message = "Sorry, we could not find any post as you searched.";
   }
   function handleSubmit(e){
     const {name, value} = e.target;

@@ -132,7 +132,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
       console.log(err);
     });
     setCheck(true);
-    history.go(0);  //sorun add fav yapildiginda sayfa refreshlenmesi no problem
+    //history.go(0);  //sorun add fav yapildiginda sayfa refreshlenmesi no problem
   }
 
 

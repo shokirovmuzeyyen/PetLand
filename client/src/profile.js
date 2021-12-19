@@ -150,6 +150,29 @@ const Settings = () => {
     old_phone: ''
   });
 
+  function logout(e) {
+    console.log("out");
+    Axios.post(`${config.SERVER_URI}/api/logout`,
+    {
+      logout: true,
+    }).then((response) => {
+      if (!response){
+        console.log("no error");
+      }
+      else{
+        console.log(response);
+        sessionStorage.removeItem('token');
+      }
+        }).catch(error => {
+        console.log(error);
+        let err = error.response;
+        if (err){
+          console.log(err);
+        }});
+      history.push("/");
+      history.go(0);
+    };
+
   const getInfo = () => {
     Axios.post(`${config.SERVER_URI}/api/get-user-info`,
     {
@@ -244,6 +267,10 @@ const Settings = () => {
           <Col className='makeCenter'>
                 <Button variant="primary" size="lg" onClick={()=> {history.push("/changePassword");}} >Change password?</Button>
               </Col>
+              <div style={{marginTop:"5%"}}>
+              <Col className='makeCenter'>   
+              <Button className=' btn btn-warning' onClick={logout}>Log Out</Button></Col>
+              </div>
           </Card.Body>
           </Form>
         </Card>

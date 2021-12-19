@@ -49,7 +49,7 @@ const MyPosts = () => {
   ,[]);
   return (
     <div style={{ 
-      backgroundImage: `url(${bg})`,  backgroundPosition: 'center'}}>
+      backgroundImage: `url(${bg})`,  backgroundPosition: 'center', paddingBottom:"50%"}}>
       <NavBar/>
           <Row style={{marginTop: "3%"}}>
           <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.posts.length > 0 ? "The announcements that you have favorited so far" : "You have not any favorite post yet."}</label>          
@@ -58,7 +58,7 @@ const MyPosts = () => {
             values.posts.map((p, i) => (
               <Col xs={6} className="makeCenter">
                 <PostCard
-                  user_id={p.user_id}
+                  user_id={false}
                   post_id={p.post_id}
                   name={p.name}
                   breed={p.breed}

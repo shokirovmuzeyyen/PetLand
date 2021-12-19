@@ -49,7 +49,7 @@ const MyPosts = () => {
   ,[]);
   return (
     <div style={{ 
-      backgroundImage: `url(${bg})`,  backgroundPosition: 'center'}}>
+      backgroundImage: `url(${bg})`,  backgroundPosition: 'center', paddingBottom:"50%"}}>
       <NavBar/>
           <Row style={{marginTop: "3%"}}>
           <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.posts.length > 0 ? "The announcements that you have posted so far" : "You have not posted anything yet."}</label>          

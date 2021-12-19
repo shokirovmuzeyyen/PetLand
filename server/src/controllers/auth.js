@@ -446,7 +446,6 @@ exports.get_dms = async (req, res) => {
 exports.get_conv = async (req, res) => {
   const conv_id = req.body.conv_id
   const other_user_id = req.body.other_user_id
-  console.log(other_user_id)
   try {
     const query = `SELECT * FROM users WHERE user_id = '` +other_user_id + `';`;
     const  rows2  = await db.query(query);
@@ -476,22 +475,18 @@ exports.add_dm = async (req, res) => {
   const receiver_id = parseInt(req.body.receiver_id)
   const sender_id = parseInt(req.body.sender_id)
   const ts = req.body.ts
-  console.log("add_dm: ", message, receiver_id, sender_id, ts)
   try {
     await db.query(`INSERT INTO message (message, receiver_id, sender_id, ts, conv_id) 
           VALUES ($1, $2, $3, $4, concat( least($5,$6), '_', greatest($5,$6) ));`, [message, receiver_id, sender_id, ts, receiver_id, sender_id])
 
-
     const query = `SELECT * FROM users WHERE user_id = '` +receiver_id + `';`;
     const  rows2  = await db.query(query);
-    console.log(rows2);
     const c = 1;
     const { rows } = await db.query(`SELECT *  
       FROM message m, users u
       WHERE conv_id = concat( least($1,$2), '_', greatest($1,$2) )
       and u.user_id = m.sender_id
       ORDER BY 1;`, [receiver_id, sender_id]);
-    console.log(rows)
       return res.status(200).json({
       success: true,
       conv: rows
@@ -507,7 +502,6 @@ exports.add_dm = async (req, res) => {
 exports.find_conv = async (req, res) => {
   const post_id = req.body.post_id
   const user_id = req.body.user_id
-  console.log(post_id, user_id)
   try {
     const { rows } = await db.query(`SELECT DISTINCT(m.conv_id), p.user_id FROM message m, post p WHERE p.post_id = $1 and ( (m.receiver_id = p.user_id and m.sender_id = $2)  or (m.sender_id= p.user_id and m.receiver_id = $2));`, [post_id, user_id])
     if(rows.length === 0)
@@ -526,7 +520,6 @@ exports.find_conv = async (req, res) => {
       })
     }
   } catch (error) {
-    console.log("error.message")
     console.log(error.message)
     return res.status(500).json({
       error: error.message,
