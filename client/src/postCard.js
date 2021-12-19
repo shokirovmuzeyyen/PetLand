@@ -14,9 +14,7 @@ import { config } from './config';
 
 const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_image, vaccinated, ts }) => {
   const history = useHistory();
-  //const tokenString = sessionStorage.getItem('token');
   const current_user_id = parseInt(sessionStorage.getItem('token') , 10 ) ;  
-  //console.log(current_user_id)
   const [values, setValues] = useState({
     favorites: {}
   });
@@ -32,8 +30,6 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
   }
 
   function handleDelete(e){
-    console.log("delete post")
-    console.log(post_id)
     e.preventDefault();
     if (window.confirm("Are you sure you want to delete this post?")) {
     Axios.post(`${config.SERVER_URI}/api/delete-post`,
@@ -51,35 +47,20 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
 }
 
   function getFavorite(){
-    console.log('getFavorite');
     Axios.post(`${config.SERVER_URI}/api/get-user-favorites`,
     {
       user_id: current_user_id
     }).then(res => {
       handleChangeFavorite(res.data.posts);
-      console.log('Favorite1');
       for (var i = 0; i < values.favorites.length; i++) {
         if (values.favorites[i].post_id === post_id){
           setCheck(true);
-          console.log('Favorite2');
           break;
         }
         else{
           setCheck(false);
-          console.log('Favorite3');
         }
-      };
-
-      // values.favorites.map((p,i) => {
-      //   console.log(p.post_id);
-      //   console.log(post_id)
-      // if (p.post_id === post_id){
-      //   setCheck(true);
-      // }
-      // else{
-      //   setCheck(false);
-      // }
-    //})  
+      };  
     }).catch(error => {
         console.log(error.response);
         let err = error.response.data.errors[0].msg;
@@ -89,13 +70,9 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
         else{
           history.push("/feed");
       }});
-      console.log('end getFavorite')
-
   }
 
-  const handleChangeFavorite = (e) => {
-    console.log("e is "+ e[0].post_id);
-
+  const handleChangeFavorite = (e) => {   
     setValues({
       ...values,
       ["favorites"] : e
@@ -104,10 +81,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
   };
 
   function handleFavorite(e){
-    console.log("fav post");
-    console.log(e);
-    //console.log(current_user_id, post_id);
-    if (e === true){
+    if (e.target.checked === false){
       deleteFavorite();
     }
     else{
@@ -116,8 +90,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
   }
 
   function deleteFavorite(){
-  console.log("delete fav");
-  //console.log(current_user_id, post_id);
+    console.log('delete fav');
   Axios.post(`${config.SERVER_URI}/api/delete_favorite`,
   {
     post_id: post_id,
@@ -131,31 +104,33 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
       console.log(err);
     });
     setCheck(false);
-    history.go(0);
+    //window.location.reload();  //sorun delete fav yapildiginda sayfa refreshlenmesi favi geri getiriyor
+    //history.go(0);
   }
 
   function addFavorite(){
-  console.log("add fav");
+  
   Axios.post(`${config.SERVER_URI}/api/add_favorite`,
   {
+    //${config.SERVER_URI}
     post_id: post_id,
     user_id: current_user_id
   }).then( response => {
     console.log(response);
-    handleChangeFavorite(response.data.posts);
+    handleChangeFavorite(response.data.posts.rows);
     }).catch(error => {
       console.log(error.response);
       let err = error.response.data.errors[0].msg;
       console.log(err);
     });
     setCheck(true);
-    history.go(0);
+    history.go(0);  //sorun add fav yapildiginda sayfa refreshlenmesi no problem
   }
 
 
       
   useEffect(()=> 
-  getFavorite()
+    getFavorite()
   ,[]);
 
 
@@ -209,7 +184,6 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
               <Col sm={2} className="my-1">
               <FormControlLabel 
                 control={<Checkbox checked={check} checkedIcon={<Favorite />} onChange={(check) => handleFavorite(check)} icon={<FavoriteBorder />} 
-                  checkedIcon={<Favorite />}
                     name="checkedH" />}
                     
                 />

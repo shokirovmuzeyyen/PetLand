@@ -9,33 +9,31 @@ import bg from './assets/bg.jpg';
 import NavBar from './components/NavBar/NavBar';
 
 const MyPosts = () => {
-  const current_user_id = parseInt(sessionStorage.getItem('token') , 10 ) ;  
+ 
   const [values, setValues] = useState({
-    posts: {}
+    posts: {},
   });
   const history = useHistory();
   const [setbackendError] = useState('');
   const [setIsSubmitted] = useState(false);
 
-  const handleChangePosts = (e) => {
-    console.log("e is "+ e);
+  const handleChangePosts = (posts) => {
     setValues({
       ...values,
-      ["posts"] : e
+      ["posts"] : posts,
     });
-    values.posts = e;    
-    };
+    values.posts = posts;  
+  };
 
-  const getRepo = () => {
+  const getRepo = (current_user_id) => {
     Axios.post(`${config.SERVER_URI}/api/get-user-favorites`,
     {
       user_id: current_user_id
     }).then(res => {
       handleChangePosts(res.data.posts);
     }).catch(error => {
-        console.log(error.response);
+        console.log(error);
         let err = error.response.data.errors[0].msg;
-        console.log(err);
         if (err){
         }
         else{
@@ -44,21 +42,23 @@ const MyPosts = () => {
           setIsSubmitted(true);
       }});
   }
-  useEffect(()=> 
-    getRepo()
+  useEffect(()=> {
+    const current_user_id = parseInt(sessionStorage.getItem('token') , 10 );  
+    getRepo(current_user_id)
+  }
   ,[]);
   return (
     <div style={{ 
       backgroundImage: `url(${bg})`,  backgroundPosition: 'center'}}>
       <NavBar/>
           <Row style={{marginTop: "3%"}}>
-          <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.posts.length > 0 ? "The announcements that you have posted so far" : "You have not posted anything yet."}</label>          
+          <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.posts.length > 0 ? "The announcements that you have favorited so far" : "You have not any favorite post yet."}</label>          
           {
             values.posts.length > 0 &&
             values.posts.map((p, i) => (
               <Col xs={6} className="makeCenter">
                 <PostCard
-                  user_id={p.user_id==current_user_id}
+                  user_id={p.user_id}
                   post_id={p.post_id}
                   name={p.name}
                   breed={p.breed}
@@ -68,7 +68,6 @@ const MyPosts = () => {
                   p_image={p.p_image}
                   vaccinated={p.vaccinated}
                   ts={p.ts}
-                  post_id = {p.post_id}
                 />
               </Col>
             ))
