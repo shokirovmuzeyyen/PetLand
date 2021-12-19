@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import NavBar from "../NavBar/NavBar";
 import bg from "../../assets/bg.jpg";
-import {Input} from 'reactstrap';
+import {Button, Input} from 'reactstrap';
 import { useHistory, useLocation} from "react-router-dom";
 import DM_component from "./dm_component";
 
@@ -183,7 +183,8 @@ const DM = () => {
                 <Card.Img variant="top" src="" />
                 <Card.Body className="makeCenter">
 
-                    <label onClick={() => handleShow(c.conv_id, c.user_id)} className="makeCenter postTitle" style={{fontSize:20, textTransform: 'uppercase'}}>{c.name}</label>    
+                    <label className="makeCenter postTitle" style={{fontSize:20, textTransform: 'uppercase'}}>{c.name}</label>    
+                    <Button onClick={() => handleShow(c.conv_id, c.user_id)} ></Button>
                 </Card.Body>
             </Card>
           ))}
