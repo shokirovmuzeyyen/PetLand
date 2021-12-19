@@ -26,11 +26,10 @@ const DM = () => {
   const user_id = sessionStorage.getItem('token');
   
   const getDMs= () => {
-    //Axios.post(`${config.SERVER_URI}/api/get-dms`,
     
     if (post_id)
     {
-      Axios.post('http://localhost:8000/api/find_conv',
+      Axios.post(`${config.SERVER_URI}/api/find_conv`,
       {
         post_id: post_id,
         user_id: user_id
@@ -51,7 +50,7 @@ const DM = () => {
         console.log(error.response);
       });
     }
-    Axios.post('http://localhost:8000/api/get_dms',
+    Axios.post(`${config.SERVER_URI}/api/get_dms`,
     {
       user_id: user_id
     }).then( response => {
@@ -77,8 +76,7 @@ const DM = () => {
   const getConv= (conv_id, other_user_id) => {
     console.log("getConv :: conv_id is:");
     console.log(conv_id);
-    //Axios.post(`${config.SERVER_URI}/api/get-dms`,
-    Axios.post('http://localhost:8000/api/get_conv',
+    Axios.post(`${config.SERVER_URI}/api/get-dms`,
     {
       conv_id: conv_id, 
       other_user_id: other_user_id,
@@ -125,7 +123,7 @@ const DM = () => {
   function handleSend(receiver_id){
     console.log("handle send");
     console.log(values.message,receiver_id, user_id);
-     Axios.post('http://localhost:8000/api/add_dm',
+    Axios.post(`${config.SERVER_URI}/api/add_dm`,
     {
       message: values.message,
       receiver_id: receiver_id,
@@ -153,7 +151,6 @@ const DM = () => {
       console.log(error.response);
     });
 
-    //history.go(0);
   };
   const handleChange = e => {
     const {name, value} = e.target;
