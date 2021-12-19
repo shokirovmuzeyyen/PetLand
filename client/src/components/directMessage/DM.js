@@ -76,7 +76,7 @@ const DM = () => {
   const getConv= (conv_id, other_user_id) => {
     console.log("getConv :: conv_id is:");
     console.log(conv_id);
-    Axios.post(`${config.SERVER_URI}/api/get_dms`,
+    Axios.post(`${config.SERVER_URI}/api/get_conv`,
     {
       conv_id: conv_id, 
       other_user_id: other_user_id,
@@ -182,9 +182,7 @@ const DM = () => {
                 className="mb-2" style={{ width: '32rem', height: "100px" }}>
                 <Card.Img variant="top" src="" />
                 <Card.Body className="makeCenter">
-
-                    <label className="makeCenter postTitle" style={{fontSize:20, textTransform: 'uppercase'}}>{c.name}</label>    
-                    <Button onClick={() => handleShow(c.conv_id, c.user_id)} ></Button>
+                    <label onClick={() => handleShow(c.conv_id, c.user_id)} className="makeCenter postTitle" style={{fontSize:20, textTransform: 'uppercase'}}>{c.name}</label>    
                 </Card.Body>
             </Card>
           ))}
@@ -225,15 +223,15 @@ const DM = () => {
                 {values.other_user.length > 0 ?(<h3 style={{textTransform: 'uppercase', marginTop:"5%"}}>{values.other_user[0].name}</h3>): ""}
               </Card.Title>
               <Card.Body className="makeCenter">
-                <Card.Text>
                 <Input
                     placeholder="Your message"
                     value={values.message}
                     onChange={handleChange}
                     style={{width: '20rem', height: "80px"}}
                   />
-                <a onClick={() => handleSend(values.other_user[0].user_id)} className="btn btn-primary" style={{width: '8rem', height: "40px"}}>SEND</a>
-              </Card.Text>
+                  <div className="makeCenter" style={{marginTop:"5%"}}>
+                    <a onClick={() => handleSend(values.other_user[0].user_id)} className="btn btn-primary" style={{width: '100%', height: "40px"}}>SEND</a>
+                  </div>
             </Card.Body>
           </Card>
           : ""

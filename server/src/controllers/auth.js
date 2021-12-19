@@ -426,11 +426,9 @@ exports.deletePost = async (req, res) => {
 }
 
 exports.get_dms = async (req, res) => {
-  const user_id = req.body.user_id
-  console.log(user_id)
+  const user_id = req.body.user_id;
   try {
     const query = "SELECT DISTINCT(m.conv_id), u.name, u.user_id FROM message m, users u WHERE (conv_id LIKE '%_" +user_id+ "' or conv_id LIKE '" +user_id+ "_%') and (u.user_id = m.sender_id or u.user_id = m.receiver_id) and (u.user_id != " +user_id+ ");";
-    console.log("why")
     const { rows } = await db.query(query)
     return res.status(200).json({
       success: true,
