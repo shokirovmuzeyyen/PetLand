@@ -204,7 +204,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
               {user_id ?<Col sm={2} className="my-1">
               <a onClick={handleDelete}> <i class="far fa-trash-alt"></i></a>
               </Col>: <Col sm={2} className="my-1">
-              <a onClick={handleDM}> <i class="">DM</i></a>
+              <a onClick={handleDM} style={{textDecoration: 'none'}}> <i class="far fa-envelope"></i></a>
               </Col>}
 
             </Row>

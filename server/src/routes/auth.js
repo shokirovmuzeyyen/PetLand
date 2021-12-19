@@ -11,7 +11,8 @@ const {
   getUserInfo,
   updateUser,
   changePassword,
- search, post,  nearByMe, deletePost, getUserFavorites, addFavorite, deleteFavorite
+ search, post,  nearByMe, deletePost, getUserFavorites, addFavorite, deleteFavorite,
+  get_dms, get_conv, add_dm, find_conv
 } = require('../controllers/auth')
 const {
   validationMiddleware,
@@ -43,5 +44,8 @@ router.post('/update-user', updateValidation, validationMiddleware, updateUser)
 router.post('/nearByMe', nearByMe)
 router.put('/change-password', changePasswordValidation, validationMiddleware, changePassword)
 router.post('/delete-post', deletePost)
-
+router.post('/get_dms', get_dms)
+router.post('/get_conv', get_conv)
+router.post('/add_dm', add_dm)
+router.post('/find_conv', find_conv)
 module.exports = router

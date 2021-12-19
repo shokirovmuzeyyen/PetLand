@@ -1,9 +1,9 @@
 import React from 'react'
-
+import DM from './components/directMessage/DM'
 function dm() {
   return (
     <div>
-      <h1>DM Page</h1>
+      <DM ></DM>
     </div>
   )
 }
