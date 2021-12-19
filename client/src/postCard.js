@@ -24,6 +24,14 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
   function handleClick(e){
     e.preventDefault();
     history.push({ 
+      pathname: '/dm',
+      state: post_id
+     });
+  }
+
+  function handleDM(e){
+    e.preventDefault();
+    history.push({ 
       pathname: '/postComment',
       state: post_id
      });
@@ -196,7 +204,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
               {user_id ?<Col sm={2} className="my-1">
               <a onClick={handleDelete}> <i class="far fa-trash-alt"></i></a>
               </Col>: <Col sm={2} className="my-1">
-              <a onClick={handleDelete}> <i class="">DM</i></a>
+              <a onClick={handleDM}> <i class="">DM</i></a>
               </Col>}
 
             </Row>
