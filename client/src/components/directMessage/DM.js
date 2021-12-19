@@ -76,7 +76,7 @@ const DM = () => {
   const getConv= (conv_id, other_user_id) => {
     console.log("getConv :: conv_id is:");
     console.log(conv_id);
-    Axios.post(`${config.SERVER_URI}/api/get-dms`,
+    Axios.post(`${config.SERVER_URI}/api/get_dms`,
     {
       conv_id: conv_id, 
       other_user_id: other_user_id,
