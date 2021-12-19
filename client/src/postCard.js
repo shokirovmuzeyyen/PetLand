@@ -24,7 +24,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
   function handleClick(e){
     e.preventDefault();
     history.push({ 
-      pathname: '/dm',
+      pathname: '/postComment',
       state: post_id
      });
   }
@@ -32,7 +32,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
   function handleDM(e){
     e.preventDefault();
     history.push({ 
-      pathname: '/postComment',
+      pathname: '/dm',
       state: post_id
      });
   }
