@@ -2,7 +2,7 @@ CREATE EXTENSION citext;
 
 CREATE TABLE users(
   user_id SERIAL PRIMARY KEY,
-  name VARCHAR(20) NOT NULL,
+  name VARCHAR(40) NOT NULL,
   email citext UNIQUE NOT NULL,
   password TEXT NOT NULL,
   phone TEXT NOT NULL,
@@ -17,7 +17,8 @@ CREATE TABLE post(
   user_id integer references users(user_id),
   extra_info TEXT,
   ts TIMESTAMP,
-  vaccinated BOOLEAN
+  vaccinated BOOLEAN,
+  breed VARCHAR(10)
 );
 
 CREATE TABLE comment(
@@ -39,5 +40,6 @@ CREATE TABLE message(
   sender_id integer references users(user_id),
   receiver_id integer references users(user_id),
   ts TIMESTAMP,
-  message TEXT
+  message TEXT,
+  conv_id TEXT
 );
