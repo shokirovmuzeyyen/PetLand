@@ -16,7 +16,7 @@ const DM_component = ({name, message, ts}) => {
         </div>
         <div>
           <label className="justify-space-between">{message}</label>
-          <label style={{fontSize:'8px', marginLeft:"100%"}} className="justify-space-between">{new Date(ts).getDate()}.{new Date(ts).getMonth()}.{new Date(ts).getFullYear()} {new Date(ts).getHours()}:{new Date(ts).getMinutes()}</label>
+          <label style={{fontSize:'8px', marginLeft:"95%"}} className="justify-space-between">{new Date(ts).getDate()}.{new Date(ts).getMonth()}.{new Date(ts).getFullYear()} {new Date(ts).getHours()}:{new Date(ts).getMinutes()}</label>
         </div>
     </div>
   );
