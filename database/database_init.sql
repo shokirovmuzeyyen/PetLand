@@ -11,14 +11,15 @@ CREATE TABLE users(
 
 CREATE TABLE post(
   post_id SERIAL PRIMARY KEY,
-  p_image bytea,
+  p_image TEXT,
   name VARCHAR(20),
   location VARCHAR(40) NOT NULL,
   user_id integer references users(user_id),
   extra_info TEXT,
   ts TIMESTAMP,
   vaccinated BOOLEAN,
-  breed VARCHAR(10)
+  breed VARCHAR(10),
+  age integer
 );
 
 CREATE TABLE comment(
