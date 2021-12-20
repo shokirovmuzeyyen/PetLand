@@ -9,7 +9,7 @@ import bg from './assets/bg.jpg';
 import NavBar from './components/NavBar/NavBar';
 
 const MyPosts = () => {
- 
+  const tokenString = sessionStorage.getItem('token');
   const [values, setValues] = useState({
     posts: {},
   });
@@ -58,7 +58,7 @@ const MyPosts = () => {
             values.posts.map((p, i) => (
               <Col xs={6} className="makeCenter">
                 <PostCard
-                  user_id={false}
+                  user_id={tokenString==p.user_id}
                   post_id={p.post_id}
                   name={p.name}
                   breed={p.breed}

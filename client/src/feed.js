@@ -61,7 +61,7 @@ const Feed = () => {
             values.namee.map((p, i) => (
               <Col xs={6} className="makeCenter">
                 <PostCard
-                  user_id={false}
+                  user_id={tokenString==p.user_id}
                   post_id={p.post_id}
                   name={p.name}
                   breed={p.breed}

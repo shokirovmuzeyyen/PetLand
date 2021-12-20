@@ -19,6 +19,7 @@ import { useHistory, Redirect } from "react-router-dom";
 
 export default function Search(){
   const history = useHistory();
+  const tokenString = sessionStorage.getItem('token');
   const [values, setValues] = useState({
     posts: {},
     search_name: '',
@@ -193,6 +194,7 @@ export default function Search(){
           values.posts.map((p, i) => (
             <Col xs={6} className="makeCenter">
               <PostCard
+                user_id={tokenString==p.user_id}
                 name={p.name}
                 breed={p.breed}
                 age={p.age}
