@@ -180,8 +180,9 @@ const CreatePost = () => {
   }
 
   const createPost = () => {
-    Axios.post(`${config.SERVER_URI}/api/createPost`,
+    Axios.post(`http://localhost:8000/api/createPost`,
     {
+      //`${config.SERVER_URI}
 
       name: (values.name).toUpperCase(),
       breed: values.breed,

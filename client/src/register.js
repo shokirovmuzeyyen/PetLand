@@ -174,7 +174,7 @@ function Register() {
 
   return (
     <div className="App">
-      <Card style={{height:"100vh", overflow: "auto"}} className="bg-dark">
+      <Card style={{height:"100vh", overflow: "auto", backgroundColor:"rgb(44, 34, 7)"}}>
       <div className="register-form"> 
         <Form className="form" onSubmit={handleSubmit}>
         {isSubmitted ? <span>Success! Thank you for registering.</span>: null}
@@ -242,14 +242,14 @@ function Register() {
 
         <div className="row justify-content-evenly">
           <div className="col-6">
-            <Button>Register</Button>
+            <Button className="btn-outline">Register</Button>
           </div>
         
           <div className="col-3 makeCenter">
             <label className="text-danger">Already have an account?</label>
           </div>
           <div className="col-3 makeCenter">
-            <Button className="ml-1" onClick={()=> {history.push("/login");}}>Login</Button>
+            <Button className="btn-outline ml-1" onClick={()=> {history.push("/login");}}>Login</Button>
           </div>
         {backend_error && <h3 className="text-white text-center">{backend_error}</h3>}
         </div> 

@@ -34,7 +34,7 @@ h5 {
 .register-form {
   border: 3px solid #d3d3d3;
   border-radius: 0.5em;
-  border-color: coral;
+  border-color: #daa520;
   margin-bottom: 8px;
   margin-left: auto;
   margin-right: auto;
@@ -94,4 +94,19 @@ label {
 p {
   margin: 10px;
   font-size: 18px;
+}
+
+.btn-outline {
+  color: coral;
+  font-weight: bold;
+  background: white;
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+}
+.btn-outline:hover {
+  color: white;
+  background-color: coral;
+  border-radius: 4px;
+  transition: all 0.2s ease-out;
 }

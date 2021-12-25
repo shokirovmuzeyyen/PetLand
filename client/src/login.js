@@ -113,7 +113,7 @@ export default function Login({ setToken }) {
 
   return (
     <div className="App">
-      <Card style={{height:"100vh",}} className="bg-dark">
+      <Card style={{height:"100vh", backgroundColor:"rgb(44, 34, 7)"}}>
       <div className="register-form"> 
         <Form className="form"  onSubmit={handleSubmit}>
         <h2 className="text-warning text-center">Login</h2>         
@@ -142,11 +142,11 @@ export default function Login({ setToken }) {
           </FormGroup>
         <div className="row justify-content-evenly">
         <div className="col">
-        <Button>Login</Button>
+        <Button  className="btn-outline">Login</Button>
         </div>
         <div className="col">
         <text className="text-danger">Create an account </text>
-        <Button className="ml-1" onClick={()=> {history.push("/register");}}>Register</Button>
+        <Button className="btn-outline ml-1" onClick={()=> {history.push("/register");}}>Register</Button>
         </div>
         {backend_error && <h3 className="text-white text-center">{backend_error}</h3>}
         </div> 
