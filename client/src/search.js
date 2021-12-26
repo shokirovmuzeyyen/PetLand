@@ -153,7 +153,7 @@ export default function Search(){
         <Row className="makeCenter">
           <Col md={3} >
           <FormGroup>
-            <label>Breed</label>
+            <label>Type</label>
             <Select options={breedOptions} value={breedOptions[values.search_breed]}
               onChange={handleChangeBreed}></Select>
           </FormGroup>

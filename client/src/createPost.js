@@ -30,7 +30,7 @@ const vaccinOptions = [
 function validateInfo(values){
   let errors ={}
   if (!values.breed === "Select"){
-    errors.name = "Breed required"
+    errors.name = "Type required"
   }
   if (values.name === ""){
     errors.email = "Name required"
@@ -237,7 +237,7 @@ const CreatePost = () => {
             <Row>
               <Col>
                 <FormGroup>
-                <Label className="createPostTitle makeCenter">Breed</Label>
+                <Label className="createPostTitle makeCenter">Type</Label>
                 <Select options={breedOptions} value={breedOptions[values.breed]}
                     onChange={handleChangeBreed}></Select>
                 </FormGroup>

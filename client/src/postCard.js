@@ -160,7 +160,7 @@ const PostCard = ({ user_id, post_id, name, breed, age, location, extra_info, p_
               <Col className="makeCenter"><label id="namee" >{name}</label></Col>
             </Row>
             <Row>
-              <Col><label className="postTitle">Breed:</label></Col>
+              <Col><label className="postTitle">Type:</label></Col>
               <Col className="makeCenter"><label id="breed" >{breed}</label></Col>
             </Row>
             <Row>
