@@ -10,7 +10,8 @@ import NavBar from './components/NavBar/NavBar';
 
 const Feed = () => {
   const [values, setValues] = useState({
-    namee: {}
+    namee: {},
+    my_info: {}
   });
   const tokenString = sessionStorage.getItem('token');
   const [errors, setErrors] = useState('');
@@ -19,7 +20,6 @@ const Feed = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const history = useHistory();
   const handleChangePosts = (e) => {
-    console.log("e is "+ e);
     setValues({
       ...values,
       ["namee"] : e
@@ -27,10 +27,35 @@ const Feed = () => {
     values.namee = e;    
     };
 
+  const handleChangeUser = (e) => {
+    setValues({
+      ...values,
+      ["my_info"] : e
+    });
+    values.my_info = e;    
+  };
+
+  const getUserInfo = () => {
+    Axios.post(`${config.SERVER_URI}/api/get_username`,
+    {
+      id: tokenString
+    }).then(res => {
+      console.log(res);
+      handleChangeUser(res.data.name);
+    }).catch(error => {
+        console.log(error.response);
+        let err = error.response.errors[0].msg;
+        console.log(err);
+        if (err){
+        }
+        else{
+          setbackendError('');
+          history.push("/feed");
+          setIsSubmitted(true);
+      }});
+  }
   const getRepo = () => {
     Axios.post(`${config.SERVER_URI}/api/get-posts`,
-
-    //Axios.post('http://localhost:8000/api/get-posts',
     {
     }).then(res => {
       handleChangePosts(res.data.posts);
@@ -45,6 +70,7 @@ const Feed = () => {
           history.push("/feed");
           setIsSubmitted(true);
       }});
+    getUserInfo();
   }
   useEffect(()=> 
     getRepo()
@@ -53,9 +79,9 @@ const Feed = () => {
     <div>
       <NavBar/>
       <div style={{ 
-        backgroundImage: `url(${bg})`, padding:"5%"}} className="makeCenter">
-        
+        backgroundImage: `url(${bg})`, padding:"3%"}} className="makeCenter">
           <Row>
+            <label className="makeCenter" style={{marginBottom: "2%", textTransform: 'uppercase', color:'black', fontSize:"18px"}}>{values.my_info.length > 0 ?  "Welcome " + values.my_info: "There is no annocuncement yet. Why don't you share one ??"}</label>          
           {
             values.namee.length > 0 &&
             values.namee.map((p, i) => (
