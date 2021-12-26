@@ -94,7 +94,7 @@ exports.logout = async (req, res) => {
 
 exports.createPost = async (req, res) => {
   const { name, breed, age, location, p_image, extra_info, vaccinated, ts, user_id } = req.body
-  console.log(name, breed, age, location, p_image, extra_info, vaccinated, ts, user_id )
+  console.log(location)
   try {
     await db.query('insert into post(name, breed, location, p_image, extra_info, vaccinated, ts, age, user_id ) values ($1,$2,$3,$4,$5,$6,$7,$8,$9);', 
     [name, breed, location, p_image, extra_info, vaccinated, ts, age, user_id])
