@@ -1,21 +1,18 @@
 .NavbarItems {
   background: linear-gradient(
     90deg,
-    rgb(218, 241, 239) 0%,
-    rgb(163, 220, 216) 100%
+    rgb(163, 220, 216) 0%,
+    rgb(42, 137, 122) 100%
   );
   height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.2rem;
-  border-color: rgb(42, 137, 122);
-  border-width: 2px;
-  border-style: solid;
 }
 
 .navbar-logo {
-  color: rgb(42, 137, 122);
+  color: white;
   justify-self: start;
   margin-left: 20px;
   cursor: pointer;

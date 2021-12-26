@@ -2,6 +2,8 @@ import './App.css';
 import React, {useState} from 'react';
 import { useHistory, Redirect } from "react-router-dom";
 import Axios from 'axios';
+import bg from './assets/bg-login-register.jpeg';
+
 
 import {
   Button,
@@ -110,12 +112,12 @@ export default function Login({ setToken }) {
      
       }
   
-
+//backgroundColor:"rgb(44, 34, 7)", 
   return (
     <div className="App">
-      <Card style={{height:"100vh", backgroundColor:"rgb(44, 34, 7)"}}>
-      <div className="register-form"> 
-        <Form className="form"  onSubmit={handleSubmit}>
+      <Card style={{height:"100vh",  backgroundImage: `url(${bg})`}}>
+      <div style={{backgroundColor: 'black'}} className="register-form"> 
+        <Form  className="form"  onSubmit={handleSubmit}>
         <h2 className="text-warning text-center">Login</h2>         
           <FormGroup>
             <Label className="text-white">Email</Label>
@@ -145,7 +147,7 @@ export default function Login({ setToken }) {
         <Button  className="btn-outline">Login</Button>
         </div>
         <div className="col">
-        <text className="text-danger">Create an account </text>
+        <text className="text-danger">Create an account-{'>'}</text>
         <Button className="btn-outline ml-1" onClick={()=> {history.push("/register");}}>Register</Button>
         </div>
         {backend_error && <h3 className="text-white text-center">{backend_error}</h3>}

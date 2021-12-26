@@ -2,6 +2,7 @@ import './App.css';
 import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
+import bg from './assets/bg-login-register.jpeg';
 import {
   Button,
   Card,
@@ -174,8 +175,8 @@ function Register() {
 
   return (
     <div className="App">
-      <Card style={{height:"100vh", overflow: "auto", backgroundColor:"rgb(44, 34, 7)"}}>
-      <div className="register-form"> 
+      <Card style={{height:"100vh", overflow: "auto", backgroundImage: `url(${bg})`}}>
+      <div style={{backgroundColor: 'black'}} className="register-form"> 
         <Form className="form" onSubmit={handleSubmit}>
         {isSubmitted ? <span>Success! Thank you for registering.</span>: null}
         <h2 className="text-warning text-center">Register</h2>
